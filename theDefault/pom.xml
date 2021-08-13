@@ -52,14 +52,6 @@
             <systemPath>${Steam.path}/workshop/content/646570/1609158507/StSLib.jar</systemPath>
             <!--<systemPath>${basedir}/../lib/StSLib.jar</systemPath>-->
         </dependency>
-        <dependency>
-            <groupId>azoth</groupId>
-            <artifactId>Azoth</artifactId>
-            <version>0.2.2</version>
-            <scope>system</scope>
-            <systemPath>${Steam.path}/common/SlayTheSpire/mods/Azoth.jar</systemPath>
-            <!--<systemPath>${basedir}/../lib/StSLib.jar</systemPath>-->
-        </dependency>
     </dependencies>
 
 
