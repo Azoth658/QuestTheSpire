@@ -1,0 +1,132 @@
+{
+  "questTheSpire:IdentityCrisisEvent": {
+    "NAME": "Identity Crisis",
+    "DESCRIPTIONS": [
+      "As you move through ~The~ ~City~ you come across a #pPurple #pMirror. NL You look at it, but you see no reflection.",
+      "You see no one but #g~You~ #g~wish~ #g~to~ #g~become~ #g~someone.~",
+      "#r@YOU@ #r@EXIST@ #r@AND@ #r@ARE@ #r@VALID!@",
+      "#yYou #yare #yat #ypeace #ywith #yyour #ypresence.",
+      "You have no hands."
+    ],
+    "OPTIONS": [
+      "[Inspiration] #gGain #ga #gRandom #gStarting #gRelic.",
+      "[Denial] #rLose #r",
+      " #rMax #rHP. #gRemove #ga #gCard #gfrom #gyour #gdeck.",
+      "[Acceptance] #gGain #gApotheosis.",
+      "[TOUCH THE MIRROR] TOUCH TOUCH TO#C# TOUCH TO UCH TOUCH #rTOUCH TOUCH",
+      "[Leave]",
+      "Select card to remove."
+    ]
+  },
+
+  "questTheSpire:wanderingMerchant": {
+    "NAME": "Alphonse the Wanderer",
+    "DESCRIPTIONS": [
+      "'Hail friend! I've been wandering these halls for longer than I care to remember. I've picked up a few things in on my travels. Care to trade?'",
+      "'Well, enjoy your new wares; I must be off. Places to be and all that. I do hope we get to meet again.' NL Giving you a big grin, he closes his cloak marching off past you and downward through the spire."
+    ],
+    "OPTIONS": [
+      "[Weapon] #rLose #r50 #rGold.  #gGain #ga #grandom #gupgraded #gAttack #gcard.",
+      "[Armor] #rLose #r50 #rGold.  #gGain #ga #grandom #gupgraded #gSkill #gcard.",
+      "[Magic] #rLose #r50 #rGold.  #gGain #ga #grandom #gupgraded #gPower #gcard.",
+      "[Rare] #rLose #r95 #rGold.  #gGain #ga #grandom #gRare #gcard.",
+      "[Leave]"
+    ]
+  },
+
+
+  "questTheSpire:dragonHoard": {
+    "NAME": "A Hoarder's Exchange",
+    "DESCRIPTIONS": [
+      "'You stumble upon a #r~Dragon's~ lair. He offers an exchange of your #yGold, for the items of #r~dead~ adventurers.",
+      "You hand over your #yGold and the dragon's eyes fill with glee. NL NL You take stash your items and back out of the lair.",
+      "The dragon looks angry at your refusal. He begins to inhale deeply and the air around you feels #r~hotter~. You decide to make a quick exit.",
+      "Skip"
+    ],
+    "OPTIONS": [
+      "[Trade] #rLose #rall #ryour #rGold.  #gGain #g5 #grandom #grelics.",
+      "[Refuse]",
+      "[Leave]"
+    ]
+  },
+
+
+
+  "questTheSpire:alchemyLab": {
+    "NAME": "Alchemy Lab",
+    "DESCRIPTIONS": [
+      "You come across an #yAlchemist, carefully weighing his ingredients. He acknowledges your interest in his craft. NL 'Care to learn #g~something~ , or perhaps you'd like some extra #g~storage~ for my wares.'",
+      "You spend some time mastering basic alchemical compounds. The #yAlchemist hands you a satchel of components for your travels.",
+      "You handover your hard earned #yGold. The #yAlchemist gives you a new satchel that has more room potion slots inside.",
+      "The #yAlchemist admonishes you for your ignorance, #r@Slamming@ the door as he pushes you out so he can continue his work in isolation.",
+      "Skip"
+    ],
+    "OPTIONS": [
+      "[Train] #rLose #r150 #rGold.  #gGain #ga #gcopy #gof #gAlchemise.",
+      "[Obtain] #rLose #r200 #rGold.  #gGain #ga #gPotion #gslot",
+      "[Leave]"
+    ]
+  },
+
+
+
+  "questTheSpire:druidEvent": {
+    "NAME": "A Druids Wisdom",
+    "DESCRIPTIONS": [
+      "During a moment's rest a strange old #yDruid approaches you. NL 'Friend let us commune with the #g~Lady~ .' You eye him with suspicion when you notice a spectral wolf circling the #yDruid.",
+      "After a fierce wrestle through the forest's bramble, the #rWolf bows his head in respect and begins to follow you.",
+      "During your shared communion, you feel your mind wandering lost through the #g~forest~ . You end up before a beautiful ethereal woman, her hand outstretched. You feel a piece of your #r~soul~ leave. You wake #r@violently@ , yet you feel the #gLady's presence within.",
+      "Whilst you rest the #g~Lady~ approaches you in your dreams. She touches your shoulder sapping your #rstrength. As you awake you feel restless but as though your potential as been awakened.",
+      "Concerned that this man is not what he claims to be, you fake entering a communion; hastily making a retreat from the situation."
+    ],
+    "OPTIONS": [
+      "[Befriend] #rLose #r",
+      " #rHP.  #gGain #gWolf #gSpirit",
+      "[Entreat] #rLose #r",
+      " #rMax #rHP.  #gGain #gEnt #gSpirit",
+      "[Unlock] #rLose #r",
+      " #rHP.  #gGain #g10 #gMax #gHP.",
+      "[Leave].",
+      "[Test]."
+    ]
+  },
+
+
+
+
+  "questTheSpire:fairyEvent": {
+    "NAME": "Dangerous To Go Alone",
+    "DESCRIPTIONS": [
+      "You come across a hidden #g~Fairy~ village. You've seen their incredible restorative powers, and consider your options.",
+      "You take cover and stealthily capture and bottle as many #gfairies as you can carry. You know they'll keep you alive but you can't help but feel that you have done something #rterrible here.",
+      "You enter the village and are greeted by the #gFairy #gQueen. Her children look at you with #rdistrust , yet her eyes seem to peer into your very soul. NL 'Neow trusts you, so then, we shall to. Here take my #gblessing and rid this spire of its #rcorruption.",
+      "Obtain"
+    ],
+    "OPTIONS": [
+      "[Sneak] #gGain #g",
+      " #gBottled #gFairies",
+      "[Befriend] #gGain #gFairy #gQueen's #gBlessing",
+      "[Leave]."
+    ]
+  },
+
+  "questTheSpire:tavernEvent": {
+    "NAME": "Test",
+    "DESCRIPTIONS": [
+      "!reincarnation!",
+      "Test",
+      "Test",
+      "Test",
+      "Test",
+      "Test",
+      "Test"
+    ],
+    "OPTIONS": [
+      "[Sneak] #gGain #g",
+      " #gBottled #gFairies",
+      "[Befriend] #gGain #gFairy #gQueen's #gBlessing",
+      "[Leave]."
+    ]
+  }
+
+}

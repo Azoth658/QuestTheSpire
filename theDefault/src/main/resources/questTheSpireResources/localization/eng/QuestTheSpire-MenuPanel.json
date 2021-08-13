@@ -1,0 +1,17 @@
+
+{
+  "QuestTheSpire:QuestTheSpire-MenuPanel": {
+    "TEXT": [
+      "Quest The Spire",
+      "Level your Character and face the Spire in this RogueLite experience."
+    ]
+  },
+  "QuestTheSpire:QuestTheSpireScreen": {
+    "TEXT": [
+      "Quest The Spire Mode",
+      "Character",
+      "Difficulty",
+      "Challenge"
+    ]
+  }
+}

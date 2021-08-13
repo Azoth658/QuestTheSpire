@@ -1,0 +1,106 @@
+{
+  "questTheSpire:DefaultCommonAttack": {
+    "NAME": "Strike",
+    "DESCRIPTION": "Deal !D! damage. NL [#0000ff]This[] [#ff0000]Is[] [#ffff00]How[] [#88888]color[] [#ff00ff]works.[]"
+  },
+  "questTheSpire:DefaultCommonSkill": {
+    "NAME": "Defend",
+    "DESCRIPTION": "Gain !B! Block. NL thedefault:Multiword_Keyword."
+  },
+  "questTheSpire:DefaultCommonPower": {
+    "NAME": "Hold Place",
+    "DESCRIPTION": "Gain !M! thedefault:Keyword.",
+    "UPGRADE_DESCRIPTION": "Gain !M! thedefault:Keywords."
+  },
+  "questTheSpire:DefaultUncommonAttack": {
+    "NAME": "Big slap",
+    "DESCRIPTION": "Deal !D! damage."
+  },
+  "questTheSpire:DefaultUncommonSkill": {
+    "NAME": "A Better Defend",
+    "DESCRIPTION": "Gain !B! Plated Armor. Affected by Dexterity."
+  },
+  "questTheSpire:DefaultUncommonPower": {
+    "NAME": "Weirdness",
+    "DESCRIPTION": "Gain X thedefault:Keywords.",
+    "UPGRADE_DESCRIPTION": "Gain X +1 thedefault:Keywords."
+  },
+  "questTheSpire:DefaultRareAttack": {
+    "NAME": "TOUCH",
+    "DESCRIPTION": "Deal !D! damage."
+  },
+  "questTheSpire:DefaultRareSkill": {
+    "NAME": "For Each Loop x2",
+    "DESCRIPTION": "Apply !M! Vulnerable to all enemies, 2 times.",
+    "UPGRADE_DESCRIPTION": "Apply !M! Vulnerable to all enemies, 3 times."
+  },
+  "questTheSpire:DefaultRarePower": {
+    "NAME": "In-Progress Form",
+    "DESCRIPTION": "At the start of your turn, play a TOUCH."
+  },
+  "questTheSpire:DefaultAttackWithVariable": {
+    "NAME": "Special Strike",
+    "DESCRIPTION": "Deal !D! damage [E] times. NL (Deal !questTheSpire:ENERGY_DAMAGE! damage total.)"
+  },
+  "questTheSpire:DefaultSecondMagicNumberSkill": {
+    "NAME": "Cool 2 Number Card",
+    "DESCRIPTION": "Apply !M! Vulnerable and !questTheSpire:SecondMagic! poison to an enemy."
+  },
+  "questTheSpire:OrbSkill": {
+    "NAME": "Get Orb",
+    "DESCRIPTION": "Channel 1 Default Orb."
+  },
+  "questTheSpire:FangSpirit": {
+    "NAME": "Wolf Spirit",
+    "DESCRIPTION": "Deal !D! damage. NL When played permanently increase damage by !M!. NL Exhaust.",
+    "UPGRADE_DESCRIPTION": "Deal !D! damage. NL When played permanently increase damage by !M!. NL Exhaust."
+  },
+  "questTheSpire:EntSpirit": {
+    "NAME": "Ent Spirit",
+    "DESCRIPTION": "Retain. NL Stun an Enemy. NL Exhaust.",
+    "UPGRADE_DESCRIPTION": "Retain. NL Stun an Enemy. NL Exhaust."
+  },
+  "questTheSpire:AlchemistFire": {
+    "NAME": "Alchemist Fire",
+    "DESCRIPTION": "Deal !D! damage 5 times to random enemies. Add a Burn to the top of your draw pile. NL Exhaust.",
+    "UPGRADE_DESCRIPTION": "Deal !D! damage 8 times to random enemies. Add a Burn to the top of your draw pile. NL Exhaust."
+  },
+  "questTheSpire:Ifrit": {
+    "NAME": "Ifrit",
+    "DESCRIPTION": "Deal !D! damage. NL Lose 1 Max HP.",
+    "UPGRADE_DESCRIPTION": "Deal !D! damage. NL Lose 1 Max HP."
+  },
+  "questTheSpire:Shiva": {
+    "NAME": "Shiva",
+    "DESCRIPTION": "Gain !B! Block. Gain 3 Blur. NL Lose 1 Max HP.",
+    "UPGRADE_DESCRIPTION": "Gain !B! Block. Gain 3 Blur. NL Lose 1 Max HP."
+  },
+  "questTheSpire:Carbuncle": {
+    "NAME": "Carbuncle",
+    "DESCRIPTION": "Gain !M! Regen. NL Lose 3 Max HP.",
+    "UPGRADE_DESCRIPTION": "Gain !M! Regen. NL Lose 3 Max HP."
+  },
+  "questTheSpire:Quezacotl": {
+    "NAME": "Quezacotl",
+    "DESCRIPTION": "Deal !D! damage to all enemies. NL Lose 1 Max HP.",
+    "UPGRADE_DESCRIPTION": "Deal !D! damage to all enemies. NL Lose 1 Max HP."
+  },
+  "questTheSpire:Leviathan": {
+    "NAME": "Leviathan",
+    "DESCRIPTION": "At the start of your turn, draw !M! additional cards. NL Lose 1 Max HP.",
+    "UPGRADE_DESCRIPTION": "Innate. NL At the start of your turn, draw !M! additional cards. NL Lose 1 Max HP."
+  },
+  "questTheSpire:Yojimbo": {
+    "NAME": "Yojimbo",
+    "DESCRIPTION": "Gain 90 Gold. NL Lose 1 Max HP.",
+    "UPGRADE_DESCRIPTION": "Gain 120 Gold. NL Lose 1 Max HP."
+  },
+  "questTheSpire:Phoenix": {
+    "NAME": "Phoenix",
+    "DESCRIPTION": "Gain 10 Max HP. NL Exhaust",
+    "UPGRADE_DESCRIPTION": "Gain 10 Max HP. NL Exhaust"
+  }
+}
+
+
+
