@@ -1,19 +1,11 @@
 package questTheSpire.cards;
 
 import com.evacipated.cardcrawl.mod.stslib.actions.common.StunMonsterAction;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.DamageAction;
-import com.megacrit.cardcrawl.actions.defect.IncreaseMiscAction;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.EntanglePower;
 import questTheSpire.QuestTheSpire;
-import questTheSpire.characters.TheDefault;
 
 import static com.megacrit.cardcrawl.cards.AbstractCard.CardColor.COLORLESS;
 import static questTheSpire.QuestTheSpire.makeCardPath;

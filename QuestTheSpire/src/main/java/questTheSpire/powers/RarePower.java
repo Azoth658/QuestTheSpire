@@ -12,7 +12,6 @@ import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import questTheSpire.QuestTheSpire;
-import questTheSpire.cards.DefaultRareAttack;
 import questTheSpire.util.TextureLoader;
 
 public class RarePower extends AbstractPower implements CloneablePowerInterface {

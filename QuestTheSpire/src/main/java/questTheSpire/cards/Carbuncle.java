@@ -1,14 +1,11 @@
 package questTheSpire.cards;
 
-import basemod.helpers.BaseModCardTags;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.RegenPower;
 import questTheSpire.QuestTheSpire;
-import questTheSpire.characters.TheDefault;
-import questTheSpire.powers.RarePower;
 
 import static questTheSpire.QuestTheSpire.makeCardPath;
 

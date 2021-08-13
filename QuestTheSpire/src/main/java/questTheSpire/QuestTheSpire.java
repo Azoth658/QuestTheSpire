@@ -26,7 +26,6 @@ import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import questTheSpire.cards.AbstractDefaultCard;
-import questTheSpire.characters.TheDefault;
 import questTheSpire.events.*;
 import questTheSpire.relics.FairyBlessing;
 import questTheSpire.util.IDCheckDontTouchPls;
@@ -206,16 +205,6 @@ public class QuestTheSpire implements
 
         logger.info("Done subscribing");
 
-        logger.info("Creating the color " + TheDefault.Enums.COLOR_GRAY.toString());
-        
-        BaseMod.addColor(TheDefault.Enums.COLOR_GRAY, DEFAULT_GRAY, DEFAULT_GRAY, DEFAULT_GRAY,
-                DEFAULT_GRAY, DEFAULT_GRAY, DEFAULT_GRAY, DEFAULT_GRAY,
-                ATTACK_DEFAULT_GRAY, SKILL_DEFAULT_GRAY, POWER_DEFAULT_GRAY, ENERGY_ORB_DEFAULT_GRAY,
-                ATTACK_DEFAULT_GRAY_PORTRAIT, SKILL_DEFAULT_GRAY_PORTRAIT, POWER_DEFAULT_GRAY_PORTRAIT,
-                ENERGY_ORB_DEFAULT_GRAY_PORTRAIT, CARD_ENERGY_ORB);
-        
-        logger.info("Done creating the color");
-
         logger.info("Adding mod settings");
 
         // This loads the mod settings.
@@ -291,21 +280,6 @@ public class QuestTheSpire implements
     
 
 
-    // =============== LOAD THE CHARACTER =================
-    
-    @Override
-    public void receiveEditCharacters() {
-        logger.info("Beginning to edit characters. " + "Add " + TheDefault.Enums.THE_DEFAULT.toString());
-        
-        BaseMod.addCharacter(new TheDefault("the Default", TheDefault.Enums.THE_DEFAULT),
-                THE_DEFAULT_BUTTON, THE_DEFAULT_PORTRAIT, TheDefault.Enums.THE_DEFAULT);
-        
-        receiveEditPotions();
-        logger.info("Added " + TheDefault.Enums.THE_DEFAULT.toString());
-
-    }
-    
-    // =============== /LOAD THE CHARACTER/ =================
 
 
 
