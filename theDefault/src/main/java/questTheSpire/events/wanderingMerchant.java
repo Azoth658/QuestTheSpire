@@ -1,6 +1,5 @@
 package questTheSpire.events;
 
-import Azoth.relics.TrickstersCloak;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.unique.AddCardToDeckAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
