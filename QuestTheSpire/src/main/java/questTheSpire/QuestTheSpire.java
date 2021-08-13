@@ -74,7 +74,6 @@ public class QuestTheSpire implements
         EditRelicsSubscriber,
         EditStringsSubscriber,
         EditKeywordsSubscriber,
-        EditCharactersSubscriber,
         PostDeathSubscriber,
         PostInitializeSubscriber {
     // Make sure to implement the subscribers *you* are using (read basemod wiki). Editing cards? EditCardsSubscriber.
