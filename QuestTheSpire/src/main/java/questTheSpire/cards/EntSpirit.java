@@ -53,6 +53,7 @@ public class EntSpirit extends AbstractDynamicCard {
 
     private static final int COST = 2;  // COST = ${COST}
     private static final int UPGRADED_COST = 1;
+    private static final int STUN = 1;
 
     // /STAT DECLARATION/
 
@@ -65,7 +66,7 @@ public class EntSpirit extends AbstractDynamicCard {
 
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        this.addToBot(new StunMonsterAction(m, p,1));
+        this.addToBot(new StunMonsterAction(m, p, STUN));
     }
 
     @Override

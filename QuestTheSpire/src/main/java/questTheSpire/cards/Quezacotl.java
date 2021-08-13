@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.vfx.BorderLongFlashEffect;
 import com.megacrit.cardcrawl.vfx.combat.DieDieDieEffect;
 import com.megacrit.cardcrawl.vfx.combat.WeightyImpactEffect;
 import questTheSpire.QuestTheSpire;
+import questTheSpire.actions.DecreaseMaxHealthAction;
 
 import static questTheSpire.QuestTheSpire.makeCardPath;
 
@@ -41,6 +42,8 @@ public class Quezacotl extends AbstractDynamicCard {
     private static final int DAMAGE = 40;
     private static final int UPGRADE_PLUS_DMG = 10;
 
+    private static final int HP_LOSS = 1;
+
     // /STAT DECLARATION/
 
 
@@ -55,9 +58,7 @@ public class Quezacotl extends AbstractDynamicCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         this.addToBot(new DamageAllEnemiesAction(p, this.multiDamage, this.damageTypeForTurn, AbstractGameAction.AttackEffect.LIGHTNING));
-
-        AbstractDungeon.player.maxHealth -= 1;
-        if(AbstractDungeon.player.currentHealth> AbstractDungeon.player.maxHealth){AbstractDungeon.player.currentHealth = AbstractDungeon.player.maxHealth;}
+        this.addToBot(new DecreaseMaxHealthAction(p, HP_LOSS));
     }
 
     //Upgraded stats.

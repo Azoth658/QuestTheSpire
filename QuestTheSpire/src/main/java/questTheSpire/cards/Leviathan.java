@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.DrawPower;
 import com.megacrit.cardcrawl.powers.RegenPower;
 import questTheSpire.QuestTheSpire;
+import questTheSpire.actions.DecreaseMaxHealthAction;
 
 import static questTheSpire.QuestTheSpire.makeCardPath;
 
@@ -33,8 +34,8 @@ public class Leviathan extends AbstractDynamicCard {
     public static final CardColor COLOR = CardColor.COLORLESS;
 
     private static final int COST = 2;
-
     private static final int MAGIC = 5;
+    private static final int HP_LOSS = 1;
 
     // /STAT DECLARATION/
 
@@ -49,10 +50,8 @@ public class Leviathan extends AbstractDynamicCard {
     // Actions the card should do.
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        AbstractDungeon.player.maxHealth -= 1;
-        if(AbstractDungeon.player.currentHealth> AbstractDungeon.player.maxHealth){AbstractDungeon.player.currentHealth = AbstractDungeon.player.maxHealth;}
-
         this.addToBot(new ApplyPowerAction(p, p, new DrawPower(p, this.magicNumber), this.magicNumber));
+        this.addToBot(new DecreaseMaxHealthAction(p, HP_LOSS));
     }
 
     //Upgraded stats.

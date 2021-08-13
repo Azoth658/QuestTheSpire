@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.BlurPower;
 import com.megacrit.cardcrawl.vfx.combat.WeightyImpactEffect;
 import questTheSpire.QuestTheSpire;
+import questTheSpire.actions.DecreaseMaxHealthAction;
 
 import static questTheSpire.QuestTheSpire.makeCardPath;
 
@@ -34,13 +35,16 @@ public class Shiva extends AbstractDynamicCard {
     public static final CardColor COLOR = CardColor.COLORLESS;
 
     private static final int COST = 3;
+    private static final int HP_LOSS = 1;
+    private static final int BLUR = 3;
 
     // /STAT DECLARATION/
 
 
     public Shiva() {
         super(ID, IMG, COST, TYPE, COLOR, RARITY, TARGET);
-        this.baseBlock = 60;
+        baseBlock = block = 60;
+        magicNumber = baseMagicNumber = BLUR;
         this.exhaust = true;
     }
 
@@ -49,9 +53,8 @@ public class Shiva extends AbstractDynamicCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         this.addToBot(new GainBlockAction(p, p, this.block));
-        this.addToBot(new ApplyPowerAction(p, p, new BlurPower(p, 3), 3));
-        AbstractDungeon.player.maxHealth -= 1;
-        if(AbstractDungeon.player.currentHealth> AbstractDungeon.player.maxHealth){AbstractDungeon.player.currentHealth = AbstractDungeon.player.maxHealth;}
+        this.addToBot(new ApplyPowerAction(p, p, new BlurPower(p, magicNumber), magicNumber));
+        this.addToBot(new DecreaseMaxHealthAction(p, HP_LOSS));
     }
 
     //Upgraded stats.

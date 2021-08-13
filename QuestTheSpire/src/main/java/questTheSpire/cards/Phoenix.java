@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import questTheSpire.QuestTheSpire;
+import questTheSpire.actions.IncreaseMaxHealthAction;
 
 import static questTheSpire.QuestTheSpire.makeCardPath;
 
@@ -29,7 +30,9 @@ public class Phoenix extends AbstractDynamicCard {
     private static final CardType TYPE = CardType.SKILL;
     public static final CardColor COLOR = CardColor.COLORLESS;
 
-    private static int COST = 2;
+    private static final int COST = 2;
+    private static final int UPGRADE_COST = 1;
+    private static final int MAX_HP_INCREASE = 10;
 
 
     // /STAT DECLARATION/
@@ -37,6 +40,7 @@ public class Phoenix extends AbstractDynamicCard {
 
     public Phoenix() {
         super(ID, IMG, COST, TYPE, COLOR, RARITY, TARGET);
+        baseMagicNumber = magicNumber = MAX_HP_INCREASE;
         this.exhaust = true;
     }
 
@@ -44,7 +48,8 @@ public class Phoenix extends AbstractDynamicCard {
     // Actions the card should do.
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        AbstractDungeon.player.increaseMaxHp(10, true);
+        //Gain 10 Max HP
+        this.addToBot(new IncreaseMaxHealthAction(p, magicNumber));
     }
 
     //Upgraded stats.
@@ -52,8 +57,7 @@ public class Phoenix extends AbstractDynamicCard {
     public void upgrade() {
         if (!upgraded) {
             this.upgradeName();
-            this.upgradeBaseCost(1);
-            rawDescription = UPGRADE_DESCRIPTION;
+            this.upgradeBaseCost(UPGRADE_COST);
             initializeDescription();
         }
     }

@@ -86,7 +86,6 @@ public class FangSpirit extends AbstractDynamicCard {
         if (!this.upgraded) {
             this.upgradeMagicNumber(1);
             upgradeName();
-            rawDescription = UPGRADE_DESCRIPTION;
             initializeDescription();
         }
 

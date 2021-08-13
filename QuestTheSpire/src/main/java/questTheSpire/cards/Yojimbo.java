@@ -2,6 +2,7 @@ package questTheSpire.cards;
 
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
+import com.megacrit.cardcrawl.actions.common.GainGoldAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -9,6 +10,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.BlurPower;
 import questTheSpire.QuestTheSpire;
+import questTheSpire.actions.DecreaseMaxHealthAction;
 
 import static questTheSpire.QuestTheSpire.makeCardPath;
 
@@ -33,7 +35,9 @@ public class Yojimbo extends AbstractDynamicCard {
     public static final CardColor COLOR = CardColor.COLORLESS;
 
     private static final int COST = 3;
-    private static int GOLDGAIN = 100;
+    private static final int GOLD = 100;
+    private static final int UPGRADE_PLUS_GOLD = 25;
+    private static final int HP_LOSS = 1;
 
 
     // /STAT DECLARATION/
@@ -41,15 +45,15 @@ public class Yojimbo extends AbstractDynamicCard {
 
     public Yojimbo() {
         super(ID, IMG, COST, TYPE, COLOR, RARITY, TARGET);
+        magicNumber = baseMagicNumber = GOLD;
     }
 
 
     // Actions the card should do.
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        AbstractDungeon.player.maxHealth -= 1;
-        if(AbstractDungeon.player.currentHealth> AbstractDungeon.player.maxHealth){AbstractDungeon.player.currentHealth = AbstractDungeon.player.maxHealth;}
-        AbstractDungeon.player.gainGold(GOLDGAIN);
+        this.addToBot(new GainGoldAction(magicNumber));
+        this.addToBot(new DecreaseMaxHealthAction(p, HP_LOSS));
     }
 
     //Upgraded stats.
@@ -57,8 +61,7 @@ public class Yojimbo extends AbstractDynamicCard {
     public void upgrade() {
         if (!upgraded) {
             this.upgradeName();
-            GOLDGAIN = 125;
-            rawDescription = UPGRADE_DESCRIPTION;
+            upgradeMagicNumber(UPGRADE_PLUS_GOLD);
             initializeDescription();
         }
     }

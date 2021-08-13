@@ -43,15 +43,17 @@ public class FireFlask extends AbstractDynamicCard {
 
 
     private static final int COST = 2;  // COST = ${COST}
+    private static final int DAMAGE = 10;
+    private static final int HITS = 5;
+    private static final int UPGRADE_PLUS_HITS = 2;
 
     // /STAT DECLARATION/
 
 
     public FireFlask() { // public ${NAME}() - This one and the one right under the imports are the most important ones, don't forget them
         super(ID, IMG, COST, TYPE, COLOR, RARITY, TARGET);
-        this.baseDamage = 10;
-        this.baseMagicNumber = 5;
-        this.magicNumber = this.baseMagicNumber;
+        damage = baseDamage = DAMAGE;
+        magicNumber = baseMagicNumber = HITS;
         this.exhaust = true;
     }
 
@@ -67,9 +69,8 @@ public class FireFlask extends AbstractDynamicCard {
     @Override
     public void upgrade() {
         if (!this.upgraded) {
-            this.upgradeMagicNumber(2);
+            this.upgradeMagicNumber(UPGRADE_PLUS_HITS);
             upgradeName();
-            rawDescription = UPGRADE_DESCRIPTION;
             initializeDescription();
         }
 
