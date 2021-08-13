@@ -14,6 +14,8 @@ import com.evacipated.cardcrawl.modthespire.Loader;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.characters.Ironclad;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.dungeons.Exordium;
@@ -38,6 +40,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
+
+import static com.megacrit.cardcrawl.characters.AbstractPlayer.PlayerClass.IRONCLAD;
 
 //TODO: DON'T MASS RENAME/REFACTOR
 //TODO: DON'T MASS RENAME/REFACTOR
@@ -93,9 +97,11 @@ public class QuestTheSpire implements
     private static final String AUTHOR = "Azoth658"; // And pretty soon - You!
     private static final String DESCRIPTION = "An attempt at offering a Rogue Lite experience.";
 
-
     //Permanent progression fields
+    public static Properties questTheSpireStats = new Properties();
+    public static Properties questTheSpireCharacterStats = new Properties();
     public static int reincarnations = 0;
+    public static int redreincarnations = 0;
     public static int monsterkills = 0;
     public static int elitekills = 0;
     public static int bosskills = 0;
@@ -103,14 +109,8 @@ public class QuestTheSpire implements
     public static int eventsvisited = 0;
 
     public static int redexperience = 0;
-    public static int greenexperience = 0;
-    public static int blueexperience = 0;
-    public static int purpleexperience = 0;
-
-    public static int redlevel = 1;
-    public static int greenlevel = 1;
-    public static int bluelevel = 1;
-    public static int purplelevel = 1;
+    public static int Experience = 0;
+    public static int Level = 1;
 
     public static int perkpoints = 0;
     public static int maxhppoints = 0;
@@ -126,41 +126,8 @@ public class QuestTheSpire implements
 
     // =============== INPUT TEXTURE LOCATION =================
     
-    // Colors (RGB)
-    // Character Color
-    public static final Color DEFAULT_GRAY = CardHelper.getColor(64.0f, 70.0f, 70.0f);
-    
-    // Potion Colors in RGB
-    public static final Color PLACEHOLDER_POTION_LIQUID = CardHelper.getColor(209.0f, 53.0f, 18.0f); // Orange-ish Red
-    public static final Color PLACEHOLDER_POTION_HYBRID = CardHelper.getColor(255.0f, 230.0f, 230.0f); // Near White
-    public static final Color PLACEHOLDER_POTION_SPOTS = CardHelper.getColor(100.0f, 25.0f, 10.0f); // Super Dark Red/Brown
-  
-    // Card backgrounds - The actual rectangular card.
-    private static final String ATTACK_DEFAULT_GRAY = "questTheSpireResources/images/512/bg_attack_default_gray.png";
-    private static final String SKILL_DEFAULT_GRAY = "questTheSpireResources/images/512/bg_skill_default_gray.png";
-    private static final String POWER_DEFAULT_GRAY = "questTheSpireResources/images/512/bg_power_default_gray.png";
-    
-    private static final String ENERGY_ORB_DEFAULT_GRAY = "questTheSpireResources/images/512/card_default_gray_orb.png";
-    private static final String CARD_ENERGY_ORB = "questTheSpireResources/images/512/card_small_orb.png";
-    
-    private static final String ATTACK_DEFAULT_GRAY_PORTRAIT = "questTheSpireResources/images/1024/bg_attack_default_gray.png";
-    private static final String SKILL_DEFAULT_GRAY_PORTRAIT = "questTheSpireResources/images/1024/bg_skill_default_gray.png";
-    private static final String POWER_DEFAULT_GRAY_PORTRAIT = "questTheSpireResources/images/1024/bg_power_default_gray.png";
-    private static final String ENERGY_ORB_DEFAULT_GRAY_PORTRAIT = "questTheSpireResources/images/1024/card_default_gray_orb.png";
-    
-    // Character assets
-    private static final String THE_DEFAULT_BUTTON = "questTheSpireResources/images/charSelect/DefaultCharacterButton.png";
-    private static final String THE_DEFAULT_PORTRAIT = "questTheSpireResources/images/charSelect/DefaultCharacterPortraitBG.png";
-    public static final String THE_DEFAULT_SHOULDER_1 = "questTheSpireResources/images/char/defaultCharacter/shoulder.png";
-    public static final String THE_DEFAULT_SHOULDER_2 = "questTheSpireResources/images/char/defaultCharacter/shoulder2.png";
-    public static final String THE_DEFAULT_CORPSE = "questTheSpireResources/images/char/defaultCharacter/corpse.png";
-    
     //Mod Badge - A small icon that appears in the mod settings menu next to your mod.
     public static final String BADGE_IMAGE = "questTheSpireResources/images/Badge.png";
-    
-    // Atlas and JSON files for the Animations
-    public static final String THE_DEFAULT_SKELETON_ATLAS = "questTheSpireResources/images/char/defaultCharacter/skeleton.atlas";
-    public static final String THE_DEFAULT_SKELETON_JSON = "questTheSpireResources/images/char/defaultCharacter/skeleton.json";
     
     // =============== MAKE IMAGE PATHS =================
     
@@ -193,7 +160,7 @@ public class QuestTheSpire implements
     // =============== /INPUT TEXTURE LOCATION/ =================
     
     
-    // =============== SUBSCRIBE, CREATE THE COLOR_GRAY, INITIALIZE =================
+    // =============== SUBSCRIBE, INITIALIZE =================
     
     public QuestTheSpire() {
         logger.info("Subscribe to BaseMod hooks");
@@ -216,15 +183,26 @@ public class QuestTheSpire implements
             config.load(); // Load the setting and set the boolean to equal it
             enableEvents = config.getBool(ENABLE_EVENT_SETTINGS);
             enableCards = config.getBool(ENABLE_CARD_SETTINGS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        logger.info("Done adding mod settings");
+
+        //Load Global Progression
+        logger.info("Loading global progression");
+
+        try {
+            SpireConfig config = new SpireConfig("QuestTheSpire", "QuestTheSpireStats", questTheSpireStats);
+            config.load();
             reincarnations = config.getInt("reincarnations");
             redexperience = config.getInt("redexperience");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        logger.info("Done adding mod settings");
-        
+
+        logger.info("Done loading global progression");
     }
-    
+
     // ====== NO EDIT AREA ======
     // DON'T TOUCH THIS STUFF. IT IS HERE FOR STANDARDIZATION BETWEEN MODS AND TO ENSURE GOOD CODE PRACTICES.
     // IF YOU MODIFY THIS I WILL HUNT YOU DOWN AND DOWNVOTE YOUR MOD ON WORKSHOP
@@ -369,6 +347,23 @@ public class QuestTheSpire implements
 
         // =============== /EVENTS/ =================
         logger.info("Done loading badge Image and mod options");
+
+
+
+
+        //LOAD CHARACTER STATS
+        try {
+            for (AbstractPlayer.PlayerClass pc : AbstractPlayer.PlayerClass.values()) {
+
+            SpireConfig config = new SpireConfig("QuestTheSpire", pc.toString()+"_QuestTheSpire_Stats", questTheSpireCharacterStats);
+            config.load();
+            Experience = config.getInt("Experience");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
     
     // =============== / POST-INITIALIZE/ =================
@@ -551,19 +546,18 @@ public class QuestTheSpire implements
     }
 
 
+    // When the player dies store number of restarts for meta events
     @Override
     public void receivePostDeath() {
         reincarnations++;
         try{
-            SpireConfig config = new SpireConfig("QuestTheSpire", "QuestTheSpireConfig", questTheSpireDefaultSettings);
+            SpireConfig config = new SpireConfig("QuestTheSpire", "QuestTheSpireStats", questTheSpireStats);
             config.setInt("reincarnations", reincarnations);
             config.save();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
     }
+
 
 }
