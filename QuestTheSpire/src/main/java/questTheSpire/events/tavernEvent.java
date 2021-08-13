@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.dungeons.Exordium;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.EventStrings;
@@ -14,8 +15,7 @@ import questTheSpire.QuestTheSpire;
 import questTheSpire.cards.EntSpirit;
 import questTheSpire.cards.FangSpirit;
 
-import static questTheSpire.QuestTheSpire.makeEventPath;
-import static questTheSpire.QuestTheSpire.reincarnations;
+import static questTheSpire.QuestTheSpire.*;
 
 public class tavernEvent extends AbstractImageEvent {
 
@@ -32,7 +32,7 @@ public class tavernEvent extends AbstractImageEvent {
 
 
     public tavernEvent() {
-        super(NAME, DESCRIPTIONS[0] + reincarnations, IMG);
+        super(NAME, DESCRIPTIONS[0] + reincarnations + "Testing" + Experience, IMG);
 
         imageEventText.setDialogOption(OPTIONS[0]); // Pay 100 Gold for a rest
         imageEventText.setDialogOption(OPTIONS[1]); // Steal some supplies

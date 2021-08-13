@@ -550,14 +550,23 @@ public class QuestTheSpire implements
     @Override
     public void receivePostDeath() {
         reincarnations++;
-        try{
+        AbstractDungeon.player.onVictory();
+        try {
             SpireConfig config = new SpireConfig("QuestTheSpire", "QuestTheSpireStats", questTheSpireStats);
             config.setInt("reincarnations", reincarnations);
             config.save();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        try {
+            for (AbstractPlayer.PlayerClass pc : AbstractPlayer.PlayerClass.values()) {
+                SpireConfig config = new SpireConfig("QuestTheSpire", pc.toString() + "_QuestTheSpire_Stats", questTheSpireCharacterStats);
+                config.setInt("Experience", Experience);
+                config.save();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
 
 }

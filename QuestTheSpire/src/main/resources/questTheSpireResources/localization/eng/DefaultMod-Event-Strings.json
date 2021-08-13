@@ -93,8 +93,8 @@
   "questTheSpire:tavernEvent": {
     "NAME": "Test",
     "DESCRIPTIONS": [
-      "!reincarnation!",
-      "Test",
+      "!reincarnation! - Deaths",
+      "!Experience! - Score earned",
       "Test",
       "Test",
       "Test",
