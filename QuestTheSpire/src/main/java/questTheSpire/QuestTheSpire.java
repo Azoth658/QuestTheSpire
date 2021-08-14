@@ -77,8 +77,12 @@ public class QuestTheSpire implements
     public static int heartkills = 0;
     public static int eventsvisited = 0;
 
-    public static int Experience = 0;
+    public static int Experience = 0; // current run experience
+    public static int LevelRequirement = 0; // requirement to hit next level / prestige
+    public static int TotalLevelExperience; // total level experience
+    public static int TotalPrestigeExperience; // total prestige experience
     public static int Level = 1;
+    public static int PrestigeLevel = 0;
 
     public static int perkpoints = 0;
     public static int maxhppoints = 0;

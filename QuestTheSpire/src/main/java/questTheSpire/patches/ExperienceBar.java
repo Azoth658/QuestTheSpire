@@ -20,20 +20,24 @@ public class ExperienceBar {
     public static void renderProgressBar(GameOverScreen __instance, SpriteBatch sb, @ByRef Color[] ___whiteUiColor, Color ___creamUiColor, float ___progressBarAlpha, float ___progressBarWidth, float ___progressBarX, float ___progressPercent){
         ___whiteUiColor[0].a = ___progressBarAlpha * 0.3F;
         sb.setColor(___whiteUiColor[0]);
-        sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float) Settings.HEIGHT * 0.2F, ___progressBarWidth, 14.0F * Settings.scale);
-        sb.setColor(new Color(1.0F, 0.8F, 0.3F, ___progressBarAlpha * 0.9F));
-        sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float)Settings.HEIGHT * 0.2F, ___progressBarWidth * ___progressPercent, 14.0F * Settings.scale);
+        sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float) Settings.HEIGHT * 0.3F, ___progressBarWidth, 14.0F * Settings.scale);
+        //Level Green = R-0.0, G-0.8, B-0.3
+        //Prestige Blue = R-0.0, G-1.57 B-1.96
+        sb.setColor(new Color(0.0F, 1.57F, 1.96F, ___progressBarAlpha * 0.9F));
+        sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float)Settings.HEIGHT * 0.3F, ___progressBarWidth * ___progressPercent, 14.0F * Settings.scale);
         sb.setColor(new Color(0.0F, 0.0F, 0.0F, ___progressBarAlpha * 0.25F));
-        sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float)Settings.HEIGHT * 0.2F, ___progressBarWidth * ___progressPercent, 4.0F * Settings.scale);
-        String derp = "[" + (int)Experience + "/" + "6000" + "]";
+        sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float)Settings.HEIGHT * 0.3F, ___progressBarWidth * ___progressPercent, 5.0F * Settings.scale);
+
+        String derp = "[" + (int)Experience + "/" + "600" + "]";
         ___creamUiColor.a = ___progressBarAlpha * 0.9F;
-        FontHelper.renderFontLeftTopAligned(sb, FontHelper.topPanelInfoFont, derp, 576.0F * Settings.xScale, (float)Settings.HEIGHT * 0.2F - 12.0F * Settings.scale, ___creamUiColor);
+        FontHelper.renderFontLeftTopAligned(sb, FontHelper.topPanelInfoFont, derp, 576.0F * Settings.xScale, (float)Settings.HEIGHT * 0.3F - 12.0F * Settings.scale, ___creamUiColor);
+
         if (5 - unlockLevel == 1) {
-            derp = "TEST";
+            derp = "Prestige 1";
         } else {
-            derp = "TEST";
+            derp = "Prestige 1";
         }
 
-        FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, derp, 1344.0F * Settings.xScale, (float)Settings.HEIGHT * 0.2F - 12.0F * Settings.scale, ___creamUiColor);
+        FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, derp, 1344.0F * Settings.xScale, (float)Settings.HEIGHT * 0.3F - 12.0F * Settings.scale, ___creamUiColor);
      }
 }
