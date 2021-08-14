@@ -79,8 +79,8 @@ public class QuestTheSpire implements
 
     public static int Experience = 0; // current run experience
     public static int LevelRequirement = 0; // requirement to hit next level / prestige
-    public static int TotalLevelExperience; // total level experience
-    public static int TotalPrestigeExperience; // total prestige experience
+    public static int PrestigeCost = 10000; // The cost for each prestige level
+    public static int OverFlowExperience; // total level experience
     public static int Level = 1;
     public static int PrestigeLevel = 0;
 
@@ -313,7 +313,8 @@ public class QuestTheSpire implements
 
             SpireConfig config = new SpireConfig("QuestTheSpire", pc.toString()+"_QuestTheSpire_Stats", questTheSpireCharacterStats);
             config.load();
-            Experience = config.getInt("Experience");
+            Level = config.getInt("Level");
+            OverFlowExperience = config.getInt("OverFlowExperience");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -489,7 +490,8 @@ public class QuestTheSpire implements
         try {
             for (AbstractPlayer.PlayerClass pc : AbstractPlayer.PlayerClass.values()) {
                 SpireConfig config = new SpireConfig("QuestTheSpire", pc.toString() + "_QuestTheSpire_Stats", questTheSpireCharacterStats);
-                config.setInt("Experience", Experience);
+                config.setInt("Level", Level);
+                config.setInt("OverFlowExperience", OverFlowExperience);
                 config.save();
             }
         } catch (Exception e) {

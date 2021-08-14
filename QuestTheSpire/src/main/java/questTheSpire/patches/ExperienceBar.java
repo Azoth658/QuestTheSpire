@@ -9,9 +9,10 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.screens.GameOverScreen;
+import questTheSpire.Level.LevelCosts;
 
 import static basemod.DevConsole.unlockLevel;
-import static questTheSpire.QuestTheSpire.Experience;
+import static questTheSpire.QuestTheSpire.*;
 
 @SpirePatch2(clz = GameOverScreen.class, method = "renderProgressBar")
 
@@ -28,14 +29,14 @@ public class ExperienceBar {
         sb.setColor(new Color(0.0F, 0.0F, 0.0F, ___progressBarAlpha * 0.25F));
         sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float)Settings.HEIGHT * 0.3F, ___progressBarWidth * ___progressPercent, 5.0F * Settings.scale);
 
-        String derp = "[" + (int)Experience + "/" + "600" + "]";
+        String derp = "[" + (int)Experience + "/" + LevelCosts.levelcost(LevelRequirement) + "]";
         ___creamUiColor.a = ___progressBarAlpha * 0.9F;
         FontHelper.renderFontLeftTopAligned(sb, FontHelper.topPanelInfoFont, derp, 576.0F * Settings.xScale, (float)Settings.HEIGHT * 0.3F - 12.0F * Settings.scale, ___creamUiColor);
 
         if (5 - unlockLevel == 1) {
-            derp = "Prestige 1";
+            derp = "Level " + (Level+1);
         } else {
-            derp = "Prestige 1";
+            derp = "Level " + (Level+1);
         }
 
         FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, derp, 1344.0F * Settings.xScale, (float)Settings.HEIGHT * 0.3F - 12.0F * Settings.scale, ___creamUiColor);

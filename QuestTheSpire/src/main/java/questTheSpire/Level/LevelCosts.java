@@ -1,6 +1,6 @@
 package questTheSpire.Level;
 
-import static questTheSpire.QuestTheSpire.Level;
+import static questTheSpire.QuestTheSpire.*;
 
 public class LevelCosts {
     public static int levelcost(int LevelRequirement) {
@@ -44,7 +44,7 @@ public class LevelCosts {
             case 19:
                 return 5250;
             case 20:
-                return 10000;
+                return PrestigeCost;
             default:
                 return LevelRequirement + 250;
         }
