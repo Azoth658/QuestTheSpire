@@ -43,35 +43,6 @@ import java.util.Properties;
 
 import static com.megacrit.cardcrawl.characters.AbstractPlayer.PlayerClass.IRONCLAD;
 
-//TODO: DON'T MASS RENAME/REFACTOR
-//TODO: DON'T MASS RENAME/REFACTOR
-//TODO: DON'T MASS RENAME/REFACTOR
-//TODO: DON'T MASS RENAME/REFACTOR
-// Please don't just mass replace "theDefault" with "yourMod" everywhere.
-// It'll be a bigger pain for you. You only need to replace it in 4 places.
-// I comment those places below, under the place where you set your ID.
-
-//TODO: FIRST THINGS FIRST: RENAME YOUR PACKAGE AND ID NAMES FIRST-THING!!!
-// Right click the package (Open the project pane on the left. Folder with black dot on it. The name's at the very top) -> Refactor -> Rename, and name it whatever you wanna call your mod.
-// Scroll down in this file. Change the ID from "theDefault:" to "yourModName:" or whatever your heart desires (don't use spaces). Dw, you'll see it.
-// In the JSON strings (resources>localization>eng>[all them files] make sure they all go "yourModName:" rather than "theDefault", and change to "yourmodname" rather than "thedefault".
-// You can ctrl+R to replace in 1 file, or ctrl+shift+r to mass replace in specific files/directories, and press alt+c to make the replace case sensitive (Be careful.).
-// Start with the DefaultCommon cards - they are the most commented cards since I don't feel it's necessary to put identical comments on every card.
-// After you sorta get the hang of how to make cards, check out the card template which will make your life easier
-
-/*
- * With that out of the way:
- * Welcome to this super over-commented Slay the Spire modding base.
- * Use it to make your own mod of any type. - If you want to add any standard in-game content (character,
- * cards, relics), this is a good starting point.
- * It features 1 character with a minimal set of things: 1 card of each type, 1 debuff, couple of relics, etc.
- * If you're new to modding, you basically *need* the BaseMod wiki for whatever you wish to add
- * https://github.com/daviscook477/BaseMod/wiki - work your way through with this base.
- * Feel free to use this in any way you like, of course. MIT licence applies. Happy modding!
- *
- * And pls. Read the comments.
- */
-
 @SpireInitializer
 public class QuestTheSpire implements
         EditCardsSubscriber,
@@ -80,8 +51,7 @@ public class QuestTheSpire implements
         EditKeywordsSubscriber,
         PostDeathSubscriber,
         PostInitializeSubscriber {
-    // Make sure to implement the subscribers *you* are using (read basemod wiki). Editing cards? EditCardsSubscriber.
-    // Making relics? EditRelicsSubscriber. etc., etc., for a full list and how to make your own, visit the basemod wiki.
+
     public static final Logger logger = LogManager.getLogger(QuestTheSpire.class.getName());
     private static String modID;
 
@@ -101,14 +71,12 @@ public class QuestTheSpire implements
     public static Properties questTheSpireStats = new Properties();
     public static Properties questTheSpireCharacterStats = new Properties();
     public static int reincarnations = 0;
-    public static int redreincarnations = 0;
     public static int monsterkills = 0;
     public static int elitekills = 0;
     public static int bosskills = 0;
     public static int heartkills = 0;
     public static int eventsvisited = 0;
 
-    public static int redexperience = 0;
     public static int Experience = 0;
     public static int Level = 1;
 
@@ -164,13 +132,11 @@ public class QuestTheSpire implements
     
     public QuestTheSpire() {
         logger.info("Subscribe to BaseMod hooks");
-        
-        BaseMod.subscribe(this);
 
+        BaseMod.subscribe(this);
         setModID("questTheSpire");
 
         logger.info("Done subscribing");
-
         logger.info("Adding mod settings");
 
         // This loads the mod settings.
@@ -178,15 +144,17 @@ public class QuestTheSpire implements
 
         questTheSpireDefaultSettings.setProperty(ENABLE_EVENT_SETTINGS, "FALSE"); // This is the default setting. It's actually set...
         questTheSpireDefaultSettings.setProperty(ENABLE_CARD_SETTINGS, "FALSE");
-        try {
-            SpireConfig config = new SpireConfig("QuestTheSpire", "QuestTheSpireConfig", questTheSpireDefaultSettings);
-            config.load(); // Load the setting and set the boolean to equal it
-            enableEvents = config.getBool(ENABLE_EVENT_SETTINGS);
-            enableCards = config.getBool(ENABLE_CARD_SETTINGS);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            try {
+                SpireConfig config = new SpireConfig("QuestTheSpire", "QuestTheSpireConfig", questTheSpireDefaultSettings);
+                config.load(); // Load the setting and set the boolean to equal it
+                enableEvents = config.getBool(ENABLE_EVENT_SETTINGS);
+                enableCards = config.getBool(ENABLE_CARD_SETTINGS);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         logger.info("Done adding mod settings");
+
 
         //Load Global Progression
         logger.info("Loading global progression");
@@ -195,7 +163,11 @@ public class QuestTheSpire implements
             SpireConfig config = new SpireConfig("QuestTheSpire", "QuestTheSpireStats", questTheSpireStats);
             config.load();
             reincarnations = config.getInt("reincarnations");
-            redexperience = config.getInt("redexperience");
+            monsterkills = config.getInt("monsterkills");
+            elitekills = config.getInt("elitekills");
+            bosskills = config.getInt("bosskills");
+            heartkills = config.getInt("heartkills");
+            eventsvisited = config.getInt("eventsvisited");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -252,13 +224,6 @@ public class QuestTheSpire implements
         QuestTheSpire defaultmod = new QuestTheSpire();
         logger.info("========================= /Default Mod Initialized. Hello World./ =========================");
     }
-    
-    // ============== /SUBSCRIBE, CREATE THE COLOR_GRAY, INITIALIZE/ =================
-    
-
-
-
-
 
 
     // =============== POST-INITIALIZE =================
@@ -296,7 +261,7 @@ public class QuestTheSpire implements
                 350.0f, 650.0f, Settings.CREAM_COLOR, FontHelper.charDescFont, // Position (trial and error it), color, font
                 enableCards, // Boolean it uses
                 settingsPanel, // The mod panel in which this button will be in
-                (label) -> {}, // thing??????? idk
+                (label) -> {},
                 (button) -> { // The actual button:
 
                     enableCards = button.enabled; // The boolean true/false will be whether the button is enabled or not
@@ -317,19 +282,6 @@ public class QuestTheSpire implements
 
         
         // =============== EVENTS =================
-        // https://github.com/daviscook477/BaseMod/wiki/Custom-Events
-
-        // You can add the event like so:
-        // BaseMod.addEvent(IdentityCrisisEvent.ID, IdentityCrisisEvent.class, TheCity.ID);
-        // Then, this event will be exclusive to the City (act 2), and will show up for all characters.
-        // If you want an event that's present at any part of the game, simply don't include the dungeon ID
-
-        // If you want to have more specific event spawning (e.g. character-specific or so)
-        // deffo take a look at that basemod wiki link as well, as it explains things very in-depth
-        // btw if you don't provide event type, normal is assumed by default
-
-        // Create a new event builder
-        // Since this is a builder these method calls (outside of create()) can be skipped/added as necessary
 
         BaseMod.addEvent(wanderingMerchant.ID, wanderingMerchant.class, Exordium.ID);
         BaseMod.addEvent(druidEvent.ID, druidEvent.class, Exordium.ID);
@@ -351,7 +303,7 @@ public class QuestTheSpire implements
 
 
 
-        //LOAD CHARACTER STATS
+        //LOAD CHARACTER SPECIFIC STATS
         try {
             for (AbstractPlayer.PlayerClass pc : AbstractPlayer.PlayerClass.values()) {
 
@@ -393,27 +345,12 @@ public class QuestTheSpire implements
     public void receiveEditRelics() {
         logger.info("Adding relics");
 
-        // Take a look at https://github.com/daviscook477/BaseMod/wiki/AutoAdd
-        // as well as
-        // https://github.com/kiooeht/Bard/blob/e023c4089cc347c60331c78c6415f489d19b6eb9/src/main/java/com/evacipated/cardcrawl/mod/bard/BardMod.java#L319
-        // for reference as to how to turn this into an "Auto-Add" rather than having to list every relic individually.
-        // Of note is that the bard mod uses it's own custom relic class (not dissimilar to our AbstractDefaultCard class for cards) that adds the 'color' field,
-        // in order to automatically differentiate which pool to add the relic too.
-
         // This adds a character specific relic. Only when you play with the mentioned color, will you get this relic.
         //BaseMod.addRelicToCustomPool(new PlaceholderRelic(), TheDefault.Enums.COLOR_GRAY);
-        //BaseMod.addRelicToCustomPool(new BottledPlaceholderRelic(), TheDefault.Enums.COLOR_GRAY);
-        //BaseMod.addRelicToCustomPool(new DefaultClickableRelic(), TheDefault.Enums.COLOR_GRAY);
-        
-        // This adds a relic to the Shared pool. Every character can find this relic.
-        //BaseMod.addRelic(new PlaceholderRelic2(), RelicType.SHARED);
-        BaseMod.addRelic(new FairyBlessing(), RelicType.SHARED);
 
-        // Mark relics as seen - makes it visible in the compendium immediately
-        // If you don't have this it won't be visible in the compendium until you see them in game
-        // (the others are all starters so they're marked as seen in the character file)
-        //UnlockTracker.markRelicAsSeen(BottledPlaceholderRelic.ID);
+        BaseMod.addRelic(new FairyBlessing(), RelicType.SHARED);
         UnlockTracker.markRelicAsSeen(FairyBlessing.ID);
+
         logger.info("Done adding relics!");
 
     }
@@ -441,30 +378,15 @@ public class QuestTheSpire implements
         
         logger.info("Adding cards");
         // Add the cards
-        // Don't delete these default cards yet. You need 1 of each type and rarity (technically) for your game not to crash
-        // when generating card rewards/shop screen items.
 
-        // This method automatically adds any cards so you don't have to manually load them 1 by 1
-        // For more specific info, including how to exclude cards from being added:
-        // https://github.com/daviscook477/BaseMod/wiki/AutoAdd
-
-        // The ID for this function isn't actually your modid as used for prefixes/by the getModID() method.
-        // It's the mod id you give MTS in ModTheSpire.json - by default your artifact ID in your pom.xml
-
-        //TODO: Rename the "DefaultMod" with the modid in your ModTheSpire.json file
-        //TODO: The artifact mentioned in ModTheSpire.json is the artifactId in pom.xml you should've edited earlier
         new AutoAdd("QuestTheSpire") // ${project.artifactId}
             .packageFilter(AbstractDefaultCard.class) // filters to any class in the same package as AbstractDefaultCard, nested packages included
             .setDefaultSeen(true)
             .cards();
 
-        // .setDefaultSeen(true) unlocks the cards
-        // This is so that they are all "seen" in the library,
-        // for people who like to look at the card list before playing your mod
+        // .setDefaultSeen(true) unlocks the cards in the library before finding them.
 
         logger.info("Done adding cards!");
-
-
     }
 
     
@@ -538,7 +460,9 @@ public class QuestTheSpire implements
     }
     
     // ================ /LOAD THE KEYWORDS/ ===================    
-    
+
+
+
     // this adds "ModName:" before the ID of any card/relic/power etc.
     // in order to avoid conflicts if any other mod uses the same ID.
     public static String makeID(String idText) {
