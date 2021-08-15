@@ -402,7 +402,19 @@ public class QuestTheSpire implements
     // ================ /ADD CARDS/ ===================
 
 
+    // ================ LOAD THE LOCALIZATION ===================
 
+    private String loadLocalizationIfAvailable(String fileName) {
+        if (!Gdx.files.internal(getModID() + "Resources/localization/" + Settings.language.toString().toLowerCase()+ "/" + fileName).exists()) {
+            logger.info("Language: " + Settings.language.toString().toLowerCase() + ", not currently supported for " +fileName+".");
+            return "eng" + "/" + fileName;
+        } else {
+            logger.info("Loaded Language: "+ Settings.language.toString().toLowerCase() + ", for "+fileName+".");
+            return Settings.language.toString().toLowerCase() + "/" + fileName;
+        }
+    }
+
+    // ================ /LOAD THE LOCALIZATION/ ===================
     
     // ================ LOAD THE TEXT ===================
     
@@ -413,32 +425,35 @@ public class QuestTheSpire implements
         
         // CardStrings
         BaseMod.loadCustomStringsFile(CardStrings.class,
-                getModID() + "Resources/localization/eng/DefaultMod-Card-Strings.json");
+                getModID() + "Resources/localization/"+loadLocalizationIfAvailable("QuestTheSpire-Card-Strings.json"));
         
         // PowerStrings
         BaseMod.loadCustomStringsFile(PowerStrings.class,
-                getModID() + "Resources/localization/eng/DefaultMod-Power-Strings.json");
+                getModID() + "Resources/localization/"+loadLocalizationIfAvailable("QuestTheSpire-Power-Strings.json"));
         
         // RelicStrings
         BaseMod.loadCustomStringsFile(RelicStrings.class,
-                getModID() + "Resources/localization/eng/DefaultMod-Relic-Strings.json");
+                getModID() + "Resources/localization/"+loadLocalizationIfAvailable("QuestTheSpire-Relic-Strings.json"));
         
         // Event Strings
         BaseMod.loadCustomStringsFile(EventStrings.class,
-                getModID() + "Resources/localization/eng/DefaultMod-Event-Strings.json");
+                getModID() + "Resources/localization/"+loadLocalizationIfAvailable("QuestTheSpire-Event-Strings.json"));
         
         // PotionStrings
         BaseMod.loadCustomStringsFile(PotionStrings.class,
-                getModID() + "Resources/localization/eng/DefaultMod-Potion-Strings.json");
+                getModID() + "Resources/localization/"+loadLocalizationIfAvailable("QuestTheSpire-Potion-Strings.json"));
         
         // CharacterStrings
         BaseMod.loadCustomStringsFile(CharacterStrings.class,
-                getModID() + "Resources/localization/eng/DefaultMod-Character-Strings.json");
+                getModID() + "Resources/localization/"+loadLocalizationIfAvailable("QuestTheSpire-Character-Strings.json"));
         
         // OrbStrings
         BaseMod.loadCustomStringsFile(OrbStrings.class,
-                getModID() + "Resources/localization/eng/DefaultMod-Orb-Strings.json");
-        
+                getModID() + "Resources/localization/"+loadLocalizationIfAvailable("QuestTheSpire-Orb-Strings.json"));
+
+        // UIStrings
+        BaseMod.loadCustomStringsFile(UIStrings.class,
+                getModID() + "Resources/localization/"+loadLocalizationIfAvailable("QuestTheSpire-UI-Strings.json"));
         logger.info("Done edittting strings");
     }
     
@@ -457,7 +472,7 @@ public class QuestTheSpire implements
         // In Keyword-Strings.json you would have PROPER_NAME as A Long Keyword and the first element in NAMES be a long keyword, and the second element be a_long_keyword
         
         Gson gson = new Gson();
-        String json = Gdx.files.internal(getModID() + "Resources/localization/eng/DefaultMod-Keyword-Strings.json").readString(String.valueOf(StandardCharsets.UTF_8));
+        String json = Gdx.files.internal(getModID() + "Resources/localization/eng/QuestTheSpire-Keyword-Strings.json").readString(String.valueOf(StandardCharsets.UTF_8));
         com.evacipated.cardcrawl.mod.stslib.Keyword[] keywords = gson.fromJson(json, com.evacipated.cardcrawl.mod.stslib.Keyword[].class);
         
         if (keywords != null) {
