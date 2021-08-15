@@ -30,6 +30,7 @@ import org.apache.logging.log4j.Logger;
 import questTheSpire.cards.AbstractDefaultCard;
 import questTheSpire.events.*;
 import questTheSpire.relics.FairyBlessing;
+import questTheSpire.util.CharacterSaveFile;
 import questTheSpire.util.IDCheckDontTouchPls;
 import questTheSpire.util.TextureLoader;
 import questTheSpire.variables.DefaultCustomVariable;
@@ -50,7 +51,8 @@ public class QuestTheSpire implements
         EditStringsSubscriber,
         EditKeywordsSubscriber,
         PostDeathSubscriber,
-        PostInitializeSubscriber {
+        PostInitializeSubscriber,
+        PostDungeonInitializeSubscriber {
 
     public static final Logger logger = LogManager.getLogger(QuestTheSpire.class.getName());
     private static String modID;
@@ -69,6 +71,7 @@ public class QuestTheSpire implements
 
     //Permanent progression fields
     public static Properties questTheSpireStats = new Properties();
+    public static CharacterSaveFile activeCharacterFile;
     //public static Properties questTheSpireCharacterStats = new Properties();
     public static int reincarnations = 0;
     public static int monsterkills = 0;
@@ -499,4 +502,8 @@ public class QuestTheSpire implements
         }*/
     }
 
+    @Override
+    public void receivePostDungeonInitialize() {
+        activeCharacterFile = new CharacterSaveFile();
+    }
 }

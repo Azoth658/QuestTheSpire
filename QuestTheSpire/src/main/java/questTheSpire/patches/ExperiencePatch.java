@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.screens.GameOverScreen;
 import questTheSpire.Level.LevelCosts;
 import questTheSpire.QuestTheSpire;
+import questTheSpire.util.CharacterSaveFile;
 
 import static com.megacrit.cardcrawl.screens.GameOverScreen.calcScore;
 import static com.megacrit.cardcrawl.screens.GameOverScreen.isVictory;
@@ -19,35 +20,20 @@ import static questTheSpire.QuestTheSpire.*;
 public class ExperiencePatch {
     @SpirePostfixPatch
     public static void calculateUnlockProgress(GameOverScreen __instance) {
-        //TODO get level from save file
-        try {
-                AbstractPlayer.PlayerClass pc = AbstractDungeon.player.chosenClass;
-                SpireConfig config = new SpireConfig("QuestTheSpire", pc.toString() + "_QuestTheSpire_Stats", questTheSpireCharacterStats);
-                Level = config.getInt("Level");
-                OverFlowExperience = config.getInt("OverFlowExperience");
-                config.load();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         //TODO you should be loading this value from the config first, and then saving it again.
-        Experience = GameOverScreen.calcScore(__instance.isVictory) + OverFlowExperience;
-        while (Experience >= LevelCosts.levelcost(LevelRequirement)) {
-            QuestTheSpire.Level++;
-            OverFlowExperience = Experience - LevelRequirement;
-            Experience = OverFlowExperience;
+        int currentLevel = activeCharacterFile.getLevel();
+        int currentPrestige = activeCharacterFile.getPrestigeLevel();
+        int xp = GameOverScreen.calcScore(isVictory) + OverFlowExperience;
+        int levelUps = currentLevel - CharacterSaveFile.calculateLevel(activeCharacterFile.getExp()+xp);
+        int prestigeUps = currentPrestige - CharacterSaveFile.calculatePrestigeLevel(activeCharacterFile.getExp()+xp);
+        activeCharacterFile.addExp(xp);
+        if (levelUps > 0) {
+            //TODO add perk points and whatever unlocks at certain level
+            activeCharacterFile.addLevel(levelUps);
         }
-        if(Experience < LevelCosts.levelcost(LevelRequirement)){
-            OverFlowExperience = Experience;
-        }
-        //TODO set level with save file
-        try {
-                AbstractPlayer.PlayerClass pc = AbstractDungeon.player.chosenClass;
-                SpireConfig config = new SpireConfig("QuestTheSpire", pc.toString() + "_QuestTheSpire_Stats", questTheSpireCharacterStats);
-                config.setInt("Level", Level);
-                config.setInt("OverFlowExperience", OverFlowExperience);
-                config.save();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (prestigeUps > 0) {
+            //TODO add perk points from prestige up
+            activeCharacterFile.addPrestigeLevel(prestigeUps);
         }
     }
 }
