@@ -26,6 +26,7 @@ public class ExperienceBar {
         sb.setColor(___whiteUiColor[0]);
         sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float) Settings.HEIGHT * 0.3F, ___progressBarWidth, 14.0F * Settings.scale);
 
+        //TODO get level, numerator, and denominator from save file
         try {
             AbstractPlayer.PlayerClass pc = AbstractDungeon.player.chosenClass;
             SpireConfig config = new SpireConfig("QuestTheSpire", pc.toString() + "_QuestTheSpire_Stats", questTheSpireCharacterStats);
@@ -49,6 +50,7 @@ public class ExperienceBar {
         ___creamUiColor.a = ___progressBarAlpha * 0.9F;
         FontHelper.renderFontLeftTopAligned(sb, FontHelper.topPanelInfoFont, derp, 576.0F * Settings.xScale, (float)Settings.HEIGHT * 0.3F - 12.0F * Settings.scale, ___creamUiColor);
 
+        //TODO localization
         if (Level < 20) {
             derp = "Level " + (Level+1);
         } else {

@@ -19,6 +19,7 @@ import static questTheSpire.QuestTheSpire.*;
 public class ExperiencePatch {
     @SpirePostfixPatch
     public static void calculateUnlockProgress(GameOverScreen __instance) {
+        //TODO get level from save file
         try {
                 AbstractPlayer.PlayerClass pc = AbstractDungeon.player.chosenClass;
                 SpireConfig config = new SpireConfig("QuestTheSpire", pc.toString() + "_QuestTheSpire_Stats", questTheSpireCharacterStats);
@@ -37,7 +38,8 @@ public class ExperiencePatch {
         }
         if(Experience < LevelCosts.levelcost(LevelRequirement)){
             OverFlowExperience = Experience;
-            }
+        }
+        //TODO set level with save file
         try {
                 AbstractPlayer.PlayerClass pc = AbstractDungeon.player.chosenClass;
                 SpireConfig config = new SpireConfig("QuestTheSpire", pc.toString() + "_QuestTheSpire_Stats", questTheSpireCharacterStats);
