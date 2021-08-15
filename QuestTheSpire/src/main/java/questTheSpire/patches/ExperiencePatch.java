@@ -28,6 +28,7 @@ public class ExperiencePatch {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //TODO you should be loading this value from the config first, and then saving it again.
         Experience = GameOverScreen.calcScore(__instance.isVictory) + OverFlowExperience;
         while (Experience >= LevelCosts.levelcost(LevelRequirement)) {
             QuestTheSpire.Level++;

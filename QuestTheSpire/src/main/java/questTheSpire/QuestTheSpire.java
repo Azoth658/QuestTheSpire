@@ -306,7 +306,8 @@ public class QuestTheSpire implements
 
 
 
-
+        //TODO we probably dont need to do this here, especially since we dont have access to the save slot at this point?
+        //TODO better idea to just load/generate the config as its needed. I can probably make a helper package for it tbh
         //LOAD CHARACTER SPECIFIC STATS
         try {
             for (AbstractPlayer.PlayerClass pc : AbstractPlayer.PlayerClass.values()) {

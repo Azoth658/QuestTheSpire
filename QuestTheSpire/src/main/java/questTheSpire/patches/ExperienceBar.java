@@ -38,7 +38,7 @@ public class ExperienceBar {
         //Level Green = R-0.0, G-0.8, B-0.3
         //Prestige Blue = R-0.0, G-1.57 B-1.96
         if (Level==20) {
-            sb.setColor(new Color(0.0F, 1.57F, 1.96F, ___progressBarAlpha * 0.9F));
+            sb.setColor(new Color(0.0F, 1.57F, 1.96F, ___progressBarAlpha * 0.9F)); //TODO 157 green and 196 blue do not map to 1.57F and 1.96F, they map to 0.62F and 0.77F (the value is: color / 255)
         }   else sb.setColor(new Color(0.0F, 0.8F, 0.3F, ___progressBarAlpha * 0.9F));
 
         sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float)Settings.HEIGHT * 0.3F, ___progressBarWidth * ___progressPercent, 14.0F * Settings.scale);
