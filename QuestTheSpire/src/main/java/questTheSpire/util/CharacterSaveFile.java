@@ -142,7 +142,7 @@ public class CharacterSaveFile {
 
     public static int getExpBarNumerator(int currentExp) {
         if (currentExp < LOOKUP_TABLE[0]) {
-            return LOOKUP_TABLE[0];
+            return currentExp;
         } else {
             int l = calculateLevel(currentExp);
             return currentExp - LOOKUP_TABLE[l-1];
