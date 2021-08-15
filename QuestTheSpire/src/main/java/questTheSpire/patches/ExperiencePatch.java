@@ -20,7 +20,6 @@ import static questTheSpire.QuestTheSpire.*;
 public class ExperiencePatch {
     @SpirePostfixPatch
     public static void calculateUnlockProgress(GameOverScreen __instance) {
-        //TODO you should be loading this value from the config first, and then saving it again.
         int currentLevel = activeCharacterFile.getLevel();
         int currentPrestige = activeCharacterFile.getPrestigeLevel();
         int xp = GameOverScreen.calcScore(isVictory) + OverFlowExperience;
