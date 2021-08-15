@@ -22,7 +22,7 @@ public class ExperiencePatch {
     public static void calculateUnlockProgress(GameOverScreen __instance) {
         int currentLevel = activeCharacterFile.getLevel();
         int currentPrestige = activeCharacterFile.getPrestigeLevel();
-        int xp = GameOverScreen.calcScore(isVictory) + OverFlowExperience;
+        int xp = GameOverScreen.calcScore(isVictory);
         int levelUps = currentLevel - CharacterSaveFile.calculateLevel(activeCharacterFile.getExp()+xp);
         int prestigeUps = currentPrestige - CharacterSaveFile.calculatePrestigeLevel(activeCharacterFile.getExp()+xp);
         activeCharacterFile.addExp(xp);
