@@ -29,7 +29,7 @@ public class ExperienceBar {
         sb.setColor(new Color(0.0F, 0.0F, 0.0F, ___progressBarAlpha * 0.25F));
         sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float)Settings.HEIGHT * 0.3F, ___progressBarWidth * ___progressPercent, 5.0F * Settings.scale);
 
-        String derp = "[" + (int)Experience + "/" + LevelCosts.levelcost(LevelRequirement) + "]";
+        String derp = "[" + (int)(Experience) + "/" + LevelCosts.levelcost(LevelRequirement) + "]";
         ___creamUiColor.a = ___progressBarAlpha * 0.9F;
         FontHelper.renderFontLeftTopAligned(sb, FontHelper.topPanelInfoFont, derp, 576.0F * Settings.xScale, (float)Settings.HEIGHT * 0.3F - 12.0F * Settings.scale, ___creamUiColor);
 
