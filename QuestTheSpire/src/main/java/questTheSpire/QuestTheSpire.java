@@ -69,7 +69,7 @@ public class QuestTheSpire implements
 
     //Permanent progression fields
     public static Properties questTheSpireStats = new Properties();
-    public static Properties questTheSpireCharacterStats = new Properties();
+    //public static Properties questTheSpireCharacterStats = new Properties();
     public static int reincarnations = 0;
     public static int monsterkills = 0;
     public static int elitekills = 0;
@@ -309,7 +309,7 @@ public class QuestTheSpire implements
         //TODO we probably dont need to do this here, especially since we dont have access to the save slot at this point?
         //TODO better idea to just load/generate the config as its needed. I can probably make a helper package for it tbh
         //LOAD CHARACTER SPECIFIC STATS
-        try {
+        /*try {
             for (AbstractPlayer.PlayerClass pc : AbstractPlayer.PlayerClass.values()) {
 
             SpireConfig config = new SpireConfig("QuestTheSpire", pc.toString()+"_QuestTheSpire_Stats", questTheSpireCharacterStats);
@@ -319,7 +319,7 @@ public class QuestTheSpire implements
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
 
     }
@@ -487,7 +487,8 @@ public class QuestTheSpire implements
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
+        //TODO use Save File system
+        /*try {
                 AbstractPlayer.PlayerClass pc = AbstractDungeon.player.chosenClass;
                 SpireConfig config = new SpireConfig("QuestTheSpire", pc.toString() + "_QuestTheSpire_Stats", questTheSpireCharacterStats);
                 config.setInt("Level", Level);
@@ -495,7 +496,7 @@ public class QuestTheSpire implements
                 config.save();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
 }
