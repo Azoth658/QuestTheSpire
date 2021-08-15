@@ -22,18 +22,21 @@ public class ExperiencePatch {
         try {
                 AbstractPlayer.PlayerClass pc = AbstractDungeon.player.chosenClass;
                 SpireConfig config = new SpireConfig("QuestTheSpire", pc.toString() + "_QuestTheSpire_Stats", questTheSpireCharacterStats);
+                Level = config.getInt("Level");
                 OverFlowExperience = config.getInt("OverFlowExperience");
                 config.load();
         } catch (Exception e) {
             e.printStackTrace();
         }
         Experience = GameOverScreen.calcScore(__instance.isVictory) + OverFlowExperience;
-        if (Experience >= LevelCosts.levelcost(LevelRequirement)) {
+        while (Experience >= LevelCosts.levelcost(LevelRequirement)) {
             QuestTheSpire.Level++;
             OverFlowExperience = Experience - LevelRequirement;
-        } else {
-            OverFlowExperience = Experience;
+            Experience = OverFlowExperience;
         }
+        if(Experience < LevelCosts.levelcost(LevelRequirement)){
+            OverFlowExperience = Experience;
+            }
         try {
                 AbstractPlayer.PlayerClass pc = AbstractDungeon.player.chosenClass;
                 SpireConfig config = new SpireConfig("QuestTheSpire", pc.toString() + "_QuestTheSpire_Stats", questTheSpireCharacterStats);
