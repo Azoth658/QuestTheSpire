@@ -22,7 +22,7 @@ public class ExperiencePatch {
         try {
                 AbstractPlayer.PlayerClass pc = AbstractDungeon.player.chosenClass;
                 SpireConfig config = new SpireConfig("QuestTheSpire", pc.toString() + "_QuestTheSpire_Stats", questTheSpireCharacterStats);
-                config.getInt("OverFlowExperience");
+                OverFlowExperience = config.getInt("OverFlowExperience");
                 config.load();
         } catch (Exception e) {
             e.printStackTrace();
