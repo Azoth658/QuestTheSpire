@@ -32,14 +32,15 @@ public class ExperienceBar {
         int currentPrestige = activeCharacterFile.getPrestigeLevel();
         int current = CharacterSaveFile.getExpBarNumerator(activeCharacterFile.getExp());
         int next = CharacterSaveFile.getExpBarDenominator(activeCharacterFile.getExp());
+        float xpBarProgressPercent = current / (float)next;
 
         if (currentLevel==20) {
             sb.setColor(new Color(0.0F, 0.62F, 0.77F, ___progressBarAlpha * 0.9F)); //157 green and 196 blue do not map to 1.57F and 1.96F, they map to 0.62F and 0.77F (the value is: color / 255)
         }   else sb.setColor(new Color(0.0F, 0.8F, 0.3F, ___progressBarAlpha * 0.9F));
 
-        sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float)Settings.HEIGHT * 0.3F, ___progressBarWidth * ___progressPercent, 14.0F * Settings.scale);
+        sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float)Settings.HEIGHT * 0.3F, ___progressBarWidth * xpBarProgressPercent, 14.0F * Settings.scale);
         sb.setColor(new Color(0.0F, 0.0F, 0.0F, ___progressBarAlpha * 0.25F));
-        sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float)Settings.HEIGHT * 0.3F, ___progressBarWidth * ___progressPercent, 5.0F * Settings.scale);
+        sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float)Settings.HEIGHT * 0.3F, ___progressBarWidth * xpBarProgressPercent, 5.0F * Settings.scale);
 
         String derp = "[" + (int)(current) + "/" + (int)(next)+ "]";
         ___creamUiColor.a = ___progressBarAlpha * 0.9F;
