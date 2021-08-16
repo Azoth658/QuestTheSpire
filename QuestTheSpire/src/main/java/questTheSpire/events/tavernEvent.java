@@ -86,9 +86,9 @@ public class tavernEvent extends AbstractImageEvent {
 
                         AbstractCard c = CardLibrary.getCard(Flex.ID);
                         c.upgrade();
-                        AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(c, (float)Settings.WIDTH * 0.3F, (float)Settings.HEIGHT / 2.0F));
+                        AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(c, (float)Settings.WIDTH * 0.4F, (float)Settings.HEIGHT / 2.0F));
                         c = CardLibrary.getCard(Wound.ID);
-                        AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(c, (float)Settings.WIDTH * 0.3F, (float)Settings.HEIGHT / 2.0F));
+                        AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(c, (float)Settings.WIDTH * 0.6F, (float)Settings.HEIGHT / 2.0F));
 
                         screenNum = 1;
                         break;
