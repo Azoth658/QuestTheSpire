@@ -295,7 +295,7 @@ public class QuestTheSpire implements
         BaseMod.addEvent(fairyEvent.ID, fairyEvent.class, TheCity.ID);
         BaseMod.addEvent(tavernEvent.ID, tavernEvent.class);
         BaseMod.addEvent(new AddEventParams.Builder(dragonHoard.ID, dragonHoard.class).eventType(EventUtils.EventType.NORMAL).bonusCondition(() -> AbstractDungeon.player.gold > 1000).create());
-        BaseMod.addEvent(new AddEventParams.Builder(alchemyLab.ID, alchemyLab.class).eventType(EventUtils.EventType.NORMAL).bonusCondition(() -> AbstractDungeon.player.potionSlots > 0 && !AbstractDungeon.player.hasRelic(Sozu.ID)).create());
+        BaseMod.addEvent(new AddEventParams.Builder(alchemyLab.ID, alchemyLab.class).eventType(EventUtils.EventType.NORMAL).bonusCondition(() -> AbstractDungeon.player.potionSlots > 0 && !AbstractDungeon.player.hasRelic(Sozu.ID)).dungeonID(TheCity.ID).create());
 
 
         // Add the events for Azoth's Reliquariam
