@@ -293,7 +293,7 @@ public class QuestTheSpire implements
         BaseMod.addEvent(wanderingMerchant.ID, wanderingMerchant.class, Exordium.ID);
         BaseMod.addEvent(druidEvent.ID, druidEvent.class, Exordium.ID);
         BaseMod.addEvent(fairyEvent.ID, fairyEvent.class, TheCity.ID);
-        BaseMod.addEvent(tavernEvent.ID, tavernEvent.class);
+        BaseMod.addEvent(tavernEvent.ID, tavernEvent.class, TheCity.ID);
         BaseMod.addEvent(new AddEventParams.Builder(dragonHoard.ID, dragonHoard.class).eventType(EventUtils.EventType.NORMAL).bonusCondition(() -> AbstractDungeon.player.gold > 1000).create());
         BaseMod.addEvent(new AddEventParams.Builder(alchemyLab.ID, alchemyLab.class).eventType(EventUtils.EventType.NORMAL).bonusCondition(() -> AbstractDungeon.player.potionSlots > 0 && !AbstractDungeon.player.hasRelic(Sozu.ID)).dungeonID(TheCity.ID).create());
 

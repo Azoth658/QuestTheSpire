@@ -93,19 +93,17 @@
   "questTheSpire:tavernEvent": {
     "NAME": "Test",
     "DESCRIPTIONS": [
-      "!reincarnation! - Deaths",
-      "!Experience! - Score earned",
-      "Test",
-      "Test",
-      "Test",
-      "Test",
-      "Test"
+      "Deep in the #y~City~ , you come across a bustling tavern. Inside you see a sign that there are #g~Rooms~ available. NL There are patrons competing at arm wrestling and several #rdistracted bystanders.",
+      "You sleep in a comfortable #gbed. You can't recall the last time you didn't sleep on the ground by a #rCampfire. Your aches and pains feel #gsoothed and after a #yhearty breakfast you head further up the #rSpire.",
+      "During the arm wrestling competition, you circle a few distracted patrons and lift a few #ycoins from each. A few burly men look #r@disgruntled@ . You make a hasty exit and forego the #gcomfort of a roof for the night.",
+      "You decide to try your #g~luck~ with the arm wrestling and enter the competition. It takes everything you have to #gwin and you're sure you #r@strained@ a muscle. Drinks are bought for you throughout the night, but you don't manage to get any rest."
     ],
     "OPTIONS": [
-      "[Sneak] #gGain #g",
-      " #gBottled #gFairies",
-      "[Befriend] #gGain #gFairy #gQueen's #gBlessing",
-      "[Leave]."
+      "[Rest] #rLose #r",
+      " #rGold. #gHeal #gto #gfull.",
+      "[Steal] #gGain #g99 #gGold.",
+      "[Wrestle] #rGain #ra #rWound. #gGain #ga #gFlex+",
+      "[Leave]"
     ]
   }
 
