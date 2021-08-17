@@ -18,6 +18,7 @@ public class MainMenuPatches {
     private static final UIStrings uiStrings;
     public static final String[] TEXT;
 
+    //TODO move to main mod file?
     public static class Enums {
         @SpireEnum
         public static MenuButton.ClickResult LOADOUT_BUTTON;
@@ -98,7 +99,7 @@ public class MainMenuPatches {
     @SpirePatch2(clz = MainMenuScreen.class, method = "render")
     public static class RenderLoadoutScreen {
         @SpireInsertPatch(locator= RenderLocator.class)
-        public static void updateTime(MainMenuScreen __instance, SpriteBatch sb) {
+        public static void renderTime(MainMenuScreen __instance, SpriteBatch sb) {
             if (__instance.screen == Enums.LOADOUT_VIEW) {
                 LoadoutScreenField.loadoutScreen.get(__instance).render(sb);
             }
