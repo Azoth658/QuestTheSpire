@@ -3,6 +3,7 @@ package questTheSpire.Screens;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.ibm.jvm.j9.dump.extract.Main;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
@@ -47,6 +48,7 @@ public class LoadoutScreen {
         private Hitbox ascRightHb;
         public int ascensionLevel;
         public String ascLevelInfoString;
+        public Color screenColor;
 
         public LoadoutScreen() {
             this.confirmButton = new ConfirmButton(TEXT[1]);
@@ -60,6 +62,7 @@ public class LoadoutScreen {
             this.isAscensionModeUnlocked = false;
             this.ascensionLevel = 0;
             this.ascLevelInfoString = "";
+            initialize();
         }
 
         public void initialize() {
