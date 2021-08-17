@@ -66,7 +66,7 @@ public class MainMenuPatches {
         @SpirePostfixPatch
         public static void useLocalizedText(MenuButton __instance) {
             if (__instance.result == Enums.LOADOUT_BUTTON) {
-                LoadoutScreenField.loadoutScreen.get(CardCrawlGame.mainMenuScreen).open(false); //TODO still needs an endless boolean, lol
+                LoadoutScreenField.loadoutScreen.get(CardCrawlGame.mainMenuScreen).open();
             }
         }
     }

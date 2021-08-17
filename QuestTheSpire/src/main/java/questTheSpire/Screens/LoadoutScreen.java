@@ -31,9 +31,6 @@ public class LoadoutScreen {
         public static final String[] A_TEXT;
         private static float ASC_LEFT_W;
         private static float ASC_RIGHT_W;
-        private SeedPanel seedPanel = new SeedPanel();
-        private static final float SEED_X;
-        private static final float SEED_Y;
         private static final String CHOOSE_CHAR_MSG;
         public ConfirmButton confirmButton;
         public MenuCancelButton cancelButton;
@@ -48,7 +45,6 @@ public class LoadoutScreen {
         private Hitbox ascensionModeHb;
         private Hitbox ascLeftHb;
         private Hitbox ascRightHb;
-        private Hitbox seedHb;
         public int ascensionLevel;
         public String ascLevelInfoString;
 
@@ -100,8 +96,6 @@ public class LoadoutScreen {
 
             this.ascLeftHb = new Hitbox(70.0F * Settings.scale, 70.0F * Settings.scale);
             this.ascRightHb = new Hitbox(70.0F * Settings.scale, 70.0F * Settings.scale);
-            this.seedHb = new Hitbox(700.0F * Settings.scale, 60.0F * Settings.scale);
-            this.seedHb.move(90.0F * Settings.scale, 70.0F * Settings.scale);
         }
 
         private void addCharacterOption(AbstractPlayer.PlayerClass c) {
@@ -123,23 +117,9 @@ public class LoadoutScreen {
 
         }
 
-        public void open(boolean isEndless) {
-            Settings.isEndless = isEndless;
-            Settings.seedSet = false;
-            Settings.seed = null;
-            Settings.specialSeed = null;
-            Settings.isTrial = false;
-            CardCrawlGame.trial = null;
+        public void open() {
             this.cancelButton.show(TEXT[5]);
             CardCrawlGame.mainMenuScreen.screen = MainMenuPatches.Enums.LOADOUT_VIEW; //This is how we tell it what screen is open
-        }
-
-        private void setRandomSeed() {
-            long sourceTime = System.nanoTime();
-            Random rng = new Random(sourceTime);
-            Settings.seedSourceTimestamp = sourceTime;
-            Settings.seed = SeedHelper.generateUnoffensiveSeed(rng);
-            Settings.seedSet = false;
         }
 
         public void update() {
@@ -154,45 +134,36 @@ public class LoadoutScreen {
             }
 
             this.anySelected = false;
-            if (!this.seedPanel.shown) {
-                Iterator var1 = this.options.iterator();
+            Iterator var1 = this.options.iterator();
 
-                while(var1.hasNext()) {
-                    CharacterOption o = (CharacterOption)var1.next();
-                    o.update();
-                    if (o.selected) {
-                        this.anySelected = true;
-                        this.isAscensionModeUnlocked = UnlockTracker.isAscensionUnlocked(o.c);
-                        if (!this.isAscensionModeUnlocked) {
-                            this.isAscensionMode = false;
-                        }
+            while(var1.hasNext()) {
+                CharacterOption o = (CharacterOption)var1.next();
+                o.update();
+                if (o.selected) {
+                    this.anySelected = true;
+                    this.isAscensionModeUnlocked = UnlockTracker.isAscensionUnlocked(o.c);
+                    if (!this.isAscensionModeUnlocked) {
+                        this.isAscensionMode = false;
                     }
-                }
-
-                this.updateButtons();
-                if (InputHelper.justReleasedClickLeft && !this.anySelected) {
-                    this.confirmButton.isDisabled = true;
-                    this.confirmButton.hide();
-                }
-
-                if (this.anySelected) {
-                    this.bgCharColor.a = MathHelper.fadeLerpSnap(this.bgCharColor.a, 1.0F);
-                    this.bg_y_offset = MathHelper.fadeLerpSnap(this.bg_y_offset, -0.0F);
-                } else {
-                    this.bgCharColor.a = MathHelper.fadeLerpSnap(this.bgCharColor.a, 0.0F);
-                }
-
-                this.updateAscensionToggle();
-                if (this.anySelected) {
-                    this.seedHb.update();
                 }
             }
 
-            this.seedPanel.update();
-            if (this.seedHb.hovered && InputHelper.justClickedLeft || CInputActionSet.drawPile.isJustPressed()) {
-                InputHelper.justClickedLeft = false;
-                this.seedHb.hovered = false;
-                this.seedPanel.show();
+            this.updateButtons();
+            if (InputHelper.justReleasedClickLeft && !this.anySelected) {
+                this.confirmButton.isDisabled = true;
+                this.confirmButton.hide();
+            }
+
+            if (this.anySelected) {
+                this.bgCharColor.a = MathHelper.fadeLerpSnap(this.bgCharColor.a, 1.0F);
+                this.bg_y_offset = MathHelper.fadeLerpSnap(this.bg_y_offset, -0.0F);
+            } else {
+                this.bgCharColor.a = MathHelper.fadeLerpSnap(this.bgCharColor.a, 0.0F);
+            }
+
+            this.updateAscensionToggle();
+            if (this.anySelected) {
+                //Stuff?
             }
 
             CardCrawlGame.mainMenuScreen.superDarken = this.anySelected;
@@ -281,23 +252,8 @@ public class LoadoutScreen {
                 this.confirmButton.hb.clicked = false;
                 this.confirmButton.isDisabled = true;
                 this.confirmButton.hide();
-                if (Settings.seed == null) {
-                    this.setRandomSeed();
-                } else {
-                    Settings.seedSet = true;
-                }
-
                 CardCrawlGame.mainMenuScreen.isFadingOut = true;
                 CardCrawlGame.mainMenuScreen.fadeOutMusic();
-                Settings.isDailyRun = false;
-                boolean isTrialSeed = TrialHelper.isTrialSeed(SeedHelper.getString(Settings.seed));
-                if (isTrialSeed) {
-                    Settings.specialSeed = Settings.seed;
-                    long sourceTime = System.nanoTime();
-                    Random rng = new Random(sourceTime);
-                    Settings.seed = SeedHelper.generateUnoffensiveSeed(rng);
-                    Settings.isTrial = true;
-                }
 
                 ModHelper.setModsFalse();
                 AbstractDungeon.generateSeeds();
@@ -352,20 +308,16 @@ public class LoadoutScreen {
             this.cancelButton.render(sb);
             this.confirmButton.render(sb);
             this.renderAscensionMode(sb);
-            this.renderSeedSettings(sb);
-            this.seedPanel.render(sb);
             boolean anythingSelected = false;
             CharacterOption o;
-            if (!this.seedPanel.shown) {
-                for(Iterator var3 = this.options.iterator(); var3.hasNext(); o.render(sb)) {
-                    o = (CharacterOption)var3.next();
-                    if (o.selected) {
-                        anythingSelected = true;
-                    }
+            for(Iterator var3 = this.options.iterator(); var3.hasNext(); o.render(sb)) {
+                o = (CharacterOption)var3.next();
+                if (o.selected) {
+                    anythingSelected = true;
                 }
             }
 
-            if (!this.seedPanel.shown && !anythingSelected) {
+            if (!anythingSelected) {
                 if (!Settings.isMobile) {
                     FontHelper.renderFontCentered(sb, FontHelper.losePowerFont, CHOOSE_CHAR_MSG, (float)Settings.WIDTH / 2.0F, 340.0F * Settings.yScale, Settings.CREAM_COLOR, 1.2F);
                 } else {
@@ -373,36 +325,6 @@ public class LoadoutScreen {
                 }
             }
 
-        }
-
-        private void renderSeedSettings(SpriteBatch sb) {
-            if (this.anySelected) {
-                Color textColor = Settings.GOLD_COLOR;
-                if (this.seedHb.hovered) {
-                    textColor = Settings.GREEN_TEXT_COLOR;
-                    TipHelper.renderGenericTip((float)InputHelper.mX + 50.0F * Settings.scale, (float)InputHelper.mY + 100.0F * Settings.scale, TEXT[11], TEXT[12]);
-                }
-
-                if (!Settings.isControllerMode) {
-                    if (Settings.seedSet) {
-                        FontHelper.renderSmartText(sb, FontHelper.cardTitleFont, TEXT[10], SEED_X, SEED_Y, 9999.0F, 0.0F, textColor);
-                        FontHelper.renderFontLeftTopAligned(sb, FontHelper.cardTitleFont, SeedHelper.getUserFacingSeedString(), SEED_X - 30.0F * Settings.scale + FontHelper.getSmartWidth(FontHelper.cardTitleFont, TEXT[13], 9999.0F, 0.0F), 90.0F * Settings.scale, Settings.BLUE_TEXT_COLOR);
-                    } else {
-                        FontHelper.renderSmartText(sb, FontHelper.cardTitleFont, TEXT[13], SEED_X, SEED_Y, 9999.0F, 0.0F, textColor);
-                    }
-                } else {
-                    if (Settings.seedSet) {
-                        FontHelper.renderSmartText(sb, FontHelper.cardTitleFont, TEXT[10], SEED_X + 100.0F * Settings.scale, SEED_Y, 9999.0F, 0.0F, textColor);
-                        FontHelper.renderFontLeftTopAligned(sb, FontHelper.cardTitleFont, SeedHelper.getUserFacingSeedString(), SEED_X - 30.0F * Settings.scale + FontHelper.getSmartWidth(FontHelper.cardTitleFont, TEXT[13], 9999.0F, 0.0F) + 100.0F * Settings.scale, 90.0F * Settings.scale, Settings.BLUE_TEXT_COLOR);
-                    } else {
-                        FontHelper.renderSmartText(sb, FontHelper.cardTitleFont, TEXT[13], SEED_X + 100.0F * Settings.scale, SEED_Y, 9999.0F, 0.0F, textColor);
-                    }
-
-                    sb.draw(ImageMaster.CONTROLLER_LT, 80.0F * Settings.scale - 32.0F, 80.0F * Settings.scale - 32.0F, 32.0F, 32.0F, 64.0F, 64.0F, Settings.scale, Settings.scale, 0.0F, 0, 0, 64, 64, false, false);
-                }
-
-                this.seedHb.render(sb);
-            }
         }
 
         private void renderAscensionMode(SpriteBatch sb) {
@@ -483,8 +405,6 @@ public class LoadoutScreen {
             TEXT = uiStrings.TEXT;
             uiStrings2 = CardCrawlGame.languagePack.getUIString("AscensionModeDescriptions");
             A_TEXT = uiStrings2.TEXT;
-            SEED_X = 60.0F * Settings.scale;
-            SEED_Y = 90.0F * Settings.scale;
             CHOOSE_CHAR_MSG = TEXT[0];
         }
 
