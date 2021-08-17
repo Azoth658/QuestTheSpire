@@ -19,6 +19,7 @@ import com.megacrit.cardcrawl.screens.mainMenu.MenuCancelButton;
 import com.megacrit.cardcrawl.ui.buttons.ConfirmButton;
 import com.megacrit.cardcrawl.ui.panels.SeedPanel;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
+import questTheSpire.patches.MainMenuPatches;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -130,7 +131,7 @@ public class LoadoutScreen {
             Settings.isTrial = false;
             CardCrawlGame.trial = null;
             this.cancelButton.show(TEXT[5]);
-            CardCrawlGame.mainMenuScreen.screen = MainMenuScreen.CurScreen.CHAR_SELECT;
+            CardCrawlGame.mainMenuScreen.screen = MainMenuPatches.Enums.LOADOUT_VIEW; //This is how we tell it what screen is open
         }
 
         private void setRandomSeed() {
@@ -477,6 +478,7 @@ public class LoadoutScreen {
         }
 
         static {
+            //TODO grab the correct text once we rewrite the file. We can hardcode stuff for now
             uiStrings = CardCrawlGame.languagePack.getUIString("CharacterSelectScreen");
             TEXT = uiStrings.TEXT;
             uiStrings2 = CardCrawlGame.languagePack.getUIString("AscensionModeDescriptions");
