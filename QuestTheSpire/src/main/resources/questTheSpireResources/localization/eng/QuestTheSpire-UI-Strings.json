@@ -13,6 +13,17 @@
       "Adds M10 Robot (and cards) from 100% Orange Juice! NL See the Mod Options if you would like to change any configurations!"
     ]
   },
+  "questTheSpire:MainMenu": {
+    "TEXT": [
+      "Loadouts"
+    ]
+  },
+  "questTheSpire:Experience": {
+    "TEXT": [
+      "Level",
+      "Prestige"
+    ]
+  },
   "questTheSpire:QuestTheSpire-MenuPanel": {
     "TEXT": [
       "Quest The Spire",
