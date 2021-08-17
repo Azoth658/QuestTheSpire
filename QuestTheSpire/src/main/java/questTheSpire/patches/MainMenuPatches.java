@@ -1,5 +1,6 @@
 package questTheSpire.patches;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.characters.CharacterManager;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -7,8 +8,10 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.screens.mainMenu.MainMenuScreen;
 import com.megacrit.cardcrawl.screens.mainMenu.MenuButton;
 import com.megacrit.cardcrawl.screens.mainMenu.MenuPanelScreen;
+import com.megacrit.cardcrawl.screens.mainMenu.SaveSlotScreen;
 import javassist.CtBehavior;
 import questTheSpire.QuestTheSpire;
+import questTheSpire.Screens.LoadoutScreen;
 
 public class MainMenuPatches {
 
@@ -17,7 +20,14 @@ public class MainMenuPatches {
 
     public static class Enums {
         @SpireEnum
-        public static MenuButton.ClickResult LOADOUTS;
+        public static MenuButton.ClickResult LOADOUT_BUTTON;
+        @SpireEnum
+        public static MainMenuScreen.CurScreen LOADOUT_VIEW;
+    }
+
+    @SpirePatch(clz = MainMenuScreen.class, method = SpirePatch.CLASS)
+    public static class LoadoutScreenField {
+        public static SpireField<LoadoutScreen> loadoutScreen = new SpireField<>(() -> null);
     }
 
     @SpirePatch2(clz = MainMenuScreen.class, method = "setMainMenuButtons")
@@ -26,9 +36,9 @@ public class MainMenuPatches {
         public static void setMainMenuButtons(MainMenuScreen __instance, int index) {
             //TODO grab index by reference and actually update it
             if (CardCrawlGame.characterManager.anySaveFileExists()) {
-                __instance.buttons.add(new MenuButton(Enums.LOADOUTS, index+2));
+                __instance.buttons.add(new MenuButton(Enums.LOADOUT_BUTTON, index+2));
             } else {
-                __instance.buttons.add(new MenuButton(Enums.LOADOUTS, index+1));
+                __instance.buttons.add(new MenuButton(Enums.LOADOUT_BUTTON, index+1));
             }
         }
 
@@ -44,7 +54,7 @@ public class MainMenuPatches {
     public static class SetText {
         @SpirePostfixPatch
         public static void useLocalizedText(MenuButton __instance, @ByRef String[] ___label) {
-            if (__instance.result == Enums.LOADOUTS) {
+            if (__instance.result == Enums.LOADOUT_BUTTON) {
                 ___label[0] = TEXT[0];
             }
         }
@@ -54,9 +64,50 @@ public class MainMenuPatches {
     public static class OnClickButton {
         @SpirePostfixPatch
         public static void useLocalizedText(MenuButton __instance) {
-            if (__instance.result == Enums.LOADOUTS) {
-                //TODO we need an action screen to open, lol. Just use this panel screen for testing
-                CardCrawlGame.mainMenuScreen.panelScreen.open(MenuPanelScreen.PanelScreen.COMPENDIUM);
+            if (__instance.result == Enums.LOADOUT_BUTTON) {
+                LoadoutScreenField.loadoutScreen.get(CardCrawlGame.mainMenuScreen).open(false); //TODO still needs an endless boolean, lol
+            }
+        }
+    }
+
+    @SpirePatch2(clz = MainMenuScreen.class, method = "<ctor>", paramtypez = {boolean.class})
+    private static class AddNewScreenToSpireField {
+        @SpirePostfixPatch()
+        public static void screenTime(MainMenuScreen __instance) {
+            LoadoutScreenField.loadoutScreen.set(__instance, new LoadoutScreen());
+        }
+    }
+
+    @SpirePatch2(clz = MainMenuScreen.class, method = "update")
+    public static class UpdateLoadoutScreen {
+        @SpireInsertPatch(locator= UpdateLocator.class)
+        public static void updateTime(MainMenuScreen __instance) {
+            if (__instance.screen == Enums.LOADOUT_VIEW) {
+                LoadoutScreenField.loadoutScreen.get(__instance).update();
+            }
+        }
+
+        private static class UpdateLocator extends SpireInsertLocator {
+            public int[] Locate(CtBehavior ctMethodToPatch) throws Exception {
+                Matcher finalMatcher = new Matcher.MethodCallMatcher(SaveSlotScreen.class, "update");
+                return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
+            }
+        }
+    }
+
+    @SpirePatch2(clz = MainMenuScreen.class, method = "render")
+    public static class RenderLoadoutScreen {
+        @SpireInsertPatch(locator= RenderLocator.class)
+        public static void updateTime(MainMenuScreen __instance, SpriteBatch sb) {
+            if (__instance.screen == Enums.LOADOUT_VIEW) {
+                LoadoutScreenField.loadoutScreen.get(__instance).render(sb);
+            }
+        }
+
+        private static class RenderLocator extends SpireInsertLocator {
+            public int[] Locate(CtBehavior ctMethodToPatch) throws Exception {
+                Matcher finalMatcher = new Matcher.MethodCallMatcher(SaveSlotScreen.class, "render");
+                return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
             }
         }
     }
