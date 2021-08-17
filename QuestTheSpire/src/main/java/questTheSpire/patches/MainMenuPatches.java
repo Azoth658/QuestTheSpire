@@ -24,6 +24,7 @@ public class MainMenuPatches {
     public static class ButtonAdderPatch {
         @SpireInsertPatch(locator= ButtonLocator.class, localvars={"index"})
         public static void setMainMenuButtons(MainMenuScreen __instance, int index) {
+            //TODO grab index by reference and actually update it
             if (CardCrawlGame.characterManager.anySaveFileExists()) {
                 __instance.buttons.add(new MenuButton(Enums.LOADOUTS, index+2));
             } else {
@@ -54,7 +55,7 @@ public class MainMenuPatches {
         @SpirePostfixPatch
         public static void useLocalizedText(MenuButton __instance) {
             if (__instance.result == Enums.LOADOUTS) {
-                //TODO we need an action screen to open, lol
+                //TODO we need an action screen to open, lol. Just use this panel screen for testing
                 CardCrawlGame.mainMenuScreen.panelScreen.open(MenuPanelScreen.PanelScreen.COMPENDIUM);
             }
         }
