@@ -52,7 +52,7 @@ public class QuestTheSpire implements
         EditKeywordsSubscriber,
         PostDeathSubscriber,
         PostInitializeSubscriber,
-        PostDungeonInitializeSubscriber {
+        StartGameSubscriber {
 
     public static final Logger logger = LogManager.getLogger(QuestTheSpire.class.getName());
     private static String modID;
@@ -517,8 +517,13 @@ public class QuestTheSpire implements
         }*/
     }
 
-    @Override
+    /*@Override
     public void receivePostDungeonInitialize() {
+        activeCharacterFile = new CharacterSaveFile();
+    }*/
+
+    @Override
+    public void receiveStartGame() {
         activeCharacterFile = new CharacterSaveFile();
     }
 }
