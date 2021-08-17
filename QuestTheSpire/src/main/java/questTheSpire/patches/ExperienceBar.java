@@ -7,20 +7,27 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
+import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.screens.GameOverScreen;
 import questTheSpire.Level.LevelCosts;
+import questTheSpire.QuestTheSpire;
 import questTheSpire.util.CharacterSaveFile;
 
 import static basemod.DevConsole.unlockLevel;
 import static questTheSpire.QuestTheSpire.*;
 
 @SpirePatch2(clz = GameOverScreen.class, method = "renderProgressBar")
-
 public class ExperienceBar {
+
+    private static final UIStrings uiStrings;
+    public static final String[] TEXT;
+
+
     @SpirePostfixPatch
     public static void renderProgressBar(GameOverScreen __instance, SpriteBatch sb, @ByRef Color[] ___whiteUiColor, Color ___creamUiColor, float ___progressBarAlpha, float ___progressBarWidth, float ___progressBarX, float ___progressPercent){
         ___whiteUiColor[0].a = ___progressBarAlpha * 0.3F;
@@ -46,13 +53,18 @@ public class ExperienceBar {
         ___creamUiColor.a = ___progressBarAlpha * 0.9F;
         FontHelper.renderFontLeftTopAligned(sb, FontHelper.topPanelInfoFont, derp, 576.0F * Settings.xScale, (float)Settings.HEIGHT * 0.3F - 12.0F * Settings.scale, ___creamUiColor);
 
-        //TODO localization
+        //TODO test localization
         if (Level < 20) {
-            derp = "Level " + (currentLevel+1);
+            derp = TEXT[0] + " " + (currentLevel+1);
         } else {
-            derp = "Prestige " + (currentPrestige+1);
+            derp = TEXT[1] + " " + (currentPrestige+1);
         }
 
         FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, derp, 1344.0F * Settings.xScale, (float)Settings.HEIGHT * 0.3F - 12.0F * Settings.scale, ___creamUiColor);
-     }
+    }
+
+    static {
+        uiStrings = CardCrawlGame.languagePack.getUIString(QuestTheSpire.makeID("Experience"));
+        TEXT = uiStrings.TEXT;
+    }
 }
