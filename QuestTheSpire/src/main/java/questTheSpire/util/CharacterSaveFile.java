@@ -15,6 +15,7 @@ public class CharacterSaveFile {
     public static final String PRESTIGE_LEVEL = "PrestigeLevel";
     public static final String RUNS = "Runs";
     public static final String DEATHS = "Deaths";
+    public static final String WINS = "Wins";
 
     public static final int BASE_REQ = 500;
     public static final int REQ_INCREASE_PER_LEVEL = 250;
@@ -59,6 +60,10 @@ public class CharacterSaveFile {
 
     public int getRuns() {
         return config.getInt(RUNS);
+    }
+
+    public int getWins() {
+        return config.getInt(WINS);
     }
 
     public void setExp(int exp) {
@@ -106,6 +111,15 @@ public class CharacterSaveFile {
         setRuns(getRuns()+1);
     }
 
+    public void setWins(int wins) {
+        config.setInt(WINS, wins);
+        saveConfig();
+    }
+
+    public void incrementWins() {
+        setWins(getWins()+1);
+    }
+
     public void saveConfig() {
         try {
             config.save();
@@ -145,7 +159,7 @@ public class CharacterSaveFile {
             return currentExp;
         } else {
             int l = calculateLevel(currentExp);
-            return currentExp - LOOKUP_TABLE[l-1];
+            return currentExp - LOOKUP_TABLE[l-2];
         }
     }
 
