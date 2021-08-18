@@ -17,6 +17,8 @@ import questTheSpire.util.CharacterSaveFile;
 import static com.megacrit.cardcrawl.screens.GameOverScreen.isVictory;
 import static questTheSpire.QuestTheSpire.Level;
 import static questTheSpire.QuestTheSpire.activeCharacterFile;
+import static questTheSpire.util.CharacterSaveFile.EXP_PER_PRESTIGE;
+import static questTheSpire.util.CharacterSaveFile.LOOKUP_TABLE;
 
 public class ExperiencePatches {
 
@@ -34,12 +36,17 @@ public class ExperiencePatches {
             sb.setColor(___whiteUiColor[0]);
             sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float) Settings.HEIGHT * 0.3F, ___progressBarWidth, 14.0F * Settings.scale);
 
-            //TODO get level, numerator, and denominator from save file
+
             int currentLevel = activeCharacterFile.getLevel();
             int currentPrestige = activeCharacterFile.getPrestigeLevel();
             int current = CharacterSaveFile.getExpBarNumerator(activeCharacterFile.getExp());
             int next = CharacterSaveFile.getExpBarDenominator(activeCharacterFile.getExp());
+            if(currentLevel == 20){
+                next = EXP_PER_PRESTIGE;
+                current = current - (currentPrestige*EXP_PER_PRESTIGE);
+            }
             float xpBarProgressPercent = current / (float) next;
+
 
             if (currentLevel == 20) {
                 sb.setColor(new Color(0.0F, 0.62F, 0.77F, ___progressBarAlpha * 0.9F)); //157 green and 196 blue do not map to 1.57F and 1.96F, they map to 0.62F and 0.77F (the value is: color / 255)
@@ -53,8 +60,7 @@ public class ExperiencePatches {
             ___creamUiColor.a = ___progressBarAlpha * 0.9F;
             FontHelper.renderFontLeftTopAligned(sb, FontHelper.topPanelInfoFont, derp, 576.0F * Settings.xScale, (float) Settings.HEIGHT * 0.3F - 12.0F * Settings.scale, ___creamUiColor);
 
-            //TODO test localization
-            if (Level < 20) {
+            if (currentLevel < 20) {
                 derp = TEXT[0] + " " + (currentLevel + 1);
             } else {
                 derp = TEXT[1] + " " + (currentPrestige + 1);
@@ -81,8 +87,8 @@ public class ExperiencePatches {
             //Determine how much exp we just made
             int xp = GameOverScreen.calcScore(isVictory);
             //See what our level would be with the new exp to see how many times we have levelled up. Then do the same for prestige
-            int levelUps = currentLevel - CharacterSaveFile.calculateLevel(activeCharacterFile.getExp() + xp);
-            int prestigeUps = currentPrestige - CharacterSaveFile.calculatePrestigeLevel(activeCharacterFile.getExp() + xp);
+            int levelUps = CharacterSaveFile.calculateLevel(activeCharacterFile.getExp() + xp) - currentLevel;
+            int prestigeUps = CharacterSaveFile.calculatePrestigeLevel(activeCharacterFile.getExp() + xp) - currentPrestige;
             //Add the xp to our character
             activeCharacterFile.addExp(xp);
             //If we actually levelled up, add the number of levels we went up and add out perk points and all that
@@ -94,6 +100,10 @@ public class ExperiencePatches {
             if (prestigeUps > 0) {
                 //TODO add perk points from prestige up
                 activeCharacterFile.addPrestigeLevel(prestigeUps);
+            }
+            //If winning run add to character save file
+            if (isVictory){
+                activeCharacterFile.incrementWins();
             }
         }
 
