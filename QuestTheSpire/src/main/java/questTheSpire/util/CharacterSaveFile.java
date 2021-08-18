@@ -173,6 +173,7 @@ public class CharacterSaveFile {
         questTheSpireCharacterStats.setProperty(PRESTIGE_LEVEL, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(DEATHS, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(RUNS, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(WINS, String.valueOf(0));
         LOOKUP_TABLE[0] = BASE_REQ;
         for (int i = 1 ; i < MAX_LEVEL ; i++) {
             LOOKUP_TABLE[i] = BASE_REQ+REQ_INCREASE_PER_LEVEL*i+LOOKUP_TABLE[i-1];
