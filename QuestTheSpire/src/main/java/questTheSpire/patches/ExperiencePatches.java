@@ -31,10 +31,14 @@ public class ExperiencePatches {
 
 
         @SpirePostfixPatch
-        public static void renderProgressBar(GameOverScreen __instance, SpriteBatch sb, @ByRef Color[] ___whiteUiColor, Color ___creamUiColor, float ___progressBarAlpha, float ___progressBarWidth, float ___progressBarX, float ___progressPercent) {
+        public static void renderProgressBar(GameOverScreen __instance, SpriteBatch sb, @ByRef Color[] ___whiteUiColor, Color ___creamUiColor, float ___progressBarAlpha, float ___progressBarWidth, float ___progressBarX, float ___progressPercent, int ___unlockCost) {
+            float placeHeight = 0.2F;
+            if(___unlockCost > 0){
+                placeHeight = 0.25F;
+            }
             ___whiteUiColor[0].a = ___progressBarAlpha * 0.3F;
             sb.setColor(___whiteUiColor[0]);
-            sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float) Settings.HEIGHT * 0.3F, ___progressBarWidth, 14.0F * Settings.scale);
+            sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float) Settings.HEIGHT * placeHeight, ___progressBarWidth, 14.0F * Settings.scale);
 
 
             int currentLevel = activeCharacterFile.getLevel();
@@ -52,13 +56,13 @@ public class ExperiencePatches {
                 sb.setColor(new Color(0.0F, 0.62F, 0.77F, ___progressBarAlpha * 0.9F)); //157 green and 196 blue do not map to 1.57F and 1.96F, they map to 0.62F and 0.77F (the value is: color / 255)
             } else sb.setColor(new Color(0.0F, 0.8F, 0.3F, ___progressBarAlpha * 0.9F));
 
-            sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float) Settings.HEIGHT * 0.3F, ___progressBarWidth * xpBarProgressPercent, 14.0F * Settings.scale);
+            sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float) Settings.HEIGHT * placeHeight, ___progressBarWidth * xpBarProgressPercent, 14.0F * Settings.scale);
             sb.setColor(new Color(0.0F, 0.0F, 0.0F, ___progressBarAlpha * 0.25F));
-            sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float) Settings.HEIGHT * 0.3F, ___progressBarWidth * xpBarProgressPercent, 5.0F * Settings.scale);
+            sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float) Settings.HEIGHT * placeHeight, ___progressBarWidth * xpBarProgressPercent, 5.0F * Settings.scale);
 
             String derp = "[" + (int) (current) + "/" + (int) (next) + "]";
             ___creamUiColor.a = ___progressBarAlpha * 0.9F;
-            FontHelper.renderFontLeftTopAligned(sb, FontHelper.topPanelInfoFont, derp, 576.0F * Settings.xScale, (float) Settings.HEIGHT * 0.3F - 12.0F * Settings.scale, ___creamUiColor);
+            FontHelper.renderFontLeftTopAligned(sb, FontHelper.topPanelInfoFont, derp, 576.0F * Settings.xScale, (float) Settings.HEIGHT * placeHeight - 12.0F * Settings.scale, ___creamUiColor);
 
             if (currentLevel < 20) {
                 derp = TEXT[0] + " " + (currentLevel + 1);
@@ -66,7 +70,7 @@ public class ExperiencePatches {
                 derp = TEXT[1] + " " + (currentPrestige + 1);
             }
 
-            FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, derp, 1344.0F * Settings.xScale, (float) Settings.HEIGHT * 0.3F - 12.0F * Settings.scale, ___creamUiColor);
+            FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, derp, 1344.0F * Settings.xScale, (float) Settings.HEIGHT * placeHeight - 12.0F * Settings.scale, ___creamUiColor);
         }
 
         static {
