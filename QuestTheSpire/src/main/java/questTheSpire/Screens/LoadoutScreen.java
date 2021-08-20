@@ -241,7 +241,7 @@ public class LoadoutScreen {
                 InputHelper.pressedEscape = false;
                 this.cancelButton.hb.clicked = false;
                 this.cancelButton.hide();
-                CardCrawlGame.mainMenuScreen.panelScreen.refresh();
+                CardCrawlGame.mainMenuScreen.screen = MainMenuScreen.CurScreen.MAIN_MENU;
 
                 for(Iterator var1 = this.options.iterator(); var1.hasNext(); selected.selected = false) {
                     selected = (CharacterOption)var1.next();
