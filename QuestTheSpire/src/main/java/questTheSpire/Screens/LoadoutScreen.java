@@ -123,6 +123,7 @@ public class LoadoutScreen {
         public void open() {
             this.cancelButton.show(TEXT[5]);
             CardCrawlGame.mainMenuScreen.screen = MainMenuPatches.Enums.LOADOUT_VIEW; //This is how we tell it what screen is open
+            CardCrawlGame.mainMenuScreen.darken();
         }
 
         public void update() {
@@ -242,6 +243,7 @@ public class LoadoutScreen {
                 this.cancelButton.hb.clicked = false;
                 this.cancelButton.hide();
                 CardCrawlGame.mainMenuScreen.screen = MainMenuScreen.CurScreen.MAIN_MENU;
+                CardCrawlGame.mainMenuScreen.lighten();
 
                 for(Iterator var1 = this.options.iterator(); var1.hasNext(); selected.selected = false) {
                     selected = (CharacterOption)var1.next();
