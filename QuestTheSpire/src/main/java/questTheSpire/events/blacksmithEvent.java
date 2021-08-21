@@ -36,8 +36,10 @@ public class blacksmithEvent extends AbstractImageEvent {
     private int screenNum = 0; // The initial screen we will see when encountering the event - screen 0;
 
     public blacksmithEvent() {
+        //TODO Make description dependant on whether keys are obtained or not.
         super(NAME, DESCRIPTIONS[0] + DESCRIPTIONS[2], IMG);
 
+        //TODO Lock Option 1 if the keys are not obtained
         imageEventText.setDialogOption(OPTIONS[0], new Excalibur() ); // Forge Excalibur
         imageEventText.setDialogOption(OPTIONS[1],AbstractDungeon.player.gold < 1); // Lose All Gold and Upgrade All Attacks
         imageEventText.setDialogOption(OPTIONS[2],AbstractDungeon.player.gold < 1); // Lose All Gold and Upgrade All Skills

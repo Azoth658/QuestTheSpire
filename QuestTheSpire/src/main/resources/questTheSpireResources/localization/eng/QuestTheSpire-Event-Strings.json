@@ -104,14 +104,15 @@
       "[Steal] #gGain #g99 #gGold.",
       "[Wrestle] #rGain #ra #rWound. #gGain #ga #gFlex+",
       "[Leave]"
-    ],
+    ]
+  },
 
     "questTheSpire:blacksmithEvent": {
       "NAME": "Isomir's Forge",
       "DESCRIPTIONS": [
-        "You near the top of the #r~Spire~ , when you hear the clanging of metal. Investigating with care you find a hidden #g~Forge~. NL The blacksmith looks half dragon as he #rheats the forge with flaming breath.",
-        "NL He spots that you carry three gemstone keys. \"Friend, do you seek to defeat the corruption? Then come inside and let us forge these keys into #gExcalibur.\" ",
-        "NL \"Another foolish adventurer trying their luck against the #rCorruption ?\" NL You explain that #yNeow sent you. NL \"Well let me help, at least let me sharpen your blades or reinforce your armor before you go? Though the materials aren't cheap.\".",
+        "You near the top of the #r~Spire~ , when you hear the clanging of metal.",
+        " NL He spots that you carry three gemstone keys. \"Friend, do you seek to defeat the corruption? Then come inside and let us forge these keys into #gExcalibur.\" ",
+        " NL \"Another foolish adventurer trying their luck against the #rCorruption? Well at least let me sharpen your blades or reinforce your armor before you go?\".",
         "Forged.",
         "Sharpened",
         "Reinforced",
@@ -125,5 +126,3 @@
       ]
     }
   }
-
-}
