@@ -91,7 +91,7 @@
   },
 
   "questTheSpire:tavernEvent": {
-    "NAME": "Test",
+    "NAME": "A Roof For The Night",
     "DESCRIPTIONS": [
       "Deep in the #y~City~ , you come across a bustling tavern. Inside you see a sign that there are #g~Rooms~ available. NL There are patrons competing at arm wrestling and several #rdistracted bystanders.",
       "You sleep in a comfortable #gbed. You can't recall the last time you didn't sleep on the ground by a #rCampfire. Your aches and pains feel #gsoothed and after a #yhearty breakfast you head further up the #rSpire.",
@@ -99,12 +99,31 @@
       "You decide to try your #g~luck~ with the arm wrestling and enter the competition. It takes everything you have to #gwin and you're sure you #r@strained@ a muscle. Drinks are bought for you throughout the night, but you don't manage to get any rest."
     ],
     "OPTIONS": [
-      "[Rest] #rLose #r",
+      "[Forge] #rLose #r",
       " #rGold. #gHeal #gto #gfull.",
       "[Steal] #gGain #g99 #gGold.",
       "[Wrestle] #rGain #ra #rWound. #gGain #ga #gFlex+",
       "[Leave]"
-    ]
+    ],
+
+    "questTheSpire:blacksmithEvent": {
+      "NAME": "Isomir's Forge",
+      "DESCRIPTIONS": [
+        "You near the top of the #r~Spire~ , when you hear the clanging of metal. Investigating with care you find a hidden #g~Forge~. NL The blacksmith looks half dragon as he #rheats the forge with flaming breath.",
+        "NL He spots that you carry three gemstone keys. \"Friend, do you seek to defeat the corruption? Then come inside and let us forge these keys into #gExcalibur.\" ",
+        "NL \"Another foolish adventurer trying their luck against the #rCorruption ?\" NL You explain that #yNeow sent you. NL \"Well let me help, at least let me sharpen your blades or reinforce your armor before you go? Though the materials aren't cheap.\".",
+        "Forged.",
+        "Sharpened",
+        "Reinforced",
+        "Left"
+      ],
+      "OPTIONS": [
+        "[Forge] #gGain #gExcalibur",
+        "[Sharpen] #rLose #rall #ryour #rGold. #gUpgrade #gall #gyour #gattacks.",
+        "[Reinforce] #rLose #rall #ryour #rGold. #gUpgrade #gall #gyour #gskills.",
+        "[Leave]"
+      ]
+    }
   }
 
 }

@@ -92,6 +92,10 @@
   "questTheSpire:Yojimbo": {
     "NAME": "Yojimbo",
     "DESCRIPTION": "Gain !M! Gold. NL Lose 1 Max HP."
+  },
+  "questTheSpire:Excalibur": {
+    "NAME": "Excalibur",
+    "DESCRIPTION": "Deal !D! Damage. NL Remove all Buffs and Debuffs. NL Exhaust"
   }
 }
 
