@@ -59,7 +59,7 @@ public class blacksmithEvent extends AbstractImageEvent {
                         this.imageEventText.updateDialogOption(0, OPTIONS[3]); // 1. Change the first button to the [Leave] button
                         this.imageEventText.clearRemainingOptions(); // 2. and remove all others
 
-                        CardCrawlGame.sound.play("CARD_UPGRADE");  // Play a hit sound
+                        CardCrawlGame.sound.play("CARD_UPGRADE");  // Play an upgrade sound
 
                         AbstractCard c = CardLibrary.getCard(Excalibur.ID);
                         AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(c, (float) Settings.WIDTH * 0.3F, (float)Settings.HEIGHT / 2.0F));
@@ -74,6 +74,7 @@ public class blacksmithEvent extends AbstractImageEvent {
                         this.imageEventText.clearRemainingOptions(); // 2. and remove all others
 
                         AbstractDungeon.player.loseGold(AbstractDungeon.player.gold);
+                        CardCrawlGame.sound.play("CARD_UPGRADE");  // Play an upgrade sound
                         for (AbstractCard d : AbstractDungeon.player.masterDeck.group) {
                             if (d.type == ATTACK && d.canUpgrade()) {
                                 d.upgrade();
@@ -89,6 +90,7 @@ public class blacksmithEvent extends AbstractImageEvent {
                         this.imageEventText.clearRemainingOptions(); // 2. and remove all others
 
                         AbstractDungeon.player.loseGold(AbstractDungeon.player.gold);
+                        CardCrawlGame.sound.play("CARD_UPGRADE");  // Play an upgrade sound
                         for (AbstractCard d : AbstractDungeon.player.masterDeck.group) {
                             if (d.type == SKILL && d.canUpgrade()) {
                                 d.upgrade();
