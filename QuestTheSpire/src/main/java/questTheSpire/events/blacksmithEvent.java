@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.EventStrings;
+import com.megacrit.cardcrawl.screens.DoorUnlockScreen;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
 import questTheSpire.QuestTheSpire;
@@ -36,15 +37,19 @@ public class blacksmithEvent extends AbstractImageEvent {
     private int screenNum = 0; // The initial screen we will see when encountering the event - screen 0;
 
     public blacksmithEvent() {
-        //TODO Make description dependant on whether keys are obtained or not.
+
         super(NAME, DESCRIPTIONS[0] + DESCRIPTIONS[2], IMG);
 
-        //TODO Lock Option 1 if the keys are not obtained
-        imageEventText.setDialogOption(OPTIONS[0], new Excalibur() ); // Forge Excalibur
+        //TODO fix description based on whether player has keys or not.
+        if (Settings.hasEmeraldKey && Settings.hasRubyKey && Settings.hasSapphireKey) {
+            this.imageEventText.updateBodyText(DESCRIPTIONS[1]);
+        }
+
+
+        imageEventText.setDialogOption(OPTIONS[0],!Settings.hasEmeraldKey || !Settings.hasRubyKey || !Settings.hasSapphireKey, new Excalibur() ); // Forge Excalibur
         imageEventText.setDialogOption(OPTIONS[1],AbstractDungeon.player.gold < 1); // Lose All Gold and Upgrade All Attacks
         imageEventText.setDialogOption(OPTIONS[2],AbstractDungeon.player.gold < 1); // Lose All Gold and Upgrade All Skills
         imageEventText.setDialogOption(OPTIONS[3]); // Leave
-
     }
 
 
