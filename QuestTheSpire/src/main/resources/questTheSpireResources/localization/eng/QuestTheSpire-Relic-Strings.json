@@ -37,5 +37,12 @@
     "DESCRIPTIONS": [
       "Start combat with #b4 #yRegen ."
     ]
+  },
+  "questTheSpire:PerkPoints": {
+    "NAME": "Perk Point Bonuses",
+    "FLAVOR": "The power of completing the cycle many times.",
+    "DESCRIPTIONS": [
+      "Start combat with perk point bonuses applied."
+    ]
   }
 }

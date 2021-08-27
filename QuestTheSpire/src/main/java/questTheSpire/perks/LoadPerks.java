@@ -3,16 +3,17 @@ package questTheSpire.perks;
 import basemod.interfaces.PostInitializeSubscriber;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
-public class LoadPerks implements PostInitializeSubscriber {
-    public boolean perkloaded;
-    public int hpPerk;
-    public int goldPerk;
-    public int strPerk;
-    public int dexPerk;
-    public int focusPerk;
+import static questTheSpire.QuestTheSpire.activeCharacterFile;
 
-    @Override
-    public void receivePostInitialize() {
-        AbstractDungeon.player.gainGold(2000);
+public class LoadPerks {
+    public static int hpPerk;
+    private static int goldPerk;
+
+    public static void onDungeonSetup() {
+        hpPerk = activeCharacterFile.getStartMaxHP() * 2;
+        AbstractDungeon.player.increaseMaxHp(hpPerk,true);
+
+        goldPerk = activeCharacterFile.getStartGold() * 20;
+        AbstractDungeon.player.gainGold(goldPerk);
     }
 }

@@ -30,7 +30,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import questTheSpire.cards.AbstractDefaultCard;
 import questTheSpire.events.*;
+import questTheSpire.perks.LoadPerks;
 import questTheSpire.relics.FairyBlessing;
+import questTheSpire.relics.PerkPoints;
 import questTheSpire.util.CharacterSaveFile;
 import questTheSpire.util.IDCheckDontTouchPls;
 import questTheSpire.util.TextureLoader;
@@ -41,6 +43,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import static com.megacrit.cardcrawl.characters.AbstractPlayer.PlayerClass.IRONCLAD;
@@ -53,6 +56,8 @@ public class QuestTheSpire implements
         EditKeywordsSubscriber,
         PostDeathSubscriber,
         PostInitializeSubscriber,
+        PostDungeonInitializeSubscriber,
+        PostCreateStartingRelicsSubscriber,
         StartGameSubscriber {
 
     public static final Logger logger = LogManager.getLogger(QuestTheSpire.class.getName());
@@ -362,6 +367,9 @@ public class QuestTheSpire implements
         BaseMod.addRelic(new FairyBlessing(), RelicType.SHARED);
         UnlockTracker.markRelicAsSeen(FairyBlessing.ID);
 
+        BaseMod.addRelic(new PerkPoints(), RelicType.SHARED);
+        UnlockTracker.markRelicAsSeen(PerkPoints.ID);
+
         logger.info("Done adding relics!");
 
     }
@@ -507,25 +515,21 @@ public class QuestTheSpire implements
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //TODO use Save File system
-        /*try {
-                AbstractPlayer.PlayerClass pc = AbstractDungeon.player.chosenClass;
-                SpireConfig config = new SpireConfig("QuestTheSpire", pc.toString() + "_QuestTheSpire_Stats", questTheSpireCharacterStats);
-                config.setInt("Level", Level);
-                config.setInt("OverFlowExperience", OverFlowExperience);
-                config.save();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-    }
 
-    /*@Override
-    public void receivePostDungeonInitialize() {
-        activeCharacterFile = new CharacterSaveFile();
-    }*/
+    }
 
     @Override
     public void receiveStartGame() {
         activeCharacterFile = new CharacterSaveFile();
+    }
+
+    @Override
+    public void receivePostDungeonInitialize() {
+        LoadPerks.onDungeonSetup();
+    }
+
+    @Override
+    public void receivePostCreateStartingRelics(AbstractPlayer.PlayerClass playerClass, ArrayList<String> arrayList) {
+        arrayList.add(PerkPoints.ID);
     }
 }
