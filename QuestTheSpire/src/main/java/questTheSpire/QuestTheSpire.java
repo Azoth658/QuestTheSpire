@@ -79,30 +79,21 @@ public class QuestTheSpire implements
     public static Properties questTheSpireStats = new Properties();
     public static CharacterSaveFile activeCharacterFile;
     //public static Properties questTheSpireCharacterStats = new Properties();
+    public static final String REINCARNATIONS = "reincarnations";
     public static int reincarnations = 0;
+    public static final String MONSTER_KILLS = "monsterKills";
     public static int monsterkills = 0;
+    public static final String ELITE_KILLS = "eliteKills";
     public static int elitekills = 0;
+    public static final String BOSS_KILLS = "bossKills";
     public static int bosskills = 0;
+    public static final String HEART_KILLS = "heartKills";
     public static int heartkills = 0;
+    public static final String EVENT_VISITS = "eventsVisited";
     public static int eventsvisited = 0;
 
-    public static int Experience = 0; // current run experience
-    public static int LevelRequirement = 0; // requirement to hit next level / prestige
     public static int PrestigeCost = 10000; // The cost for each prestige level
-    public static int OverFlowExperience; // total level experience
     public static int Level = 1;
-    public static int PrestigeLevel = 0;
-
-    public static int perkpoints = 0;
-    public static int maxhppoints = 0;
-    public static int strpoints = 0;
-    public static int dexpoints = 0;
-    public static int focuspoints = 0;
-    public static int goldpoints = 0;
-    public static int potionpoints = 0;
-
-    public static int aspectsmax = 0;
-    public static int aspectscurrent = 0;
 
 
     // =============== INPUT TEXTURE LOCATION =================
@@ -171,6 +162,13 @@ public class QuestTheSpire implements
 
         //Load Global Progression
         logger.info("Loading global progression");
+
+        questTheSpireStats.setProperty(REINCARNATIONS, String.valueOf(0));
+        questTheSpireStats.setProperty(MONSTER_KILLS, String.valueOf(0));
+        questTheSpireStats.setProperty(ELITE_KILLS, String.valueOf(0));
+        questTheSpireStats.setProperty(BOSS_KILLS, String.valueOf(0));
+        questTheSpireStats.setProperty(HEART_KILLS, String.valueOf(0));
+        questTheSpireStats.setProperty(EVENT_VISITS, String.valueOf(0));
 
         try {
             SpireConfig config = new SpireConfig("QuestTheSpire", "QuestTheSpireStats", questTheSpireStats);
