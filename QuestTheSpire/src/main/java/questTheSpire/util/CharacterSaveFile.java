@@ -13,6 +13,8 @@ public class CharacterSaveFile {
     public static final String EXP = "Experience";
     public static final String LEVEL = "Level";
     public static final String PRESTIGE_LEVEL = "PrestigeLevel";
+    public static final String MAX_PERK_POINTS = "MaxPerkPoints";
+    public static final String CURRENT_PERK_POINTS = "CurrentPerkPoints";
     public static final String RUNS = "Runs";
     public static final String DEATHS = "Deaths";
     public static final String WINS = "Wins";
@@ -60,6 +62,14 @@ public class CharacterSaveFile {
 
     public int getPrestigeLevel() {
         return config.getInt(PRESTIGE_LEVEL);
+    }
+
+    public int getMaxPerkPoints() {
+        return config.getInt(MAX_PERK_POINTS);
+    }
+
+    public int getCurrentPerkPoints() {
+        return config.getInt(CURRENT_PERK_POINTS);
     }
 
     public int getDeaths() {
@@ -131,6 +141,16 @@ public class CharacterSaveFile {
 
     public void addPrestigeLevel(int pLevel) {
         setPrestigeLevel(getPrestigeLevel()+pLevel);
+    }
+
+    public void setMaxPerkPoints(int maxPerkPoints) {
+        config.setInt(MAX_PERK_POINTS, maxPerkPoints);
+        saveConfig();
+    }
+
+    public void setCurrentPerkPoints(int currentPerkPoints) {
+        config.setInt(CURRENT_PERK_POINTS, currentPerkPoints);
+        saveConfig();
     }
 
     public void setDeaths(int deaths) {
