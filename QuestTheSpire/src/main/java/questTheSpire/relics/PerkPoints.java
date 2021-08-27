@@ -24,7 +24,9 @@ public class PerkPoints extends CustomRelic {
         super(ID, IMG, OUTLINE, RelicTier.SPECIAL, LandingSound.MAGICAL);
     }
 
-
+    @Override
+    public void onEquip(){
+    }
 
     @Override
     public void atBattleStart() {
