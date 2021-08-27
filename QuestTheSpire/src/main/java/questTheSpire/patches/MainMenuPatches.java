@@ -33,13 +33,9 @@ public class MainMenuPatches {
     @SpirePatch2(clz = MainMenuScreen.class, method = "setMainMenuButtons")
     public static class ButtonAdderPatch {
         @SpireInsertPatch(locator= ButtonLocator.class, localvars={"index"})
-        public static void setMainMenuButtons(MainMenuScreen __instance, int index) {
-            //TODO grab index by reference and actually update it
-            if (CardCrawlGame.characterManager.anySaveFileExists()) {
-                __instance.buttons.add(new MenuButton(Enums.LOADOUT_BUTTON, index+2));
-            } else {
-                __instance.buttons.add(new MenuButton(Enums.LOADOUT_BUTTON, index+1));
-            }
+        public static void setMainMenuButtons(MainMenuScreen __instance, @ByRef int[] index) {
+            __instance.buttons.add(new MenuButton(Enums.LOADOUT_BUTTON, index[0]));
+            index[0]++;
         }
 
         private static class ButtonLocator extends SpireInsertLocator {
