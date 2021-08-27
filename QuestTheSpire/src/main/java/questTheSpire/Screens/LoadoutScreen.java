@@ -42,6 +42,10 @@ public class LoadoutScreen {
         public int ascensionLevel;
         public String ascLevelInfoString;
 
+        private final float imageScale;
+        private Hitbox hpLeftHb;
+        private Hitbox hpRightHb;
+
         public LoadoutScreen() {
             this.confirmButton = new ConfirmButton(TEXT[1]);
             this.cancelButton = new MenuCancelButton();
@@ -54,10 +58,14 @@ public class LoadoutScreen {
             this.isAscensionModeUnlocked = false;
             this.ascensionLevel = 0;
             this.ascLevelInfoString = "";
+            this.imageScale = Settings.isMobile ? Settings.scale * 1.2F : Settings.scale;
+
             initialize();
         }
 
         public void initialize() {
+            this.hpLeftHb = new Hitbox(70.0F * Settings.scale, 70.0F * Settings.scale);
+            this.hpRightHb = new Hitbox(70.0F * Settings.scale, 70.0F * Settings.scale);
         }
 
 
@@ -94,6 +102,10 @@ public class LoadoutScreen {
         public void render(SpriteBatch sb) {
             this.cancelButton.render(sb);
             boolean anythingSelected = false;
+            sb.draw(ImageMaster.CF_LEFT_ARROW, this.hpLeftHb.cX - 24.0F, this.hpLeftHb.cY - 24.0F, 24.0F, 24.0F, 48.0F, 48.0F, Settings.scale, Settings.scale, 0.0F, 0, 0, 48, 48, false, false);
+            sb.draw(ImageMaster.CF_RIGHT_ARROW, this.hpRightHb.cX - 24.0F, this.hpRightHb.cY - 24.0F, 24.0F, 24.0F, 48.0F, 48.0F, Settings.scale, Settings.scale, 0.0F, 0, 0, 48, 48, false, false);
+            this.hpLeftHb.render(sb);
+            this.hpRightHb.render(sb);
         }
 
         static {
