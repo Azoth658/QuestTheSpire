@@ -7,11 +7,10 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.screens.mainMenu.MainMenuScreen;
 import com.megacrit.cardcrawl.screens.mainMenu.MenuButton;
-import com.megacrit.cardcrawl.screens.mainMenu.MenuPanelScreen;
 import com.megacrit.cardcrawl.screens.mainMenu.SaveSlotScreen;
 import javassist.CtBehavior;
 import questTheSpire.QuestTheSpire;
-import questTheSpire.Screens.LoadoutScreen;
+import questTheSpire.screens.LoadoutScreen;
 
 public class MainMenuPatches {
 
@@ -76,6 +75,7 @@ public class MainMenuPatches {
         @SpirePostfixPatch()
         public static void screenTime(MainMenuScreen __instance) {
             LoadoutScreenField.loadoutScreen.set(__instance, new LoadoutScreen());
+            LoadoutScreenField.loadoutScreen.get(__instance).initialize();
         }
     }
 

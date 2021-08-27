@@ -45,7 +45,6 @@ public class CharacterSaveFile {
         this.playerClass = playerClass;
         filePath = makeConfigPath(playerClass);
         try {
-            AbstractPlayer.PlayerClass pc = AbstractDungeon.player.chosenClass;
             config = new SpireConfig("QuestTheSpire", filePath, questTheSpireCharacterStats);
         } catch (Exception e) {
             e.printStackTrace();
