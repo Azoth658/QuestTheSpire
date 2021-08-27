@@ -21,6 +21,9 @@ public class CharacterSaveFile {
     public static final String STR = "Strength";
     public static final String DEX = "Dexterity";
     public static final String FOC = "Focus";
+    public static final String MAN = "Mantra";
+    public static final String DEV = "Devotion";
+    public static final String REG = "Regen";
 
     public static final int BASE_REQ = 500;
     public static final int REQ_INCREASE_PER_LEVEL = 250;
@@ -89,6 +92,18 @@ public class CharacterSaveFile {
 
     public int getFoc() {
         return config.getInt(FOC);
+    }
+
+    public int getMan() {
+        return config.getInt(MAN);
+    }
+
+    public int getDev() {
+        return config.getInt(DEV);
+    }
+
+    public int getReg() {
+        return config.getInt(REG);
     }
 
     public void setExp(int exp) {
@@ -170,6 +185,21 @@ public class CharacterSaveFile {
         saveConfig();
     }
 
+    public void setMan(int PerkMan) {
+        config.setInt(MAN, PerkMan);
+        saveConfig();
+    }
+
+    public void setDev(int PerkDev) {
+        config.setInt(DEV, PerkDev);
+        saveConfig();
+    }
+
+    public void setReg(int PerkReg) {
+        config.setInt(REG, PerkReg);
+        saveConfig();
+    }
+
     public void saveConfig() {
         try {
             config.save();
@@ -229,6 +259,9 @@ public class CharacterSaveFile {
         questTheSpireCharacterStats.setProperty(STR, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(DEX, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(FOC, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(MAN, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(DEV, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(REG, String.valueOf(0));
         LOOKUP_TABLE[0] = BASE_REQ;
         for (int i = 1 ; i < MAX_LEVEL ; i++) {
             LOOKUP_TABLE[i] = BASE_REQ+REQ_INCREASE_PER_LEVEL*i+LOOKUP_TABLE[i-1];
