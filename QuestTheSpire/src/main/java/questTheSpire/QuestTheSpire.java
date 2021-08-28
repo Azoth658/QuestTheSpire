@@ -173,12 +173,12 @@ public class QuestTheSpire implements
         try {
             SpireConfig config = new SpireConfig("QuestTheSpire", "QuestTheSpireStats", questTheSpireStats);
             config.load();
-            reincarnations = config.getInt("reincarnations");
-            monsterkills = config.getInt("monsterkills");
-            elitekills = config.getInt("elitekills");
-            bosskills = config.getInt("bosskills");
-            heartkills = config.getInt("heartkills");
-            eventsvisited = config.getInt("eventsvisited");
+            reincarnations = config.getInt(REINCARNATIONS);
+            monsterkills = config.getInt(MONSTER_KILLS);
+            elitekills = config.getInt(ELITE_KILLS);
+            bosskills = config.getInt(BOSS_KILLS);
+            heartkills = config.getInt(HEART_KILLS);
+            eventsvisited = config.getInt(EVENT_VISITS);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -508,7 +508,7 @@ public class QuestTheSpire implements
         reincarnations++;
         try {
             SpireConfig config = new SpireConfig("QuestTheSpire", "QuestTheSpireStats", questTheSpireStats);
-            config.setInt("reincarnations", reincarnations);
+            config.setInt(REINCARNATIONS, reincarnations);
             config.save();
         } catch (IOException e) {
             e.printStackTrace();
