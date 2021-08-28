@@ -97,13 +97,22 @@ public class ExperiencePatches {
             activeCharacterFile.addExp(xp);
             //If we actually levelled up, add the number of levels we went up and add out perk points and all that
             if (levelUps > 0) {
-                //TODO add perk points and whatever unlocks at certain level
                 activeCharacterFile.addLevel(levelUps);
+                activeCharacterFile.setCurrentPerkPoints(activeCharacterFile.getCurrentPerkPoints()+levelUps);
+                currentLevel = activeCharacterFile.getLevel();
+                currentPrestige = activeCharacterFile.getPrestigeLevel();
+                int MaxPerkPoints = currentLevel + currentPrestige;
+                activeCharacterFile.setMaxPerkPoints(MaxPerkPoints);
             }
             //If our prestige went up, same dice
             if (prestigeUps > 0) {
-                //TODO add perk points from prestige up
                 activeCharacterFile.addPrestigeLevel(prestigeUps);
+                activeCharacterFile.setCurrentPerkPoints(activeCharacterFile.getCurrentPerkPoints()+prestigeUps);
+                activeCharacterFile.addLevel(levelUps);
+                currentLevel = activeCharacterFile.getLevel();
+                currentPrestige = activeCharacterFile.getPrestigeLevel();
+                int MaxPerkPoints = currentLevel + currentPrestige;
+                activeCharacterFile.setMaxPerkPoints(MaxPerkPoints);
             }
             //If winning run add to character save file
             if (isVictory){

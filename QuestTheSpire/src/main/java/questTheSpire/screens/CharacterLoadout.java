@@ -304,6 +304,8 @@ public class CharacterLoadout {
                 return 1;
             }
         });
+
+
         cY += Y_OFFSET_PER_OPTION;
         customizationOptions.add(new ClickableLoadoutOption(cX, cY) {
             @Override
@@ -347,16 +349,17 @@ public class CharacterLoadout {
                 return 1;
             }
         });
+        //Start of Regen
         cY += Y_OFFSET_PER_OPTION;
         customizationOptions.add(new ClickableLoadoutOption(cX, cY) {
             @Override
             public void onClickArrow(boolean increase) {
                 if (increase && canUpgrade()) {
-                    file.setReg(file.getReg() + amountPerLevel());
                     file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
+                    file.setReg(file.getReg() + amountPerLevel());
                 } else if (canDowngrade()) {
-                    file.setReg(file.getReg() - amountPerLevel());
                     file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
+                    file.setReg(file.getReg() - amountPerLevel());
                 }
             }
 

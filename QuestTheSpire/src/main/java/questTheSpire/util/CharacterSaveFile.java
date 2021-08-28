@@ -268,10 +268,10 @@ public class CharacterSaveFile {
 
     static {
         questTheSpireCharacterStats.setProperty(EXP, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(LEVEL, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(LEVEL, String.valueOf(1));
         questTheSpireCharacterStats.setProperty(PRESTIGE_LEVEL, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(MAX_PERK_POINTS, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(CURRENT_PERK_POINTS, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(MAX_PERK_POINTS, String.valueOf(1));
+        questTheSpireCharacterStats.setProperty(CURRENT_PERK_POINTS, String.valueOf(1));
         questTheSpireCharacterStats.setProperty(DEATHS, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(RUNS, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(WINS, String.valueOf(0));

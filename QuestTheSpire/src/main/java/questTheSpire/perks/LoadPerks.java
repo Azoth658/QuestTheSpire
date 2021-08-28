@@ -9,10 +9,10 @@ public class LoadPerks {
     public static void onDungeonSetup() {
         int hpPerk;
         int goldPerk;
-        hpPerk = activeCharacterFile.getStartMaxHP() * 2;
+        hpPerk = activeCharacterFile.getStartMaxHP();
         AbstractDungeon.player.increaseMaxHp(hpPerk,true);
 
-        goldPerk = activeCharacterFile.getStartGold() * 20;
+        goldPerk = activeCharacterFile.getStartGold();
         AbstractDungeon.player.gainGold(goldPerk);
 
     }
