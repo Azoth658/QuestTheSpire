@@ -1,8 +1,11 @@
 package questTheSpire.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -19,7 +22,23 @@ import java.util.ArrayList;
 
 public class CharacterLoadout {
     private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(QuestTheSpire.makeID("LoadoutScreen"));
-    public static final String[] TEXT = uiStrings.TEXT;
+    private static final String[] TEXT = uiStrings.TEXT;
+    public static final String LEVEL = TEXT[0];
+    public static final String PRESTIGE = TEXT[1];
+    public static final String PERK_POINTS = TEXT[2];
+    public static final String CORE_BUFFS = TEXT[3];
+    public static final String ASPECTS = TEXT[4];
+    public static final String EXTRA_STUFF = TEXT[5];
+    public static final String MAX_HEALTH = TEXT[6];
+    public static final String EXTRA_GOLD = TEXT[7];
+    public static final String STRENGTH = TEXT[8];
+    public static final String DEXTERITY = TEXT[9];
+    public static final String FOCUS = TEXT[10];
+    public static final String REGEN = TEXT[11];
+    public static final String DEVOTION = TEXT[12];
+    public static final String RESET = TEXT[13];
+    public static final AtlasRegion PERK_IMAGE = ImageMaster.CARD_COLORLESS_ORB;
+    public static final AtlasRegion RESET_IMAGE = new TextureAtlas(Gdx.files.internal("powers/powers.atlas")).findRegion("128/" + "retain");
     private Texture buttonImg;
     private Texture portraitImg;
     private String portraitUrl;
@@ -39,7 +58,6 @@ public class CharacterLoadout {
     private float infoY;
     public String name;
     private String levelInfo;
-    private static final float NAME_Y = Settings.HEIGHT - 100F * Settings.scale;
     private String hp;
     private int gold;
     private String flavorText;
@@ -47,11 +65,18 @@ public class CharacterLoadout {
     //private int unlocksRemaining;
     //private int maxAscensionLevel;
     private final ArrayList<ClickableLoadoutOption> customizationOptions = new ArrayList<>();
+    private static final float PERK_X = 100f * Settings.scale;
+    private static final float PERK_Y = Settings.HEIGHT - 100f * Settings.scale;
+    private static final float RESET_X = Settings.WIDTH - 100f * Settings.scale;
+    private static final float RESET_Y = Settings.HEIGHT - 100f * Settings.scale;
     private static final float Y_OFFSET_PER_OPTION = -50f * Settings.scale;
-    private static final float X_COLUMN_1 = Settings.WIDTH/4f;
-    private static final float X_COLUMN_2 = Settings.WIDTH/2f;
-    private static final float X_COLUMN_3 = 3*Settings.WIDTH/4f;
-    private static final float Y_COLUMN = Settings.HEIGHT - 200f*Settings.scale;
+    private static final float NAME_Y = Settings.HEIGHT - 75f * Settings.scale;
+    private static final float LEVEL_Y = NAME_Y + Y_OFFSET_PER_OPTION;
+    private static final float HEADER_Y = LEVEL_Y + 1.5f*Y_OFFSET_PER_OPTION;
+    private static final float COLUMN_1_X = Settings.WIDTH/6f;
+    private static final float COLUMN_2_X = Settings.WIDTH/2f;
+    private static final float COLUMN_3_X = 5*Settings.WIDTH/6f;
+    private static final float COLUMN_Y = HEADER_Y + Y_OFFSET_PER_OPTION;
     private CharacterSaveFile file;
 
     public CharacterLoadout(String optionName, AbstractPlayer c, Texture buttonImg, Texture portraitImg) {
@@ -102,93 +127,322 @@ public class CharacterLoadout {
 
     private void getFile() {
         file = new CharacterSaveFile(c.chosenClass);
-        levelInfo = TEXT[0] + file.getLevel() + (file.getPrestigeLevel() > 0 ? TEXT[1] + file.getPrestigeLevel() : "");
+        levelInfo = LEVEL + file.getLevel() + (file.getPrestigeLevel() > 0 ? PRESTIGE + file.getPrestigeLevel() : "");
     }
 
     private void setupCustomizationOptions() {
-        float sx = X_COLUMN_1, sy = Settings.HEIGHT - 200f*Settings.scale;
-        customizationOptions.add(new ClickableLoadoutOption("Health", sx, sy) {
-            int amount = 0;
+        //First Column
+        float cX = COLUMN_1_X, cY = COLUMN_Y;
+        customizationOptions.add(new ClickableLoadoutOption(cX, cY) {
             @Override
             public void onClickArrow(boolean increase) {
-                if (increase) {
-                    amount++;
-                } else {
-                    amount--;
+                if (increase && canUpgrade()) {
+                    file.setMaxHP(file.getStartMaxHP() + amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints()-getUpgradeCost());
+                } else if (canDowngrade()){
+                    file.setMaxHP(file.getStartMaxHP() - amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints()+getDowngradeRefund());
                 }
             }
 
             @Override
-            public String makeLabel(String name) {
-                return name+": "+amount;
+            public String makeLabel() {
+                return MAX_HEALTH+": "+file.getStartMaxHP();
+            }
+
+            @Override
+            public int getUpgradeCost() {
+                return 0;
+            }
+
+            @Override
+            public int getDowngradeRefund() {
+                return 0;
+            }
+
+            @Override
+            public boolean canUpgrade() {
+                return file.getCurrentPerkPoints() >= getUpgradeCost();
+            }
+
+            @Override
+            public boolean canDowngrade() {
+                return file.getStartMaxHP() > 0;
+            }
+
+            @Override
+            public int amountPerLevel() {
+                return 5;
             }
         });
-        sy += Y_OFFSET_PER_OPTION;
-        customizationOptions.add(new ClickableLoadoutOption("Strength", sx, sy) {
-            int amount = 0;
+        cY += Y_OFFSET_PER_OPTION;
+        customizationOptions.add(new ClickableLoadoutOption(cX, cY) {
             @Override
             public void onClickArrow(boolean increase) {
-                if (increase) {
-                    amount++;
-                } else {
-                    amount--;
+                if (increase && canUpgrade()) {
+                    file.setStartGold(file.getStartGold() + amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
+                } else if (canDowngrade()) {
+                    file.setStartGold(file.getStartGold() - amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
                 }
             }
 
             @Override
-            public String makeLabel(String name) {
-                return name+": "+amount;
+            public String makeLabel() {
+                return EXTRA_GOLD+": "+file.getStartGold();
+            }
+
+            @Override
+            public int getUpgradeCost() {
+                return 0;
+            }
+
+            @Override
+            public int getDowngradeRefund() {
+                return 0;
+            }
+
+            @Override
+            public boolean canUpgrade() {
+                return file.getCurrentPerkPoints() >= getUpgradeCost();
+            }
+
+            @Override
+            public boolean canDowngrade() {
+                return file.getStartGold() > 0;
+            }
+
+            @Override
+            public int amountPerLevel() {
+                return 10;
             }
         });
-        sy += Y_OFFSET_PER_OPTION;
-        customizationOptions.add(new ClickableLoadoutOption("?", sx, sy) {
-            int amount = 0;
+        cY += Y_OFFSET_PER_OPTION;
+        customizationOptions.add(new ClickableLoadoutOption(cX, cY) {
             @Override
             public void onClickArrow(boolean increase) {
-                if (increase) {
-                    amount++;
-                } else {
-                    amount--;
+                if (increase && canUpgrade()) {
+                    file.setStr(file.getStr() + amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
+                } else if (canDowngrade()) {
+                    file.setStr(file.getStr() - amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
                 }
             }
 
             @Override
-            public String makeLabel(String name) {
-                return name+": "+amount;
+            public String makeLabel() {
+                return STRENGTH+": "+file.getStr();
+            }
+
+            @Override
+            public int getUpgradeCost() {
+                return 0;
+            }
+
+            @Override
+            public int getDowngradeRefund() {
+                return 0;
+            }
+
+            @Override
+            public boolean canUpgrade() {
+                return file.getCurrentPerkPoints() >= getUpgradeCost();
+            }
+
+            @Override
+            public boolean canDowngrade() {
+                return file.getStr() > 0;
+            }
+
+            @Override
+            public int amountPerLevel() {
+                return 1;
             }
         });
-        sy += Y_OFFSET_PER_OPTION;
+        cY += Y_OFFSET_PER_OPTION;
+        customizationOptions.add(new ClickableLoadoutOption(cX, cY) {
+            @Override
+            public void onClickArrow(boolean increase) {
+                if (increase && canUpgrade()) {
+                    file.setDex(file.getDex() + amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
+                } else if (canDowngrade()) {
+                    file.setDex(file.getDex() - amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
+                }
+            }
+
+            @Override
+            public String makeLabel() {
+                return DEXTERITY+": "+file.getDex();
+            }
+
+            @Override
+            public int getUpgradeCost() {
+                return 0;
+            }
+
+            @Override
+            public int getDowngradeRefund() {
+                return 0;
+            }
+
+            @Override
+            public boolean canUpgrade() {
+                return file.getCurrentPerkPoints() >= getUpgradeCost();
+            }
+
+            @Override
+            public boolean canDowngrade() {
+                return file.getDex() > 0;
+            }
+
+            @Override
+            public int amountPerLevel() {
+                return 1;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        customizationOptions.add(new ClickableLoadoutOption(cX, cY) {
+            @Override
+            public void onClickArrow(boolean increase) {
+                if (increase && canUpgrade()) {
+                    file.setFoc(file.getFoc() + amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
+                } else if (canDowngrade()) {
+                    file.setFoc(file.getFoc() - amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
+                }
+            }
+
+            @Override
+            public String makeLabel() {
+                return FOCUS+": "+file.getFoc();
+            }
+
+            @Override
+            public int getUpgradeCost() {
+                return 0;
+            }
+
+            @Override
+            public int getDowngradeRefund() {
+                return 0;
+            }
+
+            @Override
+            public boolean canUpgrade() {
+                return file.getCurrentPerkPoints() >= getUpgradeCost();
+            }
+
+            @Override
+            public boolean canDowngrade() {
+                return file.getFoc() > 0;
+            }
+
+            @Override
+            public int amountPerLevel() {
+                return 1;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        customizationOptions.add(new ClickableLoadoutOption(cX, cY) {
+            @Override
+            public void onClickArrow(boolean increase) {
+                if (increase && canUpgrade()) {
+                    file.setReg(file.getReg() + amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
+                } else if (canDowngrade()) {
+                    file.setReg(file.getReg() - amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
+                }
+            }
+
+            @Override
+            public String makeLabel() {
+                return REGEN+": "+file.getReg();
+            }
+
+            @Override
+            public int getUpgradeCost() {
+                return 0;
+            }
+
+            @Override
+            public int getDowngradeRefund() {
+                return 0;
+            }
+
+            @Override
+            public boolean canUpgrade() {
+                return file.getCurrentPerkPoints() >= getUpgradeCost() && file.getReg() < 4;
+            }
+
+            @Override
+            public boolean canDowngrade() {
+                return file.getReg() > 0;
+            }
+
+            @Override
+            public int amountPerLevel() {
+                return 1;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        customizationOptions.add(new ClickableLoadoutOption(cX, cY) {
+            @Override
+            public void onClickArrow(boolean increase) {
+                if (increase && canUpgrade()) {
+                    file.setDev(file.getDev() + amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
+                } else if (canDowngrade()) {
+                    file.setDev(file.getDev() - amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
+                }
+            }
+
+            @Override
+            public String makeLabel() {
+                return DEVOTION+": "+file.getDev();
+            }
+
+            @Override
+            public int getUpgradeCost() {
+                return 0;
+            }
+
+            @Override
+            public int getDowngradeRefund() {
+                return 0;
+            }
+
+            @Override
+            public boolean canUpgrade() {
+                return file.getCurrentPerkPoints() >= getUpgradeCost() && file.getDev() < 3;
+            }
+
+            @Override
+            public boolean canDowngrade() {
+                return file.getDev() > 0;
+            }
+
+            @Override
+            public int amountPerLevel() {
+                return 1;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
 
         //Second Column
-        sx = X_COLUMN_2;
-        sy = Y_COLUMN;
+        cX = COLUMN_2_X;
+        cY = COLUMN_Y;
 
         //Third Column
-        sx = X_COLUMN_3;
-        sy = Y_COLUMN;
+        cX = COLUMN_3_X;
+        cY = COLUMN_Y;
     }
-
-    /*public void saveChosenAscensionLevel(int level) {
-        Prefs pref = this.c.getPrefs();
-        pref.putInteger("LAST_ASCENSION_LEVEL", level);
-        pref.flush();
-    }
-
-    public void incrementAscensionLevel(int level) {
-        if (level <= this.maxAscensionLevel) {
-            this.saveChosenAscensionLevel(level);
-            CardCrawlGame.mainMenuScreen.charSelectScreen.ascensionLevel = level;
-            CardCrawlGame.mainMenuScreen.charSelectScreen.ascLevelInfoString = CharacterSelectScreen.A_TEXT[level - 1];
-        }
-    }
-
-    public void decrementAscensionLevel(int level) {
-        if (level != 0) {
-            this.saveChosenAscensionLevel(level);
-            CardCrawlGame.mainMenuScreen.charSelectScreen.ascensionLevel = level;
-            CardCrawlGame.mainMenuScreen.charSelectScreen.ascLevelInfoString = CharacterSelectScreen.A_TEXT[level - 1];
-        }
-    }*/
 
     public void update() {
         this.updateHitbox();
@@ -210,7 +464,8 @@ public class CharacterLoadout {
             CardCrawlGame.sound.playA("UI_HOVER", -0.3F);
         }
 
-        if (this.hb.hovered && this.locked) {
+        //TODO reimplement hover logic and locked characters?
+        /*if (this.hb.hovered && this.locked) {
             if (this.c.chosenClass == AbstractPlayer.PlayerClass.THE_SILENT) {
                 TipHelper.renderGenericTip((float) InputHelper.mX + 70.0F * Settings.xScale, (float)InputHelper.mY - 10.0F * Settings.scale, TEXT[0], TEXT[1]);
             } else if (this.c.chosenClass == AbstractPlayer.PlayerClass.DEFECT) {
@@ -218,7 +473,7 @@ public class CharacterLoadout {
             } else if (this.c.chosenClass == AbstractPlayer.PlayerClass.WATCHER) {
                 TipHelper.renderGenericTip((float)InputHelper.mX + 70.0F * Settings.xScale, (float)InputHelper.mY - 10.0F * Settings.scale, TEXT[0], TEXT[10]);
             }
-        }
+        }*/
 
         if (InputHelper.justClickedLeft && !this.locked && this.hb.hovered) {
             CardCrawlGame.sound.playA("UI_CLICK_1", -0.4F);
@@ -286,82 +541,18 @@ public class CharacterLoadout {
 
     private void renderInfo(SpriteBatch sb) {
         if (!this.name.equals("") && selected) {
-            FontHelper.renderFontCentered(sb, FontHelper.bannerNameFont, this.name, X_COLUMN_2, NAME_Y, Settings.GOLD_COLOR, Settings.scale);
-            FontHelper.renderFontCentered(sb, FontHelper.bannerNameFont, this.levelInfo, X_COLUMN_2, NAME_Y+Y_OFFSET_PER_OPTION, Settings.BLUE_RELIC_COLOR, Settings.scale);
+            FontHelper.renderFontCentered(sb, FontHelper.bannerNameFont, this.name, COLUMN_2_X, NAME_Y, Settings.GOLD_COLOR, Settings.scale);
+            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, this.levelInfo, COLUMN_2_X, LEVEL_Y, Settings.BLUE_RELIC_COLOR, Settings.scale);
+            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, CORE_BUFFS, COLUMN_1_X, HEADER_Y, Settings.GOLD_COLOR, Settings.scale);
+            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, ASPECTS, COLUMN_2_X, HEADER_Y, Settings.GOLD_COLOR, Settings.scale);
+            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, EXTRA_STUFF, COLUMN_3_X, HEADER_Y, Settings.GOLD_COLOR, Settings.scale);
+            sb.draw(PERK_IMAGE, PERK_X - PERK_IMAGE.getRegionWidth()/2F, PERK_Y - PERK_IMAGE.getRegionHeight()/2F, PERK_IMAGE.getRegionWidth()/2F, PERK_IMAGE.getRegionHeight()/2F, PERK_IMAGE.getRegionWidth(), PERK_IMAGE.getRegionHeight(), Settings.scale, Settings.scale, 0.0F);
+            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, file.getCurrentPerkPoints()+" / "+file.getMaxPerkPoints(), PERK_X+3* PERK_IMAGE.getRegionWidth()/2f, PERK_Y, Settings.GOLD_COLOR, Settings.scale);
+            sb.draw(RESET_IMAGE, RESET_X - RESET_IMAGE.getRegionWidth()/2F, RESET_Y - RESET_IMAGE.getRegionHeight()/2F, RESET_IMAGE.getRegionWidth()/2F, RESET_IMAGE.getRegionHeight()/2F, RESET_IMAGE.getRegionWidth(), RESET_IMAGE.getRegionHeight(), (float) PERK_IMAGE.getRegionWidth()/ RESET_IMAGE.getRegionWidth()*Settings.scale, (float) PERK_IMAGE.getRegionHeight()/ RESET_IMAGE.getRegionHeight()*Settings.scale, 0.0F);
+            FontHelper.renderFontRightAligned(sb, FontHelper.charTitleFont, RESET, RESET_X- PERK_IMAGE.getRegionWidth(), RESET_Y, Settings.GOLD_COLOR);
+
         }
     }
-
-    /*private void renderRelics(SpriteBatch sb) {
-        if (this.charInfo.relics.size() == 1) {
-            float var10002;
-            String relicString;
-            float var10003;
-            float var10004;
-            if (!Settings.isMobile) {
-                sb.setColor(Settings.QUARTER_TRANSPARENT_BLACK_COLOR);
-                var10002 = this.infoX - 64.0F;
-                sb.draw(RelicLibrary.getRelic((String)this.charInfo.relics.get(0)).outlineImg, var10002, this.infoY - 60.0F * Settings.scale - 64.0F, 64.0F, 64.0F, 128.0F, 128.0F, Settings.scale, Settings.scale, 0.0F, 0, 0, 128, 128, false, false);
-                sb.setColor(Color.WHITE);
-                var10002 = this.infoX - 64.0F;
-                sb.draw(RelicLibrary.getRelic((String)this.charInfo.relics.get(0)).img, var10002, this.infoY - 60.0F * Settings.scale - 64.0F, 64.0F, 64.0F, 128.0F, 128.0F, Settings.scale, Settings.scale, 0.0F, 0, 0, 128, 128, false, false);
-                var10003 = this.infoX + 44.0F * Settings.scale;
-                var10004 = this.infoY - 40.0F * Settings.scale;
-                FontHelper.renderSmartText(sb, FontHelper.tipHeaderFont, RelicLibrary.getRelic((String)this.charInfo.relics.get(0)).name, var10003, var10004, 10000.0F, 10000.0F, Settings.GOLD_COLOR);
-                relicString = RelicLibrary.getRelic((String)this.charInfo.relics.get(0)).description;
-                if (this.charInfo.name.equals(TEXT[7])) {
-                    relicString = TEXT[8];
-                }
-
-                FontHelper.renderSmartText(sb, FontHelper.tipBodyFont, relicString, this.infoX + 44.0F * Settings.scale, this.infoY - 66.0F * Settings.scale, 10000.0F, 10000.0F, Settings.CREAM_COLOR);
-            } else {
-                sb.setColor(Settings.QUARTER_TRANSPARENT_BLACK_COLOR);
-                var10002 = this.infoX - 64.0F;
-                var10003 = this.infoY + 30.0F * Settings.scale - 64.0F;
-                float var10008 = Settings.scale * 1.4F;
-                float var10009 = Settings.scale * 1.4F;
-                sb.draw(RelicLibrary.getRelic((String)this.charInfo.relics.get(0)).outlineImg, var10002, var10003, 64.0F, 64.0F, 128.0F, 128.0F, var10008, var10009, 0.0F, 0, 0, 128, 128, false, false);
-                sb.setColor(Color.WHITE);
-                var10002 = this.infoX - 64.0F;
-                var10003 = this.infoY + 30.0F * Settings.scale - 64.0F;
-                var10008 = Settings.scale * 1.4F;
-                var10009 = Settings.scale * 1.4F;
-                sb.draw(RelicLibrary.getRelic((String)this.charInfo.relics.get(0)).img, var10002, var10003, 64.0F, 64.0F, 128.0F, 128.0F, var10008, var10009, 0.0F, 0, 0, 128, 128, false, false);
-                var10003 = this.infoX + 60.0F * Settings.scale;
-                var10004 = this.infoY + 60.0F * Settings.scale;
-                FontHelper.renderSmartText(sb, FontHelper.topPanelInfoFont, RelicLibrary.getRelic((String)this.charInfo.relics.get(0)).name, var10003, var10004, 10000.0F, 10000.0F, Settings.GOLD_COLOR);
-                relicString = RelicLibrary.getRelic((String)this.charInfo.relics.get(0)).description;
-                if (this.charInfo.name.equals(TEXT[7])) {
-                    relicString = TEXT[8];
-                }
-
-                if (this.selected) {
-                    FontHelper.renderSmartText(sb, FontHelper.topPanelInfoFont, relicString, this.infoX + 60.0F * Settings.scale, this.infoY + 24.0F * Settings.scale, 10000.0F, 10000.0F, Settings.CREAM_COLOR);
-                }
-            }
-        } else {
-            for(int i = 0; i < this.charInfo.relics.size(); ++i) {
-                AbstractRelic r = RelicLibrary.getRelic((String)this.charInfo.relics.get(i));
-                r.updateDescription(this.charInfo.player.chosenClass);
-                Hitbox relicHitbox = new Hitbox(80.0F * Settings.scale * (0.01F + (1.0F - 0.019F * (float)this.charInfo.relics.size())), 80.0F * Settings.scale);
-                relicHitbox.move(this.infoX + (float)i * 72.0F * Settings.scale * (0.01F + (1.0F - 0.019F * (float)this.charInfo.relics.size())), this.infoY - 60.0F * Settings.scale);
-                relicHitbox.render(sb);
-                relicHitbox.update();
-                if (relicHitbox.hovered) {
-                    if ((float)InputHelper.mX < 1400.0F * Settings.scale) {
-                        TipHelper.queuePowerTips((float)InputHelper.mX + 60.0F * Settings.scale, (float)InputHelper.mY - 50.0F * Settings.scale, r.tips);
-                    } else {
-                        TipHelper.queuePowerTips((float)InputHelper.mX - 350.0F * Settings.scale, (float)InputHelper.mY - 50.0F * Settings.scale, r.tips);
-                    }
-                }
-
-                sb.setColor(new Color(0.0F, 0.0F, 0.0F, 0.25F));
-                sb.draw(r.outlineImg, this.infoX - 64.0F + (float)i * 72.0F * Settings.scale * (0.01F + (1.0F - 0.019F * (float)this.charInfo.relics.size())), this.infoY - 60.0F * Settings.scale - 64.0F, 64.0F, 64.0F, 128.0F, 128.0F, Settings.scale * (0.01F + (1.0F - 0.019F * (float)this.charInfo.relics.size())), Settings.scale * (0.01F + (1.0F - 0.019F * (float)this.charInfo.relics.size())), 0.0F, 0, 0, 128, 128, false, false);
-                sb.setColor(Color.WHITE);
-                sb.draw(r.img, this.infoX - 64.0F + (float)i * 72.0F * Settings.scale * (0.01F + (1.0F - 0.019F * (float)this.charInfo.relics.size())), this.infoY - 60.0F * Settings.scale - 64.0F, 64.0F, 64.0F, 128.0F, 128.0F, Settings.scale * (0.01F + (1.0F - 0.019F * (float)this.charInfo.relics.size())), Settings.scale * (0.01F + (1.0F - 0.019F * (float)this.charInfo.relics.size())), 0.0F, 0, 0, 128, 128, false, false);
-            }
-        }
-
-    }*/
 
     private LoadoutScreen getLoadoutScreen() {
         return MainMenuPatches.LoadoutScreenField.loadoutScreen.get(CardCrawlGame.mainMenuScreen);
