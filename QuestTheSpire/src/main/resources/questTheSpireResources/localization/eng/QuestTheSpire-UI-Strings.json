@@ -45,7 +45,15 @@
       "Perk Points: ",
       "Core Buffs",
       "Aspects",
-      "Extra Stuff"
+      "Extra Stuff",
+      "Max Health",
+      "Extra Gold",
+      "Strength",
+      "Dexterity",
+      "Focus",
+      "Regen",
+      "Devotion",
+      "Reset"
     ]
   }
 }
