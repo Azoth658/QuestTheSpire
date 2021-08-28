@@ -152,12 +152,12 @@ public class CharacterLoadout {
 
             @Override
             public int getUpgradeCost() {
-                return 0;
+                return 1;
             }
 
             @Override
             public int getDowngradeRefund() {
-                return 0;
+                return 1;
             }
 
             @Override
@@ -195,12 +195,12 @@ public class CharacterLoadout {
 
             @Override
             public int getUpgradeCost() {
-                return 0;
+                return 1;
             }
 
             @Override
             public int getDowngradeRefund() {
-                return 0;
+                return 1;
             }
 
             @Override
@@ -215,7 +215,7 @@ public class CharacterLoadout {
 
             @Override
             public int amountPerLevel() {
-                return 10;
+                return 20;
             }
         });
         cY += Y_OFFSET_PER_OPTION;
@@ -238,12 +238,12 @@ public class CharacterLoadout {
 
             @Override
             public int getUpgradeCost() {
-                return 0;
+                return 3;
             }
 
             @Override
             public int getDowngradeRefund() {
-                return 0;
+                return 3;
             }
 
             @Override
@@ -281,12 +281,12 @@ public class CharacterLoadout {
 
             @Override
             public int getUpgradeCost() {
-                return 0;
+                return 3;
             }
 
             @Override
             public int getDowngradeRefund() {
-                return 0;
+                return 3;
             }
 
             @Override
@@ -324,12 +324,12 @@ public class CharacterLoadout {
 
             @Override
             public int getUpgradeCost() {
-                return 0;
+                return 4;
             }
 
             @Override
             public int getDowngradeRefund() {
-                return 0;
+                return 4;
             }
 
             @Override
@@ -367,12 +367,12 @@ public class CharacterLoadout {
 
             @Override
             public int getUpgradeCost() {
-                return 0;
+                return 1 + file.getReg();
             }
 
             @Override
             public int getDowngradeRefund() {
-                return 0;
+                return file.getReg();
             }
 
             @Override
@@ -410,12 +410,12 @@ public class CharacterLoadout {
 
             @Override
             public int getUpgradeCost() {
-                return 0;
+                return 3;
             }
 
             @Override
             public int getDowngradeRefund() {
-                return 0;
+                return 3;
             }
 
             @Override
