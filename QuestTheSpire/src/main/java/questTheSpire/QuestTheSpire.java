@@ -1,6 +1,7 @@
 package questTheSpire;
 
 import basemod.*;
+import basemod.abstracts.CustomSavable;
 import basemod.eventUtil.AddEventParams;
 import basemod.eventUtil.EventUtils;
 import basemod.helpers.RelicType;
@@ -14,8 +15,10 @@ import com.evacipated.cardcrawl.modthespire.Loader;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.characters.Ironclad;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.dungeons.Exordium;
@@ -42,8 +45,11 @@ import questTheSpire.variables.DefaultSecondMagicNumber;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Properties;
 
 import static com.megacrit.cardcrawl.characters.AbstractPlayer.PlayerClass.IRONCLAD;
@@ -94,6 +100,30 @@ public class QuestTheSpire implements
 
     public static int PrestigeCost = 10000; // The cost for each prestige level
     public static int Level = 1;
+
+    //Info on all characters that have been integrated
+    private static final HashMap<Integer, HashSet<String>> FILE_MAP = new HashMap<>();
+    private static final String FILE_MAP_SAVE_STRING = makeID("FileMap");
+    private static class FileMapWrapper {
+        public final HashMap<Integer, HashSet<String>> storedMap = new HashMap<>();
+
+        public FileMapWrapper(HashMap<Integer, HashSet<String>> map) {
+            transferFileMap(map, storedMap);
+        }
+    }
+    private static void transferFileMap(HashMap<Integer, HashSet<String>> from, HashMap<Integer, HashSet<String>> to) {
+        to.clear();
+        for (Integer i : from.keySet()) {
+            to.put(i, new HashSet<>(from.get(i)));
+        }
+    }
+    public static void deleteAllSaveFilesFromCurrentSlot() {
+        for (String s : FILE_MAP.get(CardCrawlGame.saveSlot)) {
+            SpireConfig c = new CharacterSaveFile(s).getWrappedConfig();
+            c.clear();
+        }
+        //TODO QuestTheSpireStats should also be cleared if it uses a per save slot (which it doesn't currently)
+    }
 
 
     // =============== INPUT TEXTURE LOCATION =================
@@ -302,6 +332,27 @@ public class QuestTheSpire implements
         BaseMod.addEvent(new AddEventParams.Builder(dragonHoard.ID, dragonHoard.class).eventType(EventUtils.EventType.NORMAL).bonusCondition(() -> AbstractDungeon.player.gold > 1000).create());
         BaseMod.addEvent(new AddEventParams.Builder(alchemyLab.ID, alchemyLab.class).eventType(EventUtils.EventType.NORMAL).bonusCondition(() -> AbstractDungeon.player.potionSlots > 0 && !AbstractDungeon.player.hasRelic(Sozu.ID)).dungeonID(TheCity.ID).create());
 
+        // =============== SAVABLES =================
+        logger.info("Preparing CustomSavables");
+        BaseMod.addSaveField(FILE_MAP_SAVE_STRING, new CustomSavable<FileMapWrapper>() {
+            @Override
+            public FileMapWrapper onSave() {
+                return new FileMapWrapper(FILE_MAP);
+            }
+
+            @Override
+            public void onLoad(FileMapWrapper m) {
+                transferFileMap(m.storedMap, FILE_MAP);
+            }
+
+            @Override
+            public Type savedType() {
+                return new TypeToken<FileMapWrapper>(){}.getType();
+            }
+        });
+
+
+        // =============== /SAVABLES/ =================
 
         // Add the events for Azoth's Reliquariam
         if(Loader.isModLoaded("Azoth")) {

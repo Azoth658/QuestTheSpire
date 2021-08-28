@@ -34,7 +34,7 @@ public class CharacterSaveFile {
     public static final int[] LOOKUP_TABLE = new int[MAX_LEVEL]; //index offset
 
     SpireConfig config;
-    final AbstractPlayer.PlayerClass playerClass;
+    //final AbstractPlayer.PlayerClass playerClass;
     final String filePath;
 
     public CharacterSaveFile() {
@@ -42,13 +42,20 @@ public class CharacterSaveFile {
     }
 
     public CharacterSaveFile(AbstractPlayer.PlayerClass playerClass) {
-        this.playerClass = playerClass;
+        this(playerClass.toString());
+    }
+
+    public CharacterSaveFile(String playerClass) {
         filePath = makeConfigPath(playerClass);
         try {
             config = new SpireConfig("QuestTheSpire", filePath, questTheSpireCharacterStats);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public SpireConfig getWrappedConfig() {
+        return config;
     }
 
     public int getExp() {
@@ -263,7 +270,11 @@ public class CharacterSaveFile {
     }
 
     private static String makeConfigPath(AbstractPlayer.PlayerClass pc) {
-        return "QuestTheSpire_" + pc.toString() + "_Stats" + "-Slot" + CardCrawlGame.saveSlot;
+        return makeConfigPath(pc.toString());
+    }
+
+    private static String makeConfigPath(String pc) {
+        return "QuestTheSpire_" + pc + "_Stats" + "-Slot" + CardCrawlGame.saveSlot;
     }
 
     static {
