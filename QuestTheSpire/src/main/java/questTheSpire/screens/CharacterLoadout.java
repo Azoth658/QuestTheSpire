@@ -133,7 +133,8 @@ public class CharacterLoadout {
     private void setupCustomizationOptions() {
         //First Column
         float cX = COLUMN_1_X, cY = COLUMN_Y;
-        customizationOptions.add(new ClickableLoadoutOption(cX, cY) {
+        //Max HP
+        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
             @Override
             public void onClickArrow(boolean increase) {
                 if (increase && canUpgrade()) {
@@ -176,7 +177,8 @@ public class CharacterLoadout {
             }
         });
         cY += Y_OFFSET_PER_OPTION;
-        customizationOptions.add(new ClickableLoadoutOption(cX, cY) {
+        //Gold
+        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
             @Override
             public void onClickArrow(boolean increase) {
                 if (increase && canUpgrade()) {
@@ -219,7 +221,8 @@ public class CharacterLoadout {
             }
         });
         cY += Y_OFFSET_PER_OPTION;
-        customizationOptions.add(new ClickableLoadoutOption(cX, cY) {
+        //Strength
+        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
             @Override
             public void onClickArrow(boolean increase) {
                 if (increase && canUpgrade()) {
@@ -262,7 +265,8 @@ public class CharacterLoadout {
             }
         });
         cY += Y_OFFSET_PER_OPTION;
-        customizationOptions.add(new ClickableLoadoutOption(cX, cY) {
+        //Dex
+        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
             @Override
             public void onClickArrow(boolean increase) {
                 if (increase && canUpgrade()) {
@@ -304,10 +308,9 @@ public class CharacterLoadout {
                 return 1;
             }
         });
-
-
         cY += Y_OFFSET_PER_OPTION;
-        customizationOptions.add(new ClickableLoadoutOption(cX, cY) {
+        //Focus
+        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
             @Override
             public void onClickArrow(boolean increase) {
                 if (increase && canUpgrade()) {
@@ -349,9 +352,9 @@ public class CharacterLoadout {
                 return 1;
             }
         });
-        //Start of Regen
         cY += Y_OFFSET_PER_OPTION;
-        customizationOptions.add(new ClickableLoadoutOption(cX, cY) {
+        //Regen
+        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
             @Override
             public void onClickArrow(boolean increase) {
                 if (increase && canUpgrade()) {
@@ -394,7 +397,8 @@ public class CharacterLoadout {
             }
         });
         cY += Y_OFFSET_PER_OPTION;
-        customizationOptions.add(new ClickableLoadoutOption(cX, cY) {
+        //Devotion
+        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
             @Override
             public void onClickArrow(boolean increase) {
                 if (increase && canUpgrade()) {
@@ -445,6 +449,12 @@ public class CharacterLoadout {
         //Third Column
         cX = COLUMN_3_X;
         cY = COLUMN_Y;
+    }
+
+    public void setAllButtonsNeedUpdate() {
+        for (ClickableLoadoutOption o : customizationOptions) {
+            o.updateNeeded = true;
+        }
     }
 
     public void update() {

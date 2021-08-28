@@ -14,17 +14,19 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import static questTheSpire.screens.CharacterLoadout.PERK_IMAGE;
 
 public abstract class ClickableLoadoutOption {
+    CharacterLoadout loadout;
     private String label;
     private float x;
     private float y;
     private Button lb;
     private Button rb;
-    private boolean updateNeeded;
+    public boolean updateNeeded;
     private boolean canUp, canDown;
 
-    public ClickableLoadoutOption (float x, float y) {
+    public ClickableLoadoutOption (CharacterLoadout loadout, float x, float y) {
         this.x = x;
         this.y = y;
+        this.loadout = loadout;
         label = makeLabel();
         lb = new Button(false, 0, 0);
         rb = new Button(true, 0, 0);
@@ -124,7 +126,7 @@ public abstract class ClickableLoadoutOption {
             if (this.hitbox.hovered && InputHelper.justClickedLeft && enabled) {
                 CardCrawlGame.sound.play("UI_CLICK_1");
                 onClickArrow(rightButton);
-                updateNeeded = true;
+                loadout.setAllButtonsNeedUpdate();
             }
         }
 
