@@ -29,6 +29,7 @@ import com.megacrit.cardcrawl.helpers.CardHelper;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.RelicLibrary;
 import com.megacrit.cardcrawl.localization.*;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.Sozu;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.apache.logging.log4j.LogManager;
@@ -582,14 +583,5 @@ public class QuestTheSpire implements
     @Override
     public void receivePostCreateStartingRelics(AbstractPlayer.PlayerClass playerClass, ArrayList<String> arrayList) {
         arrayList.add(PerkPoints.ID);
-        if (activeCharacterFile.getCommonRelic() > 0){
-            //add a number of common relics
-        }
-        if (activeCharacterFile.getUncommonRelic() > 0){
-            //add a number of uncommon relics
-        }
-        if (activeCharacterFile.getRareRelic() > 0){
-            //add a number of rare relics
-        }
     }
 }
