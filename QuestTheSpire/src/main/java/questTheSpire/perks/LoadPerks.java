@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.neow.NeowRoom;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.rooms.EmptyRoom;
+import questTheSpire.patches.CurrentRoomHack;
 
 import static questTheSpire.QuestTheSpire.activeCharacterFile;
 
@@ -20,6 +21,7 @@ public class LoadPerks {
         goldPerk = activeCharacterFile.getStartGold();
         AbstractDungeon.player.gainGold(goldPerk);
 
+        CurrentRoomHack.roomHack = true;
         //TODO make loading relics with can spawn criteria work
         if (activeCharacterFile.getCommonRelic() > 0){
             for (int i = 0; i <= activeCharacterFile.getCommonRelic(); i++) {
@@ -36,6 +38,6 @@ public class LoadPerks {
                 AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.RARE).instantObtain();
             }
         }
-        AbstractDungeon.currMapNode.room = null;
+        CurrentRoomHack.roomHack = false;
     }
 }
