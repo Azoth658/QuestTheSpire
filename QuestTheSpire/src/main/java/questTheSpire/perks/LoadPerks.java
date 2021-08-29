@@ -24,17 +24,17 @@ public class LoadPerks {
         CurrentRoomHack.roomHack = true;
         //TODO make loading relics with can spawn criteria work
         if (activeCharacterFile.getCommonRelic() > 0){
-            for (int i = 0; i <= activeCharacterFile.getCommonRelic(); i++) {
+            for (int i = 1; i <= activeCharacterFile.getCommonRelic(); i++) {
                 AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.COMMON).instantObtain();
             }
         }
         if (activeCharacterFile.getUncommonRelic() > 0){
-            for (int i = 0; i <= activeCharacterFile.getUncommonRelic(); i++) {
+            for (int i = 1; i <= activeCharacterFile.getUncommonRelic(); i++) {
                 AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.UNCOMMON).instantObtain();
             }
         }
         if (activeCharacterFile.getRareRelic() > 0){
-            for (int i = 0; i <= activeCharacterFile.getRareRelic(); i++) {
+            for (int i = 1; i <= activeCharacterFile.getRareRelic(); i++) {
                 AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.RARE).instantObtain();
             }
         }

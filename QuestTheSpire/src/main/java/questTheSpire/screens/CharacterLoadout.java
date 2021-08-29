@@ -522,12 +522,12 @@ public class CharacterLoadout {
 
             @Override
             public int getUpgradeCost() {
-                return 1;
+                return 3;
             }
 
             @Override
             public int getDowngradeRefund() {
-                return 1;
+                return 3;
             }
 
             @Override
@@ -566,12 +566,12 @@ public class CharacterLoadout {
 
             @Override
             public int getUpgradeCost() {
-                return 2;
+                return 4;
             }
 
             @Override
             public int getDowngradeRefund() {
-                return 2;
+                return 4;
             }
 
             @Override
@@ -611,12 +611,12 @@ public class CharacterLoadout {
 
             @Override
             public int getUpgradeCost() {
-                return 3;
+                return 5;
             }
 
             @Override
             public int getDowngradeRefund() {
-                return 3;
+                return 5;
             }
 
             @Override
