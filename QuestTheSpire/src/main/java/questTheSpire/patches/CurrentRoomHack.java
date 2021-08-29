@@ -15,7 +15,7 @@ public class CurrentRoomHack {
     @SpirePatch(clz = AbstractDungeon.class, method = "getCurrRoom")
     public static class GimmeRoom {
         @SpirePrefixPatch
-        public static SpireReturn<?> withoutCrashingPls(AbstractDungeon __instance) {
+        public static SpireReturn<?> withoutCrashingPls() {
             if (roomHack) {
                 return SpireReturn.Return(EMPTY_ROOM);
             }
