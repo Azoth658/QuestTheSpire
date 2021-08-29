@@ -38,6 +38,9 @@ public class CharacterLoadout {
     public static final String DEVOTION = TEXT[12];
     public static final String RESET = TEXT[13];
     public static final String ARTIFACT = TEXT[14];
+    public static final String COMMON_RELIC = TEXT[15];
+    public static final String UNCOMMON_RELIC = TEXT[16];
+    public static final String RARE_RELIC = TEXT[17];
     public static final AtlasRegion PERK_IMAGE = ImageMaster.CARD_COLORLESS_ORB;
     public static final AtlasRegion RESET_IMAGE = new TextureAtlas(Gdx.files.internal("powers/powers.atlas")).findRegion("128/" + "retain");
     private Texture buttonImg;
@@ -498,6 +501,140 @@ public class CharacterLoadout {
         //Third Column
         cX = COLUMN_3_X;
         cY = COLUMN_Y;
+
+        //Common Relic
+        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
+            @Override
+            public void onClickArrow(boolean increase) {
+                if (increase && canUpgrade()) {
+                    file.setCommonRelic(file.getCommonRelic() + amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints()-getUpgradeCost());
+                } else if (canDowngrade()){
+                    file.setCommonRelic(file.getCommonRelic() - amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints()+getDowngradeRefund());
+                }
+            }
+
+            @Override
+            public String makeLabel() {
+                return COMMON_RELIC+": "+file.getCommonRelic();
+            }
+
+            @Override
+            public int getUpgradeCost() {
+                return 1;
+            }
+
+            @Override
+            public int getDowngradeRefund() {
+                return 1;
+            }
+
+            @Override
+            public boolean canUpgrade() {
+                return file.getCurrentPerkPoints() >= getUpgradeCost() && file.getCommonRelic() < 5;
+            }
+
+            @Override
+            public boolean canDowngrade() {
+                return file.getCommonRelic() > 0;
+            }
+
+            @Override
+            public int amountPerLevel() {
+                return 1;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        //Uncommon Relic
+        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
+            @Override
+            public void onClickArrow(boolean increase) {
+                if (increase && canUpgrade()) {
+                    file.setUncommonRelic(file.getUncommonRelic() + amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
+                } else if (canDowngrade()) {
+                    file.setUncommonRelic(file.getUncommonRelic() - amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
+                }
+            }
+
+            @Override
+            public String makeLabel() {
+                return UNCOMMON_RELIC+": "+file.getUncommonRelic();
+            }
+
+            @Override
+            public int getUpgradeCost() {
+                return 2;
+            }
+
+            @Override
+            public int getDowngradeRefund() {
+                return 2;
+            }
+
+            @Override
+            public boolean canUpgrade() {
+                return file.getCurrentPerkPoints() >= getUpgradeCost() && file.getUncommonRelic() < 4;
+            }
+
+            @Override
+            public boolean canDowngrade() {
+                return file.getUncommonRelic() > 0;
+            }
+
+            @Override
+            public int amountPerLevel() {
+                return 1;
+            }
+
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        //Rare Relic
+        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
+            @Override
+            public void onClickArrow(boolean increase) {
+                if (increase && canUpgrade()) {
+                    file.setRareRelic(file.getRareRelic() + amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
+                } else if (canDowngrade()) {
+                    file.setRareRelic(file.getRareRelic() - amountPerLevel());
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
+                }
+            }
+
+            @Override
+            public String makeLabel() {
+                return RARE_RELIC+": "+file.getRareRelic();
+            }
+
+            @Override
+            public int getUpgradeCost() {
+                return 3;
+            }
+
+            @Override
+            public int getDowngradeRefund() {
+                return 3;
+            }
+
+            @Override
+            public boolean canUpgrade() {
+                return file.getCurrentPerkPoints() >= getUpgradeCost() && file.getCommonRelic() < 3;
+            }
+
+            @Override
+            public boolean canDowngrade() {
+                return file.getRareRelic() > 0;
+            }
+
+            @Override
+            public int amountPerLevel() {
+                return 1;
+            }
+
+        });
     }
 
     public void setAllButtonsNeedUpdate() {
@@ -579,6 +716,9 @@ public class CharacterLoadout {
             file.setReg(0);
             file.setArt(0);
             file.setDev(0);
+            file.setCommonRelic(0);
+            file.setUncommonRelic(0);
+            file.setRareRelic(0);
             this.setAllButtonsNeedUpdate();
         }
     }

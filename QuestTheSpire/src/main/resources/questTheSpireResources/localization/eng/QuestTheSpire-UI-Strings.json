@@ -54,7 +54,10 @@
       "Regen",
       "Devotion",
       "Reset",
-      "Artifact"
+      "Artifact",
+      "Common Relic",
+      "Uncommon Relic",
+      "Rare Relic"
     ]
   }
 }

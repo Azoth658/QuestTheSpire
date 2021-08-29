@@ -28,6 +28,10 @@ public class CharacterSaveFile {
     public static final String REG = "Regen";
     public static final String ART = "Artifact";
 
+    public static final String COMMON_RELIC = "CommonRelic";
+    public static final String UNCOMMON_RELIC = "UncommonRelic";
+    public static final String RARE_RELIC = "RareRelic";
+
     public static final int BASE_REQ = 500;
     public static final int REQ_INCREASE_PER_LEVEL = 250;
     public static final int MAX_LEVEL = 20;
@@ -125,6 +129,18 @@ public class CharacterSaveFile {
 
     public int getArt() {
         return config.getInt(ART);
+    }
+
+    public int getCommonRelic() {
+        return config.getInt(COMMON_RELIC);
+    }
+
+    public int getUncommonRelic() {
+        return config.getInt(UNCOMMON_RELIC);
+    }
+
+    public int getRareRelic() {
+        return config.getInt(RARE_RELIC);
     }
 
     public void setExp(int exp) {
@@ -236,6 +252,22 @@ public class CharacterSaveFile {
         saveConfig();
     }
 
+    public void setCommonRelic(int PerkCommonRelic) {
+        config.setInt(COMMON_RELIC, PerkCommonRelic);
+        saveConfig();
+    }
+
+    public void setUncommonRelic(int PerkUncommonRelic) {
+        config.setInt(UNCOMMON_RELIC, PerkUncommonRelic);
+        saveConfig();
+    }
+
+    public void setRareRelic(int PerkRareRelic) {
+        config.setInt(RARE_RELIC, PerkRareRelic);
+        saveConfig();
+    }
+
+
     public void saveConfig() {
         try {
             config.save();
@@ -305,6 +337,10 @@ public class CharacterSaveFile {
         questTheSpireCharacterStats.setProperty(DEV, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(REG, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(ART, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(COMMON_RELIC, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(UNCOMMON_RELIC, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(RARE_RELIC, String.valueOf(0));
+
         LOOKUP_TABLE[0] = BASE_REQ;
         for (int i = 1 ; i < MAX_LEVEL ; i++) {
             LOOKUP_TABLE[i] = BASE_REQ+REQ_INCREASE_PER_LEVEL*i+LOOKUP_TABLE[i-1];

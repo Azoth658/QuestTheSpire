@@ -11,6 +11,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.evacipated.cardcrawl.mod.stslib.Keyword;
+import com.evacipated.cardcrawl.mod.stslib.patches.relicInterfaces.SuperRareRelicPatch;
 import com.evacipated.cardcrawl.modthespire.Loader;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
@@ -26,6 +27,7 @@ import com.megacrit.cardcrawl.dungeons.TheBeyond;
 import com.megacrit.cardcrawl.dungeons.TheCity;
 import com.megacrit.cardcrawl.helpers.CardHelper;
 import com.megacrit.cardcrawl.helpers.FontHelper;
+import com.megacrit.cardcrawl.helpers.RelicLibrary;
 import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.relics.Sozu;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
@@ -580,5 +582,14 @@ public class QuestTheSpire implements
     @Override
     public void receivePostCreateStartingRelics(AbstractPlayer.PlayerClass playerClass, ArrayList<String> arrayList) {
         arrayList.add(PerkPoints.ID);
+        if (activeCharacterFile.getCommonRelic() > 0){
+            //add a number of common relics
+        }
+        if (activeCharacterFile.getUncommonRelic() > 0){
+            //add a number of uncommon relics
+        }
+        if (activeCharacterFile.getRareRelic() > 0){
+            //add a number of rare relics
+        }
     }
 }
