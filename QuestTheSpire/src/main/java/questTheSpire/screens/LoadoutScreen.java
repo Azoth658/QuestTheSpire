@@ -139,7 +139,7 @@ public class LoadoutScreen {
         this.updateButtons();
 
         if (this.anySelected) {
-            this.bgCharColor.a = MathHelper.fadeLerpSnap(this.bgCharColor.a, 1.0F);
+            this.bgCharColor.a = MathHelper.fadeLerpSnap(this.bgCharColor.a, 0.3F);
             this.bg_y_offset = MathHelper.fadeLerpSnap(this.bg_y_offset, -0.0F);
         } else {
             this.bgCharColor.a = MathHelper.fadeLerpSnap(this.bgCharColor.a, 0.0F);
