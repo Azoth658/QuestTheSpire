@@ -4,10 +4,7 @@ import basemod.abstracts.CustomRelic;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.powers.DexterityPower;
-import com.megacrit.cardcrawl.powers.FocusPower;
-import com.megacrit.cardcrawl.powers.RegenPower;
-import com.megacrit.cardcrawl.powers.StrengthPower;
+import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.powers.watcher.DevotionPower;
 import com.megacrit.cardcrawl.powers.watcher.MantraPower;
 import questTheSpire.QuestTheSpire;
@@ -36,6 +33,7 @@ public class PerkPoints extends CustomRelic {
         int mantraPerk;
         int devotionPerk;
         int regenPerk;
+        int artifactPerk;
 
         strPerk = activeCharacterFile.getStr();
         dexPerk = activeCharacterFile.getDex();
@@ -43,6 +41,7 @@ public class PerkPoints extends CustomRelic {
         mantraPerk = activeCharacterFile.getMan();
         devotionPerk = activeCharacterFile.getDev();
         regenPerk = activeCharacterFile.getReg();
+        artifactPerk = activeCharacterFile.getArt();
 
         if (strPerk > 0) {
             this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, strPerk), strPerk));
@@ -61,6 +60,9 @@ public class PerkPoints extends CustomRelic {
         }
         if (regenPerk > 0) {
             this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new RegenPower(AbstractDungeon.player, regenPerk), regenPerk));
+        }
+        if (artifactPerk > 0) {
+            this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new ArtifactPower(AbstractDungeon.player, artifactPerk), artifactPerk));
         }
     }
 

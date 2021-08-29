@@ -26,6 +26,7 @@ public class CharacterSaveFile {
     public static final String MAN = "Mantra";
     public static final String DEV = "Devotion";
     public static final String REG = "Regen";
+    public static final String ART = "Artifact";
 
     public static final int BASE_REQ = 500;
     public static final int REQ_INCREASE_PER_LEVEL = 250;
@@ -120,6 +121,10 @@ public class CharacterSaveFile {
 
     public int getReg() {
         return config.getInt(REG);
+    }
+
+    public int getArt() {
+        return config.getInt(ART);
     }
 
     public void setExp(int exp) {
@@ -226,6 +231,11 @@ public class CharacterSaveFile {
         saveConfig();
     }
 
+    public void setArt(int PerkArt) {
+        config.setInt(ART, PerkArt);
+        saveConfig();
+    }
+
     public void saveConfig() {
         try {
             config.save();
@@ -294,6 +304,7 @@ public class CharacterSaveFile {
         questTheSpireCharacterStats.setProperty(MAN, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(DEV, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(REG, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(ART, String.valueOf(0));
         LOOKUP_TABLE[0] = BASE_REQ;
         for (int i = 1 ; i < MAX_LEVEL ; i++) {
             LOOKUP_TABLE[i] = BASE_REQ+REQ_INCREASE_PER_LEVEL*i+LOOKUP_TABLE[i-1];
