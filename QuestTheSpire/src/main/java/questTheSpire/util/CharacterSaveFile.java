@@ -33,7 +33,7 @@ public class CharacterSaveFile {
     public static final String RARE_RELIC = "RareRelic";
 
     public static final int BASE_REQ = 500;
-    public static final int REQ_INCREASE_PER_LEVEL = 250;
+    public static final int REQ_INCREASE_PER_LEVEL = 100;
     public static final int MAX_LEVEL = 20;
     public static final int EXP_PER_PRESTIGE = 10000;
     public static final int[] LOOKUP_TABLE = new int[MAX_LEVEL]; //index offset
