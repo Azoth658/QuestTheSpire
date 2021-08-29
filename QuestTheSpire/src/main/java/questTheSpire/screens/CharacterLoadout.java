@@ -37,6 +37,7 @@ public class CharacterLoadout {
     public static final String REGEN = TEXT[11];
     public static final String DEVOTION = TEXT[12];
     public static final String RESET = TEXT[13];
+    public static final String ARTIFACT = TEXT[14];
     public static final AtlasRegion PERK_IMAGE = ImageMaster.CARD_COLORLESS_ORB;
     public static final AtlasRegion RESET_IMAGE = new TextureAtlas(Gdx.files.internal("powers/powers.atlas")).findRegion("128/" + "retain");
     private Texture buttonImg;
@@ -46,6 +47,7 @@ public class CharacterLoadout {
     public boolean selected = false;
     public boolean locked = false;
     public Hitbox hb;
+    public Hitbox resetHitbox;
     private static final float HB_W = 150.0F * Settings.scale;
     private static final int BUTTON_W = 220;
     public static final String ASSETS_DIR = "images/ui/charSelect/";
@@ -85,6 +87,7 @@ public class CharacterLoadout {
         this.name = "";
         this.name = optionName;
         this.hb = new Hitbox(HB_W, HB_W);
+        this.resetHitbox = new Hitbox(RESET_X - RESET_IMAGE.getRegionWidth()/2F, RESET_Y - RESET_IMAGE.getRegionHeight()/2F,PERK_IMAGE.getRegionWidth(), PERK_IMAGE.getRegionHeight());
         this.buttonImg = buttonImg;
         this.portraitImg = portraitImg;
         this.c = c;
@@ -103,6 +106,7 @@ public class CharacterLoadout {
         this.name = "";
         this.name = optionName;
         this.hb = new Hitbox(HB_W, HB_W);
+        this.resetHitbox = new Hitbox(RESET_X - RESET_IMAGE.getRegionWidth()/2F, RESET_Y - RESET_IMAGE.getRegionHeight()/2F,PERK_IMAGE.getRegionWidth(), PERK_IMAGE.getRegionHeight());
         this.buttonImg = ImageMaster.loadImage("images/ui/charSelect/" + buttonUrl);
         this.portraitUrl = c.getPortraitImageName();
         this.c = c;
@@ -120,6 +124,7 @@ public class CharacterLoadout {
         this.infoY = (float)Settings.HEIGHT / 2.0F;
         this.name = "";
         this.hb = new Hitbox(HB_W, HB_W);
+        this.resetHitbox = new Hitbox(RESET_X - RESET_IMAGE.getRegionWidth()/2F, RESET_Y - RESET_IMAGE.getRegionHeight()/2F,PERK_IMAGE.getRegionWidth(), PERK_IMAGE.getRegionHeight());
         this.buttonImg = ImageMaster.CHAR_SELECT_LOCKED;
         this.locked = true;
         this.c = c;
@@ -397,6 +402,50 @@ public class CharacterLoadout {
             }
         });
         cY += Y_OFFSET_PER_OPTION;
+        //Artifact
+        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
+            @Override
+            public void onClickArrow(boolean increase) {
+                if (increase && canUpgrade()) {
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
+                    file.setArt(file.getArt() + amountPerLevel());
+                } else if (canDowngrade()) {
+                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
+                    file.setArt(file.getArt() - amountPerLevel());
+                }
+            }
+
+            @Override
+            public String makeLabel() {
+                return ARTIFACT+": "+file.getArt();
+            }
+
+            @Override
+            public int getUpgradeCost() {
+                return 2 + file.getArt();
+            }
+
+            @Override
+            public int getDowngradeRefund() {
+                return file.getArt() + 1;
+            }
+
+            @Override
+            public boolean canUpgrade() {
+                return file.getCurrentPerkPoints() >= getUpgradeCost() && file.getArt() < 5;
+            }
+
+            @Override
+            public boolean canDowngrade() {
+                return file.getArt() > 0;
+            }
+
+            @Override
+            public int amountPerLevel() {
+                return 1;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
         //Devotion
         customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
             @Override
@@ -508,6 +557,30 @@ public class CharacterLoadout {
             }
         }
 
+        //TODO Make the reset button glow or something on hover and click so it it more clear it is working
+        this.resetHitbox.update();
+        if (this.resetHitbox.justHovered) {
+            CardCrawlGame.sound.playA("UI_HOVER", -0.3F);
+        }
+
+        if (InputHelper.justClickedLeft && this.resetHitbox.hovered) {
+            CardCrawlGame.sound.playA("UI_CLICK_1", -0.4F);
+            this.resetHitbox.clickStarted = true;
+        }
+
+        if (this.resetHitbox.clicked) {
+            this.resetHitbox.clicked = false;
+            file.setCurrentPerkPoints(file.getMaxPerkPoints());
+            file.setMaxHP(0);
+            file.setStartGold(0);
+            file.setStr(0);
+            file.setDex(0);
+            file.setFoc(0);
+            file.setReg(0);
+            file.setArt(0);
+            file.setDev(0);
+            this.setAllButtonsNeedUpdate();
+        }
     }
 
     private void updateInfoPosition() {
@@ -523,6 +596,7 @@ public class CharacterLoadout {
         this.renderOptionButton(sb);
         this.renderInfo(sb);
         this.hb.render(sb);
+        this.resetHitbox.render(sb);
         this.renderCustomizationOptions(sb);
     }
 
