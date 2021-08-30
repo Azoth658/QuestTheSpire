@@ -617,7 +617,6 @@ public class QuestTheSpire implements
     @Override
     public void receivePostCreateStartingRelics(AbstractPlayer.PlayerClass playerClass, ArrayList<String> arrayList) {
         arrayList.add(PerkPoints.ID);
-        arrayList.add(GreedAspect.ID);
     }
 
     @Override
