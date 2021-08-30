@@ -38,6 +38,7 @@ import questTheSpire.cards.AbstractDefaultCard;
 import questTheSpire.characters.MasteryCards;
 import questTheSpire.events.*;
 import questTheSpire.perks.LoadPerks;
+import questTheSpire.relics.DrawAspect;
 import questTheSpire.relics.FairyBlessing;
 import questTheSpire.relics.PerkPoints;
 import questTheSpire.util.CharacterSaveFile;
@@ -445,6 +446,9 @@ public class QuestTheSpire implements
 
         BaseMod.addRelic(new PerkPoints(), RelicType.SHARED);
         UnlockTracker.markRelicAsSeen(PerkPoints.ID);
+
+        BaseMod.addRelic(new DrawAspect(), RelicType.SHARED);
+        UnlockTracker.markRelicAsSeen(DrawAspect.ID);
 
         logger.info("Done adding relics!");
 

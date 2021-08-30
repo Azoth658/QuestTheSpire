@@ -44,5 +44,12 @@
     "DESCRIPTIONS": [
       "Start combat with perk point bonuses applied."
     ]
+  },
+  "questTheSpire:DrawAspect": {
+    "NAME": "Aspect of Draw",
+    "FLAVOR": "One of many aspects of power.",
+    "DESCRIPTIONS": [
+      "Draw one more card at the start of your turn."
+    ]
   }
 }
