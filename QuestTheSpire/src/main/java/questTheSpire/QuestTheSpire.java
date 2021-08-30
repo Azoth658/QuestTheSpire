@@ -351,7 +351,7 @@ public class QuestTheSpire implements
         
         // =============== EVENTS =================
 
-        BaseMod.addEvent(wanderingMerchant.ID, wanderingMerchant.class, Exordium.ID);
+        BaseMod.addEvent(new AddEventParams.Builder(wanderingMerchant.ID, wanderingMerchant.class).eventType(EventUtils.EventType.NORMAL).bonusCondition(() -> AbstractDungeon.player.gold >= 50).dungeonID(Exordium.ID).create());
         BaseMod.addEvent(druidEvent.ID, druidEvent.class, Exordium.ID);
         BaseMod.addEvent(fairyEvent.ID, fairyEvent.class, TheCity.ID);
         BaseMod.addEvent(tavernEvent.ID, tavernEvent.class, TheCity.ID);
