@@ -705,7 +705,7 @@ public class CharacterLoadout {
             this.resetHitbox.clickStarted = true;
         }
 
-        if (this.resetHitbox.clicked) {
+        if (this.resetHitbox.clicked && this.selected) {
             this.resetHitbox.clicked = false;
             file.setCurrentPerkPoints(file.getMaxPerkPoints());
             file.setMaxHP(0);
