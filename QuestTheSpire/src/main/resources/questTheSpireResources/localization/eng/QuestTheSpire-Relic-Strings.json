@@ -58,5 +58,19 @@
     "DESCRIPTIONS": [
       "At the start of each act gain 100 gold."
     ]
+  },
+  "questTheSpire:PyramidAspect": {
+    "NAME": "Aspect of the Pyramid",
+    "FLAVOR": "One of many aspects of power.",
+    "DESCRIPTIONS": [
+      "Retain 1 card per turn."
+    ]
+  },
+  "questTheSpire:DodecahedronAspect": {
+    "NAME": "Aspect of the Dodecahedron",
+    "FLAVOR": "One of many aspects of power.",
+    "DESCRIPTIONS": [
+      "When at full health gain 1 energy at the start of your turn."
+    ]
   }
 }

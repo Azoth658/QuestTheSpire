@@ -38,10 +38,7 @@ import questTheSpire.cards.AbstractDefaultCard;
 import questTheSpire.characters.MasteryCards;
 import questTheSpire.events.*;
 import questTheSpire.perks.LoadPerks;
-import questTheSpire.relics.DrawAspect;
-import questTheSpire.relics.FairyBlessing;
-import questTheSpire.relics.GreedAspect;
-import questTheSpire.relics.PerkPoints;
+import questTheSpire.relics.*;
 import questTheSpire.util.CharacterSaveFile;
 import questTheSpire.util.IDCheckDontTouchPls;
 import questTheSpire.util.TextureLoader;
@@ -454,6 +451,10 @@ public class QuestTheSpire implements
         UnlockTracker.markRelicAsSeen(DrawAspect.ID);
         BaseMod.addRelic(new GreedAspect(), RelicType.SHARED);
         UnlockTracker.markRelicAsSeen(GreedAspect.ID);
+        BaseMod.addRelic(new PyramidAspect(), RelicType.SHARED);
+        UnlockTracker.markRelicAsSeen(PyramidAspect.ID);
+        BaseMod.addRelic(new DodecahedronAspect(), RelicType.SHARED);
+        UnlockTracker.markRelicAsSeen(DodecahedronAspect.ID);
 
         logger.info("Done adding relics!");
 
