@@ -35,6 +35,7 @@ import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import questTheSpire.cards.AbstractDefaultCard;
+import questTheSpire.characters.MasteryCards;
 import questTheSpire.events.*;
 import questTheSpire.perks.LoadPerks;
 import questTheSpire.relics.FairyBlessing;
@@ -133,6 +134,20 @@ public class QuestTheSpire implements
     
     //Mod Badge - A small icon that appears in the mod settings menu next to your mod.
     public static final String BADGE_IMAGE = "questTheSpireResources/images/Badge.png";
+
+    public static final Color MASTERY = CardHelper.getColor(64.0f, 70.0f, 70.0f);
+    // Card backgrounds - The actual rectangular card.
+    private static final String ATTACK_MASTERY = "questTheSpireResources/images/512/bg_attack_default_gray.png";
+    private static final String SKILL_MASTERY = "questTheSpireResources/images/512/bg_skill_default_gray.png";
+    private static final String POWER_MASTERY = "questTheSpireResources/images/512/bg_power_default_gray.png";
+
+    private static final String ENERGY_ORB_DEFAULT_GRAY = "questTheSpireResources/images/512/card_default_gray_orb.png";
+    private static final String CARD_ENERGY_ORB = "questTheSpireResources/images/512/card_small_orb.png";
+
+    private static final String ATTACK_MASTERY_PORTRAIT = "questTheSpireResources/images/1024/bg_attack_default_gray.png";
+    private static final String SKILL_MASTERY_PORTRAIT = "questTheSpireResources/images/1024/bg_skill_default_gray.png";
+    private static final String POWER_MASTERY_PORTRAIT = "questTheSpireResources/images/1024/bg_power_default_gray.png";
+    private static final String ENERGY_ORB_DEFAULT_GRAY_PORTRAIT = "questTheSpireResources/images/1024/card_default_gray_orb.png";
     
     // =============== MAKE IMAGE PATHS =================
     
@@ -177,6 +192,15 @@ public class QuestTheSpire implements
         logger.info("Adding mod settings");
 
         // This loads the mod settings.
+
+        //Mastery
+
+        BaseMod.addColor(MasteryCards.Enums.COLOR_MASTERY, MASTERY, MASTERY, MASTERY,
+                MASTERY, MASTERY, MASTERY, MASTERY,
+                ATTACK_MASTERY, SKILL_MASTERY, POWER_MASTERY, ENERGY_ORB_DEFAULT_GRAY,
+                ATTACK_MASTERY_PORTRAIT, SKILL_MASTERY_PORTRAIT, POWER_MASTERY_PORTRAIT,
+                ENERGY_ORB_DEFAULT_GRAY_PORTRAIT, CARD_ENERGY_ORB);
+
         // The actual mod Button is added below in receivePostInitialize()
 
         questTheSpireDefaultSettings.setProperty(ENABLE_EVENT_SETTINGS, "FALSE"); // This is the default setting. It's actually set...
