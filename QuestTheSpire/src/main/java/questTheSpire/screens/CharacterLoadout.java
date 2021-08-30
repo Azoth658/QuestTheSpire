@@ -644,9 +644,10 @@ public class CharacterLoadout {
     }
 
     public void update() {
-        this.updateHitbox();
+        this.updateMainHitbox();
         this.updateInfoPosition();
         this.updateCustomizationOptions();
+        this.updateResetHitbox();
     }
 
     private void updateCustomizationOptions() {
@@ -657,7 +658,7 @@ public class CharacterLoadout {
         }
     }
 
-    private void updateHitbox() {
+    private void updateMainHitbox() {
         this.hb.update();
         if (this.hb.justHovered) {
             CardCrawlGame.sound.playA("UI_HOVER", -0.3F);
@@ -693,34 +694,39 @@ public class CharacterLoadout {
                 }
             }
         }
+    }
 
-        //TODO Make the reset button glow or something on hover and click so it it more clear it is working
-        this.resetHitbox.update();
-        if (this.resetHitbox.justHovered) {
-            CardCrawlGame.sound.playA("UI_HOVER", -0.3F);
+    private void updateResetHitbox() {
+        //TODO Make the reset button glow or something on hover and click so it it more clear it is working (Done? Added hitbox hovered check to render color)
+        if (selected) {
+            this.resetHitbox.update();
+            if (this.resetHitbox.justHovered) {
+                CardCrawlGame.sound.playA("UI_HOVER", -0.3F);
+            }
+
+            if (InputHelper.justClickedLeft && this.resetHitbox.hovered) {
+                CardCrawlGame.sound.playA("UI_CLICK_1", -0.4F);
+                this.resetHitbox.clickStarted = true;
+            }
+
+            if (this.resetHitbox.clicked) {
+                this.resetHitbox.clicked = false;
+                file.setCurrentPerkPoints(file.getMaxPerkPoints());
+                file.setMaxHP(0);
+                file.setStartGold(0);
+                file.setStr(0);
+                file.setDex(0);
+                file.setFoc(0);
+                file.setReg(0);
+                file.setArt(0);
+                file.setDev(0);
+                file.setCommonRelic(0);
+                file.setUncommonRelic(0);
+                file.setRareRelic(0);
+                this.setAllButtonsNeedUpdate();
+            }
         }
 
-        if (InputHelper.justClickedLeft && this.resetHitbox.hovered) {
-            CardCrawlGame.sound.playA("UI_CLICK_1", -0.4F);
-            this.resetHitbox.clickStarted = true;
-        }
-
-        if (this.resetHitbox.clicked && this.selected) {
-            this.resetHitbox.clicked = false;
-            file.setCurrentPerkPoints(file.getMaxPerkPoints());
-            file.setMaxHP(0);
-            file.setStartGold(0);
-            file.setStr(0);
-            file.setDex(0);
-            file.setFoc(0);
-            file.setReg(0);
-            file.setArt(0);
-            file.setDev(0);
-            file.setCommonRelic(0);
-            file.setUncommonRelic(0);
-            file.setRareRelic(0);
-            this.setAllButtonsNeedUpdate();
-        }
     }
 
     private void updateInfoPosition() {
@@ -736,8 +742,14 @@ public class CharacterLoadout {
         this.renderOptionButton(sb);
         this.renderInfo(sb);
         this.hb.render(sb);
-        this.resetHitbox.render(sb);
+        this.renderResetHitbox(sb);
         this.renderCustomizationOptions(sb);
+    }
+
+    private void renderResetHitbox(SpriteBatch sb) {
+        if (selected) {
+            this.resetHitbox.render(sb);
+        }
     }
 
     private void renderCustomizationOptions(SpriteBatch sb) {
@@ -776,7 +788,7 @@ public class CharacterLoadout {
             sb.draw(PERK_IMAGE, PERK_X - PERK_IMAGE.getRegionWidth()/2F, PERK_Y - PERK_IMAGE.getRegionHeight()/2F, PERK_IMAGE.getRegionWidth()/2F, PERK_IMAGE.getRegionHeight()/2F, PERK_IMAGE.getRegionWidth(), PERK_IMAGE.getRegionHeight(), Settings.scale, Settings.scale, 0.0F);
             FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, file.getCurrentPerkPoints()+" / "+file.getMaxPerkPoints(), PERK_X+3* PERK_IMAGE.getRegionWidth()/2f, PERK_Y, Settings.GOLD_COLOR, Settings.scale);
             sb.draw(RESET_IMAGE, RESET_X - RESET_IMAGE.getRegionWidth()/2F, RESET_Y - RESET_IMAGE.getRegionHeight()/2F, RESET_IMAGE.getRegionWidth()/2F, RESET_IMAGE.getRegionHeight()/2F, RESET_IMAGE.getRegionWidth(), RESET_IMAGE.getRegionHeight(), (float) PERK_IMAGE.getRegionWidth()/ RESET_IMAGE.getRegionWidth()*Settings.scale, (float) PERK_IMAGE.getRegionHeight()/ RESET_IMAGE.getRegionHeight()*Settings.scale, 0.0F);
-            FontHelper.renderFontRightAligned(sb, FontHelper.charTitleFont, RESET, RESET_X- PERK_IMAGE.getRegionWidth(), RESET_Y, Settings.GOLD_COLOR);
+            FontHelper.renderFontRightAligned(sb, FontHelper.charTitleFont, RESET, RESET_X- PERK_IMAGE.getRegionWidth(), RESET_Y, resetHitbox.hovered ? Settings.BLUE_TEXT_COLOR : Settings.GOLD_COLOR);
 
         }
     }
