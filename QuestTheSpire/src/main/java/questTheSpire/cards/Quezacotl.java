@@ -18,6 +18,7 @@ import questTheSpire.QuestTheSpire;
 import questTheSpire.actions.DecreaseMaxHealthAction;
 
 import static questTheSpire.QuestTheSpire.makeCardPath;
+import static questTheSpire.characters.MasteryCards.Enums.COLOR_MASTERY;
 
 public class Quezacotl extends AbstractDynamicCard {
 
@@ -35,7 +36,7 @@ public class Quezacotl extends AbstractDynamicCard {
     private static final CardRarity RARITY = CardRarity.SPECIAL;
     private static final CardTarget TARGET = CardTarget.ALL_ENEMY;
     private static final CardType TYPE = CardType.ATTACK;
-    public static final CardColor COLOR = CardColor.COLORLESS;
+    public static final CardColor COLOR = COLOR_MASTERY;
 
     private static final int COST = 3;
 

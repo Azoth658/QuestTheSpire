@@ -9,6 +9,7 @@ import questTheSpire.QuestTheSpire;
 import questTheSpire.actions.IncreaseMaxHealthAction;
 
 import static questTheSpire.QuestTheSpire.makeCardPath;
+import static questTheSpire.characters.MasteryCards.Enums.COLOR_MASTERY;
 
 public class Phoenix extends AbstractDynamicCard {
 
@@ -28,7 +29,7 @@ public class Phoenix extends AbstractDynamicCard {
     private static final CardRarity RARITY = CardRarity.SPECIAL;
     private static final CardTarget TARGET = CardTarget.SELF;
     private static final CardType TYPE = CardType.SKILL;
-    public static final CardColor COLOR = CardColor.COLORLESS;
+    public static final CardColor COLOR = COLOR_MASTERY;
 
     private static final int COST = 2;
     private static final int UPGRADE_COST = 1;

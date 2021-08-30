@@ -12,6 +12,7 @@ import questTheSpire.QuestTheSpire;
 import questTheSpire.actions.DecreaseMaxHealthAction;
 
 import static questTheSpire.QuestTheSpire.makeCardPath;
+import static questTheSpire.characters.MasteryCards.Enums.COLOR_MASTERY;
 
 public class Ifrit extends AbstractDynamicCard {
 
@@ -29,7 +30,7 @@ public class Ifrit extends AbstractDynamicCard {
     private static final CardRarity RARITY = CardRarity.SPECIAL;
     private static final CardTarget TARGET = CardTarget.ENEMY;
     private static final CardType TYPE = CardType.ATTACK;
-    public static final CardColor COLOR = CardColor.COLORLESS;
+    public static final CardColor COLOR = COLOR_MASTERY;
 
     private static final int COST = 3;
 

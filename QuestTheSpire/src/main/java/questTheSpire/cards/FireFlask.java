@@ -18,6 +18,7 @@ import questTheSpire.QuestTheSpire;
 import static com.megacrit.cardcrawl.cards.AbstractCard.CardColor.COLORLESS;
 import static com.megacrit.cardcrawl.cards.AbstractCard.CardColor.RED;
 import static questTheSpire.QuestTheSpire.makeCardPath;
+import static questTheSpire.characters.MasteryCards.Enums.COLOR_MASTERY;
 
 // public class ${NAME} extends AbstractDynamicCard
 // Remove this line when you make a template. Refer to https://github.com/daviscook477/BaseMod/wiki/AutoAdd if you want to know what it does.
@@ -38,7 +39,7 @@ public class FireFlask extends AbstractDynamicCard {
     private static final CardRarity RARITY = CardRarity.SPECIAL; //  Up to you, I like auto-complete on these
     private static final CardTarget TARGET = CardTarget.ALL_ENEMY;  //   since they don't change much.
     private static final CardType TYPE = CardType.ATTACK;       //
-    public static final CardColor COLOR = COLORLESS;
+    public static final CardColor COLOR = COLOR_MASTERY;
 
 
 
