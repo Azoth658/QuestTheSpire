@@ -58,7 +58,6 @@
 //                    if (m.getClassName().equals(Hitbox.class.getName()) && m.getMethodName().equals("move")) {
 //                        m.replace("{" +
 //                                //$1 refers to the first input parameter of the method, in this case the float x, $2 is the second param, y
-//                                //TODO You need need to edit the reference location
 //                                "$1 = questTheSpire.patches.YeetAscensionText.scrunch($1,false);" +
 //                                "$2 = $2 + questTheSpire.patches.YeetAscensionText.Y_OFFSET;" +
 //                                //Call the method as normal
@@ -81,7 +80,6 @@
 //                    if (m.getClassName().equals(FontHelper.class.getName()) && m.getMethodName().equals("renderFontCentered")) {
 //                        m.replace("{" +
 //                                //Same dice but x and y are now 4 and 5
-//                                //TODO edit reference location
 //                                "$4 = questTheSpire.patches.YeetAscensionText.scrunchByColor($4,$6);" +
 //                                "$5 = $5 + questTheSpire.patches.YeetAscensionText.Y_OFFSET;" +
 //                                "$proceed($$);" +
@@ -99,7 +97,6 @@
 //                    if (m.getClassName().equals(SpriteBatch.class.getName()) && m.getMethodName().equals("draw")) {
 //                        m.replace("{" +
 //                                //Only do the offset if its the tickbox image pieces
-//                                //TODO edit reference location
 //                                "if(questTheSpire.patches.YeetAscensionText.validDrawTarget($1)) {" +
 //                                "$2 = questTheSpire.patches.YeetAscensionText.scrunch($2,true);" +
 //                                "$3 = $3 + questTheSpire.patches.YeetAscensionText.Y_OFFSET;" +
