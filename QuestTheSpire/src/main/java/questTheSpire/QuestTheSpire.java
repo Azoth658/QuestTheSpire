@@ -40,6 +40,7 @@ import questTheSpire.events.*;
 import questTheSpire.perks.LoadPerks;
 import questTheSpire.relics.DrawAspect;
 import questTheSpire.relics.FairyBlessing;
+import questTheSpire.relics.GreedAspect;
 import questTheSpire.relics.PerkPoints;
 import questTheSpire.util.CharacterSaveFile;
 import questTheSpire.util.IDCheckDontTouchPls;
@@ -69,6 +70,7 @@ public class QuestTheSpire implements
         PostInitializeSubscriber,
         PostDungeonInitializeSubscriber,
         PostCreateStartingRelicsSubscriber,
+        StartActSubscriber,
         StartGameSubscriber {
 
     public static final Logger logger = LogManager.getLogger(QuestTheSpire.class.getName());
@@ -109,6 +111,7 @@ public class QuestTheSpire implements
     //Info on all characters that have been integrated
     private static final HashMap<Integer, HashSet<String>> FILE_MAP = new HashMap<>();
     private static final String FILE_MAP_SAVE_STRING = makeID("FileMap");
+
     private static class FileMapWrapper {
         public final HashMap<Integer, HashSet<String>> storedMap = new HashMap<>();
 
@@ -449,6 +452,8 @@ public class QuestTheSpire implements
 
         BaseMod.addRelic(new DrawAspect(), RelicType.SHARED);
         UnlockTracker.markRelicAsSeen(DrawAspect.ID);
+        BaseMod.addRelic(new GreedAspect(), RelicType.SHARED);
+        UnlockTracker.markRelicAsSeen(GreedAspect.ID);
 
         logger.info("Done adding relics!");
 
@@ -611,5 +616,14 @@ public class QuestTheSpire implements
     @Override
     public void receivePostCreateStartingRelics(AbstractPlayer.PlayerClass playerClass, ArrayList<String> arrayList) {
         arrayList.add(PerkPoints.ID);
+        arrayList.add(GreedAspect.ID);
     }
+
+    @Override
+    public void receiveStartAct() {
+        if (AbstractDungeon.player.hasRelic(GreedAspect.ID)){
+            AbstractDungeon.player.getRelic(GreedAspect.ID).onTrigger();
+        }
+    }
+
 }

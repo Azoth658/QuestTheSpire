@@ -51,5 +51,12 @@
     "DESCRIPTIONS": [
       "Draw one more card at the start of your turn."
     ]
+  },
+  "questTheSpire:GreedAspect": {
+    "NAME": "Aspect of Greed",
+    "FLAVOR": "One of many aspects of power.",
+    "DESCRIPTIONS": [
+      "At the start of each act gain 100 gold."
+    ]
   }
 }
