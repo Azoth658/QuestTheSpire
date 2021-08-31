@@ -307,7 +307,12 @@ public class CharacterSaveFile {
             return currentExp;
         } else {
             int l = calculateLevel(currentExp);
-            return currentExp - LOOKUP_TABLE[l-2];
+            if (l == 20){
+                return currentExp-LOOKUP_TABLE[l-1];
+            }
+            else {
+                return currentExp - LOOKUP_TABLE[l-2];
+            }
         }
     }
 
