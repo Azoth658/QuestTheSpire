@@ -785,8 +785,7 @@ public class CharacterLoadout {
     public void renderMasteryCard(SpriteBatch sb){
         if (selected) {
             clickableMasteryCard.current_x = Settings.WIDTH/2f ;
-            clickableMasteryCard.current_y = Settings.HEIGHT/2f;
-            clickableMasteryCard.drawScale = scale / 1.5f;
+            clickableMasteryCard.current_y = Settings.HEIGHT/1.7f;
             clickableMasteryCard.render(sb);
             this.clickableMasteryCard.hb.render(sb);
         }
