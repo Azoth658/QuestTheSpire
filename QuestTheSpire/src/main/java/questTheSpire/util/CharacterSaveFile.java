@@ -27,6 +27,7 @@ public class CharacterSaveFile {
     public static final String DEV = "Devotion";
     public static final String REG = "Regen";
     public static final String ART = "Artifact";
+    public static final String HOARDER = "HoarderAspect";
 
     public static final String COMMON_RELIC = "CommonRelic";
     public static final String UNCOMMON_RELIC = "UncommonRelic";
@@ -130,6 +131,8 @@ public class CharacterSaveFile {
     public int getArt() {
         return config.getInt(ART);
     }
+
+    public int getHoarderAspect(){return config.getInt(HOARDER);}
 
     public int getCommonRelic() {
         return config.getInt(COMMON_RELIC);
@@ -252,6 +255,11 @@ public class CharacterSaveFile {
         saveConfig();
     }
 
+    public void setHoarderAspect(int AspectHoarder) {
+        config.setInt(HOARDER, AspectHoarder);
+        saveConfig();
+    }
+
     public void setCommonRelic(int PerkCommonRelic) {
         config.setInt(COMMON_RELIC, PerkCommonRelic);
         saveConfig();
@@ -307,7 +315,12 @@ public class CharacterSaveFile {
             return currentExp;
         } else {
             int l = calculateLevel(currentExp);
-            return currentExp - LOOKUP_TABLE[l-2];
+            if (l == 20){
+                return currentExp-LOOKUP_TABLE[l-1];
+            }
+            else {
+                return currentExp - LOOKUP_TABLE[l-2];
+            }
         }
     }
 
@@ -337,6 +350,7 @@ public class CharacterSaveFile {
         questTheSpireCharacterStats.setProperty(DEV, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(REG, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(ART, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(HOARDER, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(COMMON_RELIC, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(UNCOMMON_RELIC, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(RARE_RELIC, String.valueOf(0));

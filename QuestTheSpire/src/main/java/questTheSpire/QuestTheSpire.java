@@ -38,8 +38,7 @@ import questTheSpire.cards.AbstractDefaultCard;
 import questTheSpire.characters.MasteryCards;
 import questTheSpire.events.*;
 import questTheSpire.perks.LoadPerks;
-import questTheSpire.relics.FairyBlessing;
-import questTheSpire.relics.PerkPoints;
+import questTheSpire.relics.*;
 import questTheSpire.util.CharacterSaveFile;
 import questTheSpire.util.IDCheckDontTouchPls;
 import questTheSpire.util.TextureLoader;
@@ -57,6 +56,7 @@ import java.util.HashSet;
 import java.util.Properties;
 
 import static com.megacrit.cardcrawl.characters.AbstractPlayer.PlayerClass.IRONCLAD;
+import static questTheSpire.util.CharacterSaveFile.HOARDER;
 
 @SpireInitializer
 public class QuestTheSpire implements
@@ -68,6 +68,7 @@ public class QuestTheSpire implements
         PostInitializeSubscriber,
         PostDungeonInitializeSubscriber,
         PostCreateStartingRelicsSubscriber,
+        StartActSubscriber,
         StartGameSubscriber {
 
     public static final Logger logger = LogManager.getLogger(QuestTheSpire.class.getName());
@@ -108,6 +109,7 @@ public class QuestTheSpire implements
     //Info on all characters that have been integrated
     private static final HashMap<Integer, HashSet<String>> FILE_MAP = new HashMap<>();
     private static final String FILE_MAP_SAVE_STRING = makeID("FileMap");
+
     private static class FileMapWrapper {
         public final HashMap<Integer, HashSet<String>> storedMap = new HashMap<>();
 
@@ -446,6 +448,17 @@ public class QuestTheSpire implements
         BaseMod.addRelic(new PerkPoints(), RelicType.SHARED);
         UnlockTracker.markRelicAsSeen(PerkPoints.ID);
 
+        BaseMod.addRelic(new DrawAspect(), RelicType.SHARED);
+        UnlockTracker.markRelicAsSeen(DrawAspect.ID);
+        BaseMod.addRelic(new GreedAspect(), RelicType.SHARED);
+        UnlockTracker.markRelicAsSeen(GreedAspect.ID);
+        BaseMod.addRelic(new PyramidAspect(), RelicType.SHARED);
+        UnlockTracker.markRelicAsSeen(PyramidAspect.ID);
+        BaseMod.addRelic(new DodecahedronAspect(), RelicType.SHARED);
+        UnlockTracker.markRelicAsSeen(DodecahedronAspect.ID);
+        BaseMod.addRelic(new HoarderAspect(), RelicType.SHARED);
+        UnlockTracker.markRelicAsSeen(HoarderAspect.ID);
+
         logger.info("Done adding relics!");
 
     }
@@ -591,6 +604,9 @@ public class QuestTheSpire implements
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if (AbstractDungeon.player.hasRelic(HoarderAspect.ID)){
+            activeCharacterFile.setHoarderAspect(AbstractDungeon.player.gold);
+        } else activeCharacterFile.setHoarderAspect(0);
 
     }
 
@@ -608,4 +624,15 @@ public class QuestTheSpire implements
     public void receivePostCreateStartingRelics(AbstractPlayer.PlayerClass playerClass, ArrayList<String> arrayList) {
         arrayList.add(PerkPoints.ID);
     }
+
+    @Override
+    public void receiveStartAct() {
+        if (AbstractDungeon.player.hasRelic(GreedAspect.ID)){
+            AbstractDungeon.player.getRelic(GreedAspect.ID).onTrigger();
+        }
+        if (AbstractDungeon.player.hasRelic(HoarderAspect.ID)){
+            AbstractDungeon.player.getRelic(HoarderAspect.ID).onTrigger();
+        }
+    }
+
 }

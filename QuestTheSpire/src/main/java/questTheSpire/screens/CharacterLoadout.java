@@ -7,18 +7,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.*;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import questTheSpire.QuestTheSpire;
+import questTheSpire.cards.BlankCard;
 import questTheSpire.patches.MainMenuPatches;
 import questTheSpire.util.CharacterSaveFile;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+import static com.megacrit.cardcrawl.core.Settings.scale;
+import static questTheSpire.characters.MasteryCards.Enums.COLOR_MASTERY;
 
 public class CharacterLoadout {
     private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(QuestTheSpire.makeID("LoadoutScreen"));
@@ -51,13 +59,13 @@ public class CharacterLoadout {
     public boolean locked = false;
     public Hitbox hb;
     public Hitbox resetHitbox;
-    private static final float HB_W = 150.0F * Settings.scale;
+    private static final float HB_W = 150.0F * scale;
     private static final int BUTTON_W = 220;
     public static final String ASSETS_DIR = "images/ui/charSelect/";
     private static final Color BLACK_OUTLINE_COLOR = new Color(0.0F, 0.0F, 0.0F, 0.5F);
     private Color glowColor = new Color(1.0F, 0.8F, 0.2F, 0.0F);
     private static final int ICON_W = 64;
-    private static final float DEST_INFO_X = 200.0F * Settings.scale;
+    private static final float DEST_INFO_X = 200.0F * scale;
     private static final float START_INFO_X = -800.0F * Settings.xScale;
     private float infoX;
     private float infoY;
@@ -70,12 +78,12 @@ public class CharacterLoadout {
     //private int unlocksRemaining;
     //private int maxAscensionLevel;
     private final ArrayList<ClickableLoadoutOption> customizationOptions = new ArrayList<>();
-    private static final float PERK_X = 100f * Settings.scale;
-    private static final float PERK_Y = Settings.HEIGHT - 100f * Settings.scale;
-    private static final float RESET_X = Settings.WIDTH - 100f * Settings.scale;
-    private static final float RESET_Y = Settings.HEIGHT - 100f * Settings.scale;
-    private static final float Y_OFFSET_PER_OPTION = -50f * Settings.scale;
-    private static final float NAME_Y = Settings.HEIGHT - 75f * Settings.scale;
+    private static final float PERK_X = 100f * scale;
+    private static final float PERK_Y = Settings.HEIGHT - 100f * scale;
+    private static final float RESET_X = Settings.WIDTH - 100f * scale;
+    private static final float RESET_Y = Settings.HEIGHT - 100f * scale;
+    private static final float Y_OFFSET_PER_OPTION = -50f * scale;
+    private static final float NAME_Y = Settings.HEIGHT - 75f * scale;
     private static final float LEVEL_Y = NAME_Y + Y_OFFSET_PER_OPTION;
     private static final float HEADER_Y = LEVEL_Y + 1.5f*Y_OFFSET_PER_OPTION;
     private static final float COLUMN_1_X = Settings.WIDTH/6f;
@@ -83,6 +91,7 @@ public class CharacterLoadout {
     private static final float COLUMN_3_X = 5*Settings.WIDTH/6f;
     private static final float COLUMN_Y = HEADER_Y + Y_OFFSET_PER_OPTION;
     private CharacterSaveFile file;
+    private final AbstractCard clickableMasteryCard = new BlankCard();
 
     public CharacterLoadout(String optionName, AbstractPlayer c, Texture buttonImg, Texture portraitImg) {
         this.infoX = START_INFO_X;
@@ -648,6 +657,7 @@ public class CharacterLoadout {
         this.updateInfoPosition();
         this.updateCustomizationOptions();
         this.updateResetHitbox();
+        this.updateMasteryHitbox();
     }
 
     private void updateCustomizationOptions() {
@@ -724,6 +734,31 @@ public class CharacterLoadout {
                 file.setUncommonRelic(0);
                 file.setRareRelic(0);
                 this.setAllButtonsNeedUpdate();
+
+            }
+        }
+
+    }
+
+    private void updateMasteryHitbox() {
+        if (selected) {
+            this.clickableMasteryCard.hb.update();
+            if (this.clickableMasteryCard.hb.justHovered) {
+                CardCrawlGame.sound.playA("UI_HOVER", -0.3F);
+            }
+
+            if (InputHelper.justClickedLeft && this.clickableMasteryCard.hb.hovered) {
+                CardCrawlGame.sound.playA("UI_CLICK_1", -0.4F);
+                this.clickableMasteryCard.hb.clickStarted = true;
+            }
+
+            if (this.clickableMasteryCard.hb.clicked) {
+                    CardGroup group = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
+                    for (AbstractCard c : CardLibrary.getAllCards().stream().filter(c -> c.color == COLOR_MASTERY).collect(Collectors.toList())) {
+                        group.addToBottom(c);
+                        }
+                    AbstractDungeon.gridSelectScreen.open(group, 1, "TEST", false);
+
             }
         }
 
@@ -744,6 +779,16 @@ public class CharacterLoadout {
         this.hb.render(sb);
         this.renderResetHitbox(sb);
         this.renderCustomizationOptions(sb);
+        this.renderMasteryCard(sb);
+    }
+
+    public void renderMasteryCard(SpriteBatch sb){
+        if (selected) {
+            clickableMasteryCard.current_x = Settings.WIDTH/2f ;
+            clickableMasteryCard.current_y = Settings.HEIGHT/1.7f;
+            clickableMasteryCard.render(sb);
+            this.clickableMasteryCard.hb.render(sb);
+        }
     }
 
     private void renderResetHitbox(SpriteBatch sb) {
@@ -768,28 +813,27 @@ public class CharacterLoadout {
             sb.setColor(BLACK_OUTLINE_COLOR);
         }
 
-        sb.draw(ImageMaster.CHAR_OPT_HIGHLIGHT, this.hb.cX - BUTTON_W/2F, this.hb.cY - BUTTON_W/2F, BUTTON_W/2F, BUTTON_W/2F, BUTTON_W, BUTTON_W, Settings.scale, Settings.scale, 0.0F, 0, 0, BUTTON_W, BUTTON_W, false, false);
+        sb.draw(ImageMaster.CHAR_OPT_HIGHLIGHT, this.hb.cX - BUTTON_W/2F, this.hb.cY - BUTTON_W/2F, BUTTON_W/2F, BUTTON_W/2F, BUTTON_W, BUTTON_W, scale, scale, 0.0F, 0, 0, BUTTON_W, BUTTON_W, false, false);
         if (!this.selected && !this.hb.hovered) {
             sb.setColor(Color.LIGHT_GRAY);
         } else {
             sb.setColor(Color.WHITE);
         }
 
-        sb.draw(this.buttonImg, this.hb.cX - BUTTON_W/2F, this.hb.cY - BUTTON_W/2F, BUTTON_W/2F, BUTTON_W/2F, BUTTON_W, BUTTON_W, Settings.scale, Settings.scale, 0.0F, 0, 0, BUTTON_W, BUTTON_W, false, false);
+        sb.draw(this.buttonImg, this.hb.cX - BUTTON_W/2F, this.hb.cY - BUTTON_W/2F, BUTTON_W/2F, BUTTON_W/2F, BUTTON_W, BUTTON_W, scale, scale, 0.0F, 0, 0, BUTTON_W, BUTTON_W, false, false);
     }
 
     private void renderInfo(SpriteBatch sb) {
         if (!this.name.equals("") && selected) {
-            FontHelper.renderFontCentered(sb, FontHelper.bannerNameFont, this.name, COLUMN_2_X, NAME_Y, Settings.GOLD_COLOR, Settings.scale);
-            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, this.levelInfo, COLUMN_2_X, LEVEL_Y, Settings.BLUE_RELIC_COLOR, Settings.scale);
-            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, CORE_BUFFS, COLUMN_1_X, HEADER_Y, Settings.GOLD_COLOR, Settings.scale);
-            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, ASPECTS, COLUMN_2_X, HEADER_Y, Settings.GOLD_COLOR, Settings.scale);
-            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, EXTRA_STUFF, COLUMN_3_X, HEADER_Y, Settings.GOLD_COLOR, Settings.scale);
-            sb.draw(PERK_IMAGE, PERK_X - PERK_IMAGE.getRegionWidth()/2F, PERK_Y - PERK_IMAGE.getRegionHeight()/2F, PERK_IMAGE.getRegionWidth()/2F, PERK_IMAGE.getRegionHeight()/2F, PERK_IMAGE.getRegionWidth(), PERK_IMAGE.getRegionHeight(), Settings.scale, Settings.scale, 0.0F);
-            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, file.getCurrentPerkPoints()+" / "+file.getMaxPerkPoints(), PERK_X+3* PERK_IMAGE.getRegionWidth()/2f, PERK_Y, Settings.GOLD_COLOR, Settings.scale);
-            sb.draw(RESET_IMAGE, RESET_X - RESET_IMAGE.getRegionWidth()/2F, RESET_Y - RESET_IMAGE.getRegionHeight()/2F, RESET_IMAGE.getRegionWidth()/2F, RESET_IMAGE.getRegionHeight()/2F, RESET_IMAGE.getRegionWidth(), RESET_IMAGE.getRegionHeight(), (float) PERK_IMAGE.getRegionWidth()/ RESET_IMAGE.getRegionWidth()*Settings.scale, (float) PERK_IMAGE.getRegionHeight()/ RESET_IMAGE.getRegionHeight()*Settings.scale, 0.0F);
+            FontHelper.renderFontCentered(sb, FontHelper.bannerNameFont, this.name, COLUMN_2_X, NAME_Y, Settings.GOLD_COLOR, scale);
+            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, this.levelInfo, COLUMN_2_X, LEVEL_Y, Settings.BLUE_RELIC_COLOR, scale);
+            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, CORE_BUFFS, COLUMN_1_X, HEADER_Y, Settings.GOLD_COLOR, scale);
+            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, ASPECTS, COLUMN_2_X, HEADER_Y, Settings.GOLD_COLOR, scale);
+            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, EXTRA_STUFF, COLUMN_3_X, HEADER_Y, Settings.GOLD_COLOR, scale);
+            sb.draw(PERK_IMAGE, PERK_X - PERK_IMAGE.getRegionWidth()/2F, PERK_Y - PERK_IMAGE.getRegionHeight()/2F, PERK_IMAGE.getRegionWidth()/2F, PERK_IMAGE.getRegionHeight()/2F, PERK_IMAGE.getRegionWidth(), PERK_IMAGE.getRegionHeight(), scale, scale, 0.0F);
+            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, file.getCurrentPerkPoints()+" / "+file.getMaxPerkPoints(), PERK_X+3* PERK_IMAGE.getRegionWidth()/2f, PERK_Y, Settings.GOLD_COLOR, scale);
+            sb.draw(RESET_IMAGE, RESET_X - RESET_IMAGE.getRegionWidth()/2F, RESET_Y - RESET_IMAGE.getRegionHeight()/2F, RESET_IMAGE.getRegionWidth()/2F, RESET_IMAGE.getRegionHeight()/2F, RESET_IMAGE.getRegionWidth(), RESET_IMAGE.getRegionHeight(), (float) PERK_IMAGE.getRegionWidth()/ RESET_IMAGE.getRegionWidth()* scale, (float) PERK_IMAGE.getRegionHeight()/ RESET_IMAGE.getRegionHeight()* scale, 0.0F);
             FontHelper.renderFontRightAligned(sb, FontHelper.charTitleFont, RESET, RESET_X- PERK_IMAGE.getRegionWidth(), RESET_Y, resetHitbox.hovered ? Settings.BLUE_TEXT_COLOR : Settings.GOLD_COLOR);
-
         }
     }
 

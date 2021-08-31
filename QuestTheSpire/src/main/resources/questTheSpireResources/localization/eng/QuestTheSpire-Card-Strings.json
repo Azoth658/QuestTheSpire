@@ -96,6 +96,10 @@
   "questTheSpire:Excalibur": {
     "NAME": "Excalibur",
     "DESCRIPTION": "Deal !D! Damage. NL Remove all Buffs and Debuffs. NL Exhaust"
+  },
+  "questTheSpire:BlankCard": {
+    "NAME": "Mastery Card Selection",
+    "DESCRIPTION": ""
   }
 }
 

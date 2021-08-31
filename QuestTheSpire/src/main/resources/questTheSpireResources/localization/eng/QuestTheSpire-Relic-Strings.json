@@ -44,5 +44,40 @@
     "DESCRIPTIONS": [
       "Start combat with perk point bonuses applied."
     ]
+  },
+  "questTheSpire:DrawAspect": {
+    "NAME": "Aspect of Draw",
+    "FLAVOR": "One of many aspects of power.",
+    "DESCRIPTIONS": [
+      "Draw one more card at the start of your turn."
+    ]
+  },
+  "questTheSpire:GreedAspect": {
+    "NAME": "Aspect of Greed",
+    "FLAVOR": "One of many aspects of power.",
+    "DESCRIPTIONS": [
+      "At the start of each act gain 100 gold."
+    ]
+  },
+  "questTheSpire:PyramidAspect": {
+    "NAME": "Aspect of the Pyramid",
+    "FLAVOR": "One of many aspects of power.",
+    "DESCRIPTIONS": [
+      "Retain 1 card per turn."
+    ]
+  },
+  "questTheSpire:DodecahedronAspect": {
+    "NAME": "Aspect of the Dodecahedron",
+    "FLAVOR": "One of many aspects of power.",
+    "DESCRIPTIONS": [
+      "When at full health gain 1 energy at the start of your turn."
+    ]
+  },
+  "questTheSpire:HoarderAspect": {
+    "NAME": "Aspect of the Hoarder",
+    "FLAVOR": "One of many aspects of power.",
+    "DESCRIPTIONS": [
+      "You retain this character's gold at the end of this run for this characters next run."
+    ]
   }
 }
