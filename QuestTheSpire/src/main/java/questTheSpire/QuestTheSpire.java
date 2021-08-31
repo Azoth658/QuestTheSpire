@@ -56,6 +56,7 @@ import java.util.HashSet;
 import java.util.Properties;
 
 import static com.megacrit.cardcrawl.characters.AbstractPlayer.PlayerClass.IRONCLAD;
+import static questTheSpire.util.CharacterSaveFile.HOARDER;
 
 @SpireInitializer
 public class QuestTheSpire implements
@@ -455,6 +456,8 @@ public class QuestTheSpire implements
         UnlockTracker.markRelicAsSeen(PyramidAspect.ID);
         BaseMod.addRelic(new DodecahedronAspect(), RelicType.SHARED);
         UnlockTracker.markRelicAsSeen(DodecahedronAspect.ID);
+        BaseMod.addRelic(new HoarderAspect(), RelicType.SHARED);
+        UnlockTracker.markRelicAsSeen(HoarderAspect.ID);
 
         logger.info("Done adding relics!");
 
@@ -601,6 +604,9 @@ public class QuestTheSpire implements
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if (AbstractDungeon.player.hasRelic(HoarderAspect.ID)){
+            activeCharacterFile.setHoarderAspect(AbstractDungeon.player.gold);
+        } else activeCharacterFile.setHoarderAspect(0);
 
     }
 
@@ -623,6 +629,9 @@ public class QuestTheSpire implements
     public void receiveStartAct() {
         if (AbstractDungeon.player.hasRelic(GreedAspect.ID)){
             AbstractDungeon.player.getRelic(GreedAspect.ID).onTrigger();
+        }
+        if (AbstractDungeon.player.hasRelic(HoarderAspect.ID)){
+            AbstractDungeon.player.getRelic(HoarderAspect.ID).onTrigger();
         }
     }
 
