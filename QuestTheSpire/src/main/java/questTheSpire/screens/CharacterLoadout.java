@@ -19,6 +19,9 @@ import questTheSpire.patches.MainMenuPatches;
 import questTheSpire.util.CharacterSaveFile;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+import static questTheSpire.characters.MasteryCards.Enums.COLOR_MASTERY;
 
 public class CharacterLoadout {
     private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(QuestTheSpire.makeID("LoadoutScreen"));
@@ -724,6 +727,15 @@ public class CharacterLoadout {
                 file.setUncommonRelic(0);
                 file.setRareRelic(0);
                 this.setAllButtonsNeedUpdate();
+
+
+                /* MASTERY CARD SELECTION
+                    CardGroup group = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
+                    for (AbstractCard c : CardLibrary.getAllCards().stream().filter(c -> c.color == COLOR_MASTERY).collect(Collectors.toList())) {
+                        group.addToBottom(c);
+                        }
+                    AbstractDungeon.gridSelectScreen.open(group, 1, "TEST", false);
+                */
             }
         }
 
@@ -789,7 +801,6 @@ public class CharacterLoadout {
             FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, file.getCurrentPerkPoints()+" / "+file.getMaxPerkPoints(), PERK_X+3* PERK_IMAGE.getRegionWidth()/2f, PERK_Y, Settings.GOLD_COLOR, Settings.scale);
             sb.draw(RESET_IMAGE, RESET_X - RESET_IMAGE.getRegionWidth()/2F, RESET_Y - RESET_IMAGE.getRegionHeight()/2F, RESET_IMAGE.getRegionWidth()/2F, RESET_IMAGE.getRegionHeight()/2F, RESET_IMAGE.getRegionWidth(), RESET_IMAGE.getRegionHeight(), (float) PERK_IMAGE.getRegionWidth()/ RESET_IMAGE.getRegionWidth()*Settings.scale, (float) PERK_IMAGE.getRegionHeight()/ RESET_IMAGE.getRegionHeight()*Settings.scale, 0.0F);
             FontHelper.renderFontRightAligned(sb, FontHelper.charTitleFont, RESET, RESET_X- PERK_IMAGE.getRegionWidth(), RESET_Y, resetHitbox.hovered ? Settings.BLUE_TEXT_COLOR : Settings.GOLD_COLOR);
-
         }
     }
 
