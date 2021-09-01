@@ -103,7 +103,7 @@
   },
   "questTheSpire:ShivMastery": {
     "NAME": "Shiv Mastery",
-    "DESCRIPTION": "Deal !D! damage. NL Gain !M! Accuracy. NL Put this card on top of your draw pile."
+    "DESCRIPTION": "Deal !D! damage. NL Gain !M! *Accuracy. NL Put this card on top of your draw pile."
   }
 }
 
