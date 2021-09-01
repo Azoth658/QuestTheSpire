@@ -99,7 +99,7 @@ public class CharacterLoadout {
         this.name = "";
         this.name = optionName;
         this.hb = new Hitbox(HB_W, HB_W);
-        this.resetHitbox = new Hitbox(RESET_X - RESET_IMAGE.getRegionWidth()/2F, RESET_Y - RESET_IMAGE.getRegionHeight()/2F,PERK_IMAGE.getRegionWidth(), PERK_IMAGE.getRegionHeight());
+        this.resetHitbox = new Hitbox(RESET_X - PERK_IMAGE.getRegionWidth()/2F, RESET_Y - PERK_IMAGE.getRegionHeight()/2F,PERK_IMAGE.getRegionWidth(), PERK_IMAGE.getRegionHeight());
         this.buttonImg = buttonImg;
         this.portraitImg = portraitImg;
         this.c = c;
@@ -118,7 +118,7 @@ public class CharacterLoadout {
         this.name = "";
         this.name = optionName;
         this.hb = new Hitbox(HB_W, HB_W);
-        this.resetHitbox = new Hitbox(RESET_X - RESET_IMAGE.getRegionWidth()/2F, RESET_Y - RESET_IMAGE.getRegionHeight()/2F,PERK_IMAGE.getRegionWidth(), PERK_IMAGE.getRegionHeight());
+        this.resetHitbox = new Hitbox(RESET_X - PERK_IMAGE.getRegionWidth()/2F, RESET_Y - PERK_IMAGE.getRegionHeight()/2F,PERK_IMAGE.getRegionWidth(), PERK_IMAGE.getRegionHeight());
         this.buttonImg = ImageMaster.loadImage("images/ui/charSelect/" + buttonUrl);
         this.portraitUrl = c.getPortraitImageName();
         this.c = c;
@@ -136,7 +136,7 @@ public class CharacterLoadout {
         this.infoY = (float)Settings.HEIGHT / 2.0F;
         this.name = "";
         this.hb = new Hitbox(HB_W, HB_W);
-        this.resetHitbox = new Hitbox(RESET_X - RESET_IMAGE.getRegionWidth()/2F, RESET_Y - RESET_IMAGE.getRegionHeight()/2F,PERK_IMAGE.getRegionWidth(), PERK_IMAGE.getRegionHeight());
+        this.resetHitbox = new Hitbox(RESET_X - PERK_IMAGE.getRegionWidth()/2F, RESET_Y - PERK_IMAGE.getRegionHeight()/2F,PERK_IMAGE.getRegionWidth(), PERK_IMAGE.getRegionHeight());
         this.buttonImg = ImageMaster.CHAR_SELECT_LOCKED;
         this.locked = true;
         this.c = c;
@@ -144,7 +144,7 @@ public class CharacterLoadout {
 
     private void getFile() {
         file = new CharacterSaveFile(c.chosenClass);
-        levelInfo = LEVEL + file.getLevel() + (file.getPrestigeLevel() > 0 ? PRESTIGE + file.getPrestigeLevel() : "");
+        levelInfo = LEVEL + file.getLevel() + (file.getPrestigeLevel() > 0 ? " " + PRESTIGE + file.getPrestigeLevel() : "");
     }
 
     private void setupCustomizationOptions() {
@@ -833,7 +833,7 @@ public class CharacterLoadout {
             sb.draw(PERK_IMAGE, PERK_X - PERK_IMAGE.getRegionWidth()/2F, PERK_Y - PERK_IMAGE.getRegionHeight()/2F, PERK_IMAGE.getRegionWidth()/2F, PERK_IMAGE.getRegionHeight()/2F, PERK_IMAGE.getRegionWidth(), PERK_IMAGE.getRegionHeight(), scale, scale, 0.0F);
             FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, file.getCurrentPerkPoints()+" / "+file.getMaxPerkPoints(), PERK_X+3* PERK_IMAGE.getRegionWidth()/2f, PERK_Y, Settings.GOLD_COLOR, scale);
             sb.draw(RESET_IMAGE, RESET_X - RESET_IMAGE.getRegionWidth()/2F, RESET_Y - RESET_IMAGE.getRegionHeight()/2F, RESET_IMAGE.getRegionWidth()/2F, RESET_IMAGE.getRegionHeight()/2F, RESET_IMAGE.getRegionWidth(), RESET_IMAGE.getRegionHeight(), (float) PERK_IMAGE.getRegionWidth()/ RESET_IMAGE.getRegionWidth()* scale, (float) PERK_IMAGE.getRegionHeight()/ RESET_IMAGE.getRegionHeight()* scale, 0.0F);
-            FontHelper.renderFontRightAligned(sb, FontHelper.charTitleFont, RESET, RESET_X- PERK_IMAGE.getRegionWidth(), RESET_Y, resetHitbox.hovered ? Settings.BLUE_TEXT_COLOR : Settings.GOLD_COLOR);
+            FontHelper.renderFontRightAligned(sb, FontHelper.charTitleFont, RESET, RESET_X - PERK_IMAGE.getRegionWidth(), RESET_Y, resetHitbox.hovered ? Settings.BLUE_TEXT_COLOR : Settings.GOLD_COLOR);
         }
     }
 
