@@ -1,23 +1,31 @@
 package questTheSpire.cards;
 
+import basemod.helpers.TooltipInfo;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.cards.green.Accuracy;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.GameDictionary;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AccuracyPower;
 import com.megacrit.cardcrawl.vfx.combat.WeightyImpactEffect;
 import questTheSpire.QuestTheSpire;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static questTheSpire.QuestTheSpire.makeCardPath;
 import static questTheSpire.characters.MasteryCards.Enums.COLOR_MASTERY;
 
 public class ShivMastery extends AbstractDynamicCard {
 
+    private static ArrayList<TooltipInfo> fakeTip;
     // TEXT DECLARATION
 
     public static final String ID = QuestTheSpire.makeID("ShivMastery");
@@ -49,6 +57,16 @@ public class ShivMastery extends AbstractDynamicCard {
         this.magicNumber = this.baseMagicNumber;
     }
 
+    @Override
+    public List<TooltipInfo> getCustomTooltipsTop() {
+        if (fakeTip == null) {
+            fakeTip = new ArrayList<>();
+            String title = CardCrawlGame.languagePack.getCardStrings(Accuracy.ID).NAME;
+            String[] parts = CardCrawlGame.languagePack.getPowerStrings(AccuracyPower.POWER_ID).DESCRIPTIONS;
+            fakeTip.add(new TooltipInfo(title, parts[0].substring(0, parts[0].length()-3)+parts[1]));
+        }
+        return fakeTip;
+    }
 
     // Actions the card should do.
     @Override
