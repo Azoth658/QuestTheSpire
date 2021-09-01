@@ -4,18 +4,14 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
-import com.megacrit.cardcrawl.actions.common.PutOnDeckAction;
-import com.megacrit.cardcrawl.actions.common.ShuffleAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.cards.purple.Tantrum;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AccuracyPower;
 import com.megacrit.cardcrawl.vfx.combat.WeightyImpactEffect;
 import questTheSpire.QuestTheSpire;
-import questTheSpire.actions.DecreaseMaxHealthAction;
 
 import static questTheSpire.QuestTheSpire.makeCardPath;
 import static questTheSpire.characters.MasteryCards.Enums.COLOR_MASTERY;
@@ -80,9 +76,22 @@ public class ShivMastery extends AbstractDynamicCard {
     //Upgraded stats.
     @Override
     public void upgrade() {
-        if (!upgraded) {
-            upgradeName();
-            upgradeDamage(UPGRADE_PLUS_DMG);
+        if (this.timesUpgraded == 0){
+            baseDamage = 6;
+            magicNumber = 2;
         }
+        if (this.timesUpgraded == 1){
+            baseDamage = 8;
+            magicNumber = 3;
+        }
+        if (this.timesUpgraded == 2){
+            baseDamage = 10;
+            magicNumber = 4;
+        }
+    }
+
+    @Override
+    public boolean canUpgrade(){
+        return false;
     }
 }
