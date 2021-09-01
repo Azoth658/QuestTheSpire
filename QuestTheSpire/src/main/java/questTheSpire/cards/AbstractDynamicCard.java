@@ -4,6 +4,7 @@ import basemod.AutoAdd;
 import static com.megacrit.cardcrawl.core.CardCrawlGame.languagePack;
 
 public abstract class AbstractDynamicCard extends AbstractDefaultCard {
+    protected boolean isDone;
 
     // "How come DefaultCommonAttack extends CustomCard and not DynamicCard like all the rest?"
 

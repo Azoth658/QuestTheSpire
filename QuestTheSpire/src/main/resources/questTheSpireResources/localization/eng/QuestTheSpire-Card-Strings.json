@@ -100,6 +100,10 @@
   "questTheSpire:BlankCard": {
     "NAME": "Mastery Card Selection",
     "DESCRIPTION": ""
+  },
+  "questTheSpire:ShivMastery": {
+    "NAME": "Shiv Mastery",
+    "DESCRIPTION": "Deal !D! damage. NL Gain !M! Accuracy. NL When played move this card to the top of your draw pile."
   }
 }
 
