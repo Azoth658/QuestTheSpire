@@ -657,7 +657,7 @@ public class CharacterLoadout {
         this.updateInfoPosition();
         this.updateCustomizationOptions();
         this.updateResetHitbox();
-        this.updateMasteryHitbox();
+        //this.updateMasteryHitbox();
     }
 
     private void updateCustomizationOptions() {
@@ -734,7 +734,6 @@ public class CharacterLoadout {
                 file.setUncommonRelic(0);
                 file.setRareRelic(0);
                 this.setAllButtonsNeedUpdate();
-
             }
         }
 
@@ -779,7 +778,7 @@ public class CharacterLoadout {
         this.hb.render(sb);
         this.renderResetHitbox(sb);
         this.renderCustomizationOptions(sb);
-        this.renderMasteryCard(sb);
+        //this.renderMasteryCard(sb);
     }
 
     public void renderMasteryCard(SpriteBatch sb){
