@@ -77,7 +77,7 @@ public class CharacterLoadout {
     private CharSelectInfo charInfo;
     //private int unlocksRemaining;
     //private int maxAscensionLevel;
-    private final ArrayList<ClickableLoadoutOption> customizationOptions = new ArrayList<>();
+    private final ArrayList<ClickableUIContainers.ClickableContainer> customizationOptions = new ArrayList<>();
     private static final float PERK_X = 100f * scale;
     private static final float PERK_Y = Settings.HEIGHT - 100f * scale;
     private static final float RESET_X = Settings.WIDTH - 100f * scale;
@@ -112,7 +112,7 @@ public class CharacterLoadout {
         setupCustomizationOptions();
     }
 
-    public CharacterLoadout(String optionName, AbstractPlayer c, String buttonUrl, String portraitImg) {
+    /*public CharacterLoadout(String optionName, AbstractPlayer c, String buttonUrl, String portraitImg) {
         this.infoX = START_INFO_X;
         this.infoY = (float)Settings.HEIGHT / 2.0F;
         this.name = "";
@@ -140,7 +140,7 @@ public class CharacterLoadout {
         this.buttonImg = ImageMaster.CHAR_SELECT_LOCKED;
         this.locked = true;
         this.c = c;
-    }
+    }*/
 
     private void getFile() {
         file = new CharacterSaveFile(c.chosenClass);
@@ -151,354 +151,111 @@ public class CharacterLoadout {
         //First Column
         float cX = COLUMN_1_X, cY = COLUMN_Y;
         //Max HP
-        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.MAX_HP, MAX_HEALTH, cX, cY) {
             @Override
-            public void onClickArrow(boolean increase) {
-                if (increase && canUpgrade()) {
-                    file.setMaxHP(file.getStartMaxHP() + amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints()-getUpgradeCost());
-                } else if (canDowngrade()){
-                    file.setMaxHP(file.getStartMaxHP() - amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints()+getDowngradeRefund());
-                }
-            }
-
-            @Override
-            public String makeLabel() {
-                return MAX_HEALTH+": "+file.getStartMaxHP();
-            }
-
-            @Override
-            public int getUpgradeCost() {
-                return 1;
-            }
-
-            @Override
-            public int getDowngradeRefund() {
-                return 1;
-            }
-
-            @Override
-            public boolean canUpgrade() {
-                return file.getCurrentPerkPoints() >= getUpgradeCost();
-            }
-
-            @Override
-            public boolean canDowngrade() {
-                return file.getStartMaxHP() > 0;
-            }
-
-            @Override
-            public int amountPerLevel() {
+            public int amountPerUpgrade() {
                 return 5;
             }
         });
         cY += Y_OFFSET_PER_OPTION;
         //Gold
-        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.GOLD, EXTRA_GOLD, cX, cY) {
             @Override
-            public void onClickArrow(boolean increase) {
-                if (increase && canUpgrade()) {
-                    file.setStartGold(file.getStartGold() + amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
-                } else if (canDowngrade()) {
-                    file.setStartGold(file.getStartGold() - amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
-                }
-            }
-
-            @Override
-            public String makeLabel() {
-                return EXTRA_GOLD+": "+file.getStartGold();
-            }
-
-            @Override
-            public int getUpgradeCost() {
-                return 1;
-            }
-
-            @Override
-            public int getDowngradeRefund() {
-                return 1;
-            }
-
-            @Override
-            public boolean canUpgrade() {
-                return file.getCurrentPerkPoints() >= getUpgradeCost();
-            }
-
-            @Override
-            public boolean canDowngrade() {
-                return file.getStartGold() > 0;
-            }
-
-            @Override
-            public int amountPerLevel() {
+            public int amountPerUpgrade() {
                 return 20;
             }
         });
         cY += Y_OFFSET_PER_OPTION;
         //Strength
-        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.STR, STRENGTH, cX, cY) {
             @Override
-            public void onClickArrow(boolean increase) {
-                if (increase && canUpgrade()) {
-                    file.setStr(file.getStr() + amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
-                } else if (canDowngrade()) {
-                    file.setStr(file.getStr() - amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
-                }
-            }
-
-            @Override
-            public String makeLabel() {
-                return STRENGTH+": "+file.getStr();
-            }
-
-            @Override
-            public int getUpgradeCost() {
+            public int getUpgradeCost(int currentUpgrades) {
                 return 3;
             }
 
             @Override
-            public int getDowngradeRefund() {
+            public int getDowngradeRefund(int currentUpgrades) {
                 return 3;
-            }
-
-            @Override
-            public boolean canUpgrade() {
-                return file.getCurrentPerkPoints() >= getUpgradeCost();
-            }
-
-            @Override
-            public boolean canDowngrade() {
-                return file.getStr() > 0;
-            }
-
-            @Override
-            public int amountPerLevel() {
-                return 1;
             }
         });
         cY += Y_OFFSET_PER_OPTION;
         //Dex
-        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.DEX, DEXTERITY, cX, cY) {
             @Override
-            public void onClickArrow(boolean increase) {
-                if (increase && canUpgrade()) {
-                    file.setDex(file.getDex() + amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
-                } else if (canDowngrade()) {
-                    file.setDex(file.getDex() - amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
-                }
-            }
-
-            @Override
-            public String makeLabel() {
-                return DEXTERITY+": "+file.getDex();
-            }
-
-            @Override
-            public int getUpgradeCost() {
+            public int getUpgradeCost(int currentUpgrades) {
                 return 3;
             }
 
             @Override
-            public int getDowngradeRefund() {
+            public int getDowngradeRefund(int currentUpgrades) {
                 return 3;
-            }
-
-            @Override
-            public boolean canUpgrade() {
-                return file.getCurrentPerkPoints() >= getUpgradeCost();
-            }
-
-            @Override
-            public boolean canDowngrade() {
-                return file.getDex() > 0;
-            }
-
-            @Override
-            public int amountPerLevel() {
-                return 1;
             }
         });
         cY += Y_OFFSET_PER_OPTION;
         //Focus
-        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.FOC, FOCUS, cX, cY) {
             @Override
-            public void onClickArrow(boolean increase) {
-                if (increase && canUpgrade()) {
-                    file.setFoc(file.getFoc() + amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
-                } else if (canDowngrade()) {
-                    file.setFoc(file.getFoc() - amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
-                }
-            }
-
-            @Override
-            public String makeLabel() {
-                return FOCUS+": "+file.getFoc();
-            }
-
-            @Override
-            public int getUpgradeCost() {
+            public int getUpgradeCost(int currentUpgrades) {
                 return 4;
             }
 
             @Override
-            public int getDowngradeRefund() {
+            public int getDowngradeRefund(int currentUpgrades) {
                 return 4;
-            }
-
-            @Override
-            public boolean canUpgrade() {
-                return file.getCurrentPerkPoints() >= getUpgradeCost();
-            }
-
-            @Override
-            public boolean canDowngrade() {
-                return file.getFoc() > 0;
-            }
-
-            @Override
-            public int amountPerLevel() {
-                return 1;
             }
         });
         cY += Y_OFFSET_PER_OPTION;
         //Regen
-        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.REG, REGEN, cX, cY) {
             @Override
-            public void onClickArrow(boolean increase) {
-                if (increase && canUpgrade()) {
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
-                    file.setReg(file.getReg() + amountPerLevel());
-                } else if (canDowngrade()) {
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
-                    file.setReg(file.getReg() - amountPerLevel());
-                }
+            public int getUpgradeCost(int currentUpgrades) {
+                return 1 + currentUpgrades;
             }
 
             @Override
-            public String makeLabel() {
-                return REGEN+": "+file.getReg();
+            public int getDowngradeRefund(int currentUpgrades) {
+                return currentUpgrades;
             }
 
             @Override
-            public int getUpgradeCost() {
-                return 1 + file.getReg();
-            }
-
-            @Override
-            public int getDowngradeRefund() {
-                return file.getReg();
-            }
-
-            @Override
-            public boolean canUpgrade() {
-                return file.getCurrentPerkPoints() >= getUpgradeCost() && file.getReg() < 4;
-            }
-
-            @Override
-            public boolean canDowngrade() {
-                return file.getReg() > 0;
-            }
-
-            @Override
-            public int amountPerLevel() {
-                return 1;
+            public int maxUpgrades() {
+                return 4;
             }
         });
         cY += Y_OFFSET_PER_OPTION;
         //Artifact
-        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.ART, ARTIFACT, cX, cY) {
             @Override
-            public void onClickArrow(boolean increase) {
-                if (increase && canUpgrade()) {
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
-                    file.setArt(file.getArt() + amountPerLevel());
-                } else if (canDowngrade()) {
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
-                    file.setArt(file.getArt() - amountPerLevel());
-                }
+            public int getUpgradeCost(int currentUpgrades) {
+                return 2 + currentUpgrades;
             }
 
             @Override
-            public String makeLabel() {
-                return ARTIFACT+": "+file.getArt();
+            public int getDowngradeRefund(int currentUpgrades) {
+                return 1 + currentUpgrades;
             }
 
             @Override
-            public int getUpgradeCost() {
-                return 2 + file.getArt();
-            }
-
-            @Override
-            public int getDowngradeRefund() {
-                return file.getArt() + 1;
-            }
-
-            @Override
-            public boolean canUpgrade() {
-                return file.getCurrentPerkPoints() >= getUpgradeCost() && file.getArt() < 5;
-            }
-
-            @Override
-            public boolean canDowngrade() {
-                return file.getArt() > 0;
-            }
-
-            @Override
-            public int amountPerLevel() {
-                return 1;
+            public int maxUpgrades() {
+                return 5;
             }
         });
         cY += Y_OFFSET_PER_OPTION;
         //Devotion
-        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.DEV, DEVOTION, cX, cY) {
             @Override
-            public void onClickArrow(boolean increase) {
-                if (increase && canUpgrade()) {
-                    file.setDev(file.getDev() + amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
-                } else if (canDowngrade()) {
-                    file.setDev(file.getDev() - amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
-                }
-            }
-
-            @Override
-            public String makeLabel() {
-                return DEVOTION+": "+file.getDev();
-            }
-
-            @Override
-            public int getUpgradeCost() {
+            public int getUpgradeCost(int currentUpgrades) {
                 return 3;
             }
 
             @Override
-            public int getDowngradeRefund() {
+            public int getDowngradeRefund(int currentUpgrades) {
                 return 3;
             }
 
             @Override
-            public boolean canUpgrade() {
-                return file.getCurrentPerkPoints() >= getUpgradeCost() && file.getDev() < 3;
-            }
-
-            @Override
-            public boolean canDowngrade() {
-                return file.getDev() > 0;
-            }
-
-            @Override
-            public int amountPerLevel() {
-                return 1;
+            public int maxUpgrades() {
+                return 3;
             }
         });
         cY += Y_OFFSET_PER_OPTION;
@@ -512,142 +269,62 @@ public class CharacterLoadout {
         cY = COLUMN_Y;
 
         //Common Relic
-        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.COMMON_RELIC, COMMON_RELIC, cX, cY) {
             @Override
-            public void onClickArrow(boolean increase) {
-                if (increase && canUpgrade()) {
-                    file.setCommonRelic(file.getCommonRelic() + amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints()-getUpgradeCost());
-                } else if (canDowngrade()){
-                    file.setCommonRelic(file.getCommonRelic() - amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints()+getDowngradeRefund());
-                }
-            }
-
-            @Override
-            public String makeLabel() {
-                return COMMON_RELIC+": "+file.getCommonRelic();
-            }
-
-            @Override
-            public int getUpgradeCost() {
+            public int getUpgradeCost(int currentUpgrades) {
                 return 3;
             }
 
             @Override
-            public int getDowngradeRefund() {
+            public int getDowngradeRefund(int currentUpgrades) {
                 return 3;
             }
 
             @Override
-            public boolean canUpgrade() {
-                return file.getCurrentPerkPoints() >= getUpgradeCost() && file.getCommonRelic() < 5;
-            }
-
-            @Override
-            public boolean canDowngrade() {
-                return file.getCommonRelic() > 0;
-            }
-
-            @Override
-            public int amountPerLevel() {
-                return 1;
+            public int maxUpgrades() {
+                return 5;
             }
         });
         cY += Y_OFFSET_PER_OPTION;
         //Uncommon Relic
-        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.UNCOMMON_RELIC, UNCOMMON_RELIC, cX, cY) {
             @Override
-            public void onClickArrow(boolean increase) {
-                if (increase && canUpgrade()) {
-                    file.setUncommonRelic(file.getUncommonRelic() + amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
-                } else if (canDowngrade()) {
-                    file.setUncommonRelic(file.getUncommonRelic() - amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
-                }
-            }
-
-            @Override
-            public String makeLabel() {
-                return UNCOMMON_RELIC+": "+file.getUncommonRelic();
-            }
-
-            @Override
-            public int getUpgradeCost() {
+            public int getUpgradeCost(int currentUpgrades) {
                 return 4;
             }
 
             @Override
-            public int getDowngradeRefund() {
+            public int getDowngradeRefund(int currentUpgrades) {
                 return 4;
             }
 
             @Override
-            public boolean canUpgrade() {
-                return file.getCurrentPerkPoints() >= getUpgradeCost() && file.getUncommonRelic() < 4;
+            public int maxUpgrades() {
+                return 3;
             }
-
-            @Override
-            public boolean canDowngrade() {
-                return file.getUncommonRelic() > 0;
-            }
-
-            @Override
-            public int amountPerLevel() {
-                return 1;
-            }
-
         });
         cY += Y_OFFSET_PER_OPTION;
         //Rare Relic
-        customizationOptions.add(new ClickableLoadoutOption(this, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.RARE_RELIC, RARE_RELIC, cX, cY) {
             @Override
-            public void onClickArrow(boolean increase) {
-                if (increase && canUpgrade()) {
-                    file.setRareRelic(file.getRareRelic() + amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() - getUpgradeCost());
-                } else if (canDowngrade()) {
-                    file.setRareRelic(file.getRareRelic() - amountPerLevel());
-                    file.setCurrentPerkPoints(file.getCurrentPerkPoints() + getDowngradeRefund());
-                }
-            }
-
-            @Override
-            public String makeLabel() {
-                return RARE_RELIC+": "+file.getRareRelic();
-            }
-
-            @Override
-            public int getUpgradeCost() {
+            public int getUpgradeCost(int currentUpgrades) {
                 return 5;
             }
 
             @Override
-            public int getDowngradeRefund() {
+            public int getDowngradeRefund(int currentUpgrades) {
                 return 5;
             }
 
             @Override
-            public boolean canUpgrade() {
-                return file.getCurrentPerkPoints() >= getUpgradeCost() && file.getCommonRelic() < 3;
+            public int maxUpgrades() {
+                return 3;
             }
-
-            @Override
-            public boolean canDowngrade() {
-                return file.getRareRelic() > 0;
-            }
-
-            @Override
-            public int amountPerLevel() {
-                return 1;
-            }
-
         });
     }
 
     public void setAllButtonsNeedUpdate() {
-        for (ClickableLoadoutOption o : customizationOptions) {
+        for (ClickableUIContainers.ClickableContainer o : customizationOptions) {
             o.updateNeeded = true;
         }
     }
@@ -662,7 +339,7 @@ public class CharacterLoadout {
 
     private void updateCustomizationOptions() {
         if (selected) {
-            for (ClickableLoadoutOption o : customizationOptions) {
+            for (ClickableUIContainers.ClickableContainer o : customizationOptions) {
                 o.update();
             }
         }
@@ -798,7 +475,7 @@ public class CharacterLoadout {
 
     private void renderCustomizationOptions(SpriteBatch sb) {
         if (selected) {
-            for (ClickableLoadoutOption o : customizationOptions) {
+            for (ClickableUIContainers.ClickableContainer o : customizationOptions) {
                 o.render(sb);
             }
         }
