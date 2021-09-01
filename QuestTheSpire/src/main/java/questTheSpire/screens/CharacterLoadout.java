@@ -263,6 +263,13 @@ public class CharacterLoadout {
         //Second Column
         cX = COLUMN_2_X;
         cY = COLUMN_Y;
+        customizationOptions.add(new ClickableUIContainers.ClickableText("Test Message", cX, cY) {
+            @Override
+            public void onClick() {
+
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
 
         //Third Column
         cX = COLUMN_3_X;

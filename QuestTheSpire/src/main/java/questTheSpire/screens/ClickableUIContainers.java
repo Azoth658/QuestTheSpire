@@ -152,6 +152,43 @@ public class ClickableUIContainers {
         }
     }
 
+    public abstract static class ClickableText extends ClickableContainer {
+        private String label;
+        private Hitbox hb;
+        private float x, y;
+        private static final float PADDING = 5f * Settings.scale;
+
+        public ClickableText(String message, float x, float y) {
+            this.label = message;
+            this.x = x;
+            this.y = y;
+            hb = new Hitbox(x, y);
+            scaleHitbox();
+        }
+
+        public abstract void onClick();
+
+        protected void scaleHitbox() {
+            hb.resize(FontHelper.getWidth(FontHelper.cardTitleFont, label, Settings.scale)+PADDING*2, FontHelper.getHeight(FontHelper.cardTitleFont, label, Settings.scale)+PADDING*2);
+            hb.move(x, y);
+        }
+
+        @Override
+        public void update() {
+            hb.update();
+            if (hb.hovered && InputHelper.justClickedLeft) {
+                CardCrawlGame.sound.play("UI_CLICK_1");
+                onClick();
+            }
+        }
+
+        @Override
+        public void render(SpriteBatch sb) {
+            FontHelper.renderFontCentered(sb, FontHelper.cardTitleFont, label, x, y, hb.hovered ? Settings.GREEN_TEXT_COLOR : Settings.GOLD_COLOR, Settings.scale);
+            hb.render(sb);
+        }
+    }
+
     public abstract static class PlusMinusLoadoutOption extends ClickableContainer {
         CharacterLoadout loadout;
         private String label;
