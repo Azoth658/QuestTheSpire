@@ -321,7 +321,7 @@ public class ClickableUIContainers {
                             sb.setColor(Color.LIGHT_GRAY);
                         }
                     } else {
-                        sb.setColor(Color.DARK_GRAY);
+                        sb.setColor(Color.GRAY);
                     }
                     if (this.hitbox.hovered) {
                         if (rightButton) {
