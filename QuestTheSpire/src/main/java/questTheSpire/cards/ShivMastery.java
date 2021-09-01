@@ -55,6 +55,7 @@ public class ShivMastery extends AbstractDynamicCard {
         baseDamage = DAMAGE;
         this.baseMagicNumber = 1;
         this.magicNumber = this.baseMagicNumber;
+        this.exhaust = true;
     }
 
     @Override
@@ -95,21 +96,29 @@ public class ShivMastery extends AbstractDynamicCard {
     @Override
     public void upgrade() {
         if (this.timesUpgraded == 0){
-            baseDamage = 6;
-            magicNumber = 2;
+            this.baseDamage = 6;
+            this.upgradeMagicNumber(1);
+            this.timesUpgraded++;
+            this.upgradeName();
         }
         if (this.timesUpgraded == 1){
-            baseDamage = 8;
-            magicNumber = 3;
+            this.baseDamage = 8;
+            this.upgradeMagicNumber(1);
+            this.timesUpgraded++;
+            this.upgradeName();
         }
         if (this.timesUpgraded == 2){
-            baseDamage = 10;
-            magicNumber = 4;
+            this.baseDamage = 10;
+            this.upgradeMagicNumber(1);
+            this.timesUpgraded++;
+            this.upgradeName();
         }
     }
 
     @Override
     public boolean canUpgrade(){
-        return false;
+        if (timesUpgraded<3){
+            return true;
+        } else return false;
     }
 }
