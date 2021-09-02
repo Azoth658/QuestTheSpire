@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.GameDictionary;
+import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AccuracyPower;
 import com.megacrit.cardcrawl.vfx.combat.WeightyImpactEffect;
@@ -30,6 +31,8 @@ public class ShivMastery extends AbstractDynamicCard {
 
     public static final String ID = QuestTheSpire.makeID("ShivMastery");
     public static final String IMG = makeCardPath("shivMastery.png");
+    private static final CardStrings cardStrings = CardCrawlGame.languagePack.getCardStrings(ID);
+    public static final String UPGRADE_DESCRIPTION = cardStrings.UPGRADE_DESCRIPTION;
 
 
     // /TEXT DECLARATION/
@@ -45,7 +48,7 @@ public class ShivMastery extends AbstractDynamicCard {
     private static final int COST = 0;
 
     private static final int DAMAGE = 4;
-    private static final int UPGRADE_PLUS_DMG = 1;
+    private static boolean EXHAUST = true ;
 
     // /STAT DECLARATION/
 
@@ -55,7 +58,7 @@ public class ShivMastery extends AbstractDynamicCard {
         baseDamage = DAMAGE;
         this.baseMagicNumber = 1;
         this.magicNumber = this.baseMagicNumber;
-        this.exhaust = true;
+        this.exhaust = EXHAUST;
     }
 
     @Override
@@ -95,23 +98,25 @@ public class ShivMastery extends AbstractDynamicCard {
     //Upgraded stats.
     @Override
     public void upgrade() {
-        if (this.timesUpgraded == 0){
-            this.baseDamage = 6;
-            this.upgradeMagicNumber(1);
-            this.timesUpgraded++;
-            this.upgradeName();
-        }
-        if (this.timesUpgraded == 1){
-            this.baseDamage = 8;
-            this.upgradeMagicNumber(1);
-            this.timesUpgraded++;
-            this.upgradeName();
-        }
         if (this.timesUpgraded == 2){
-            this.baseDamage = 10;
             this.upgradeMagicNumber(1);
-            this.timesUpgraded++;
-            this.upgradeName();
+            this.timesUpgraded = 3;
+            this.name = cardStrings.NAME + "+" + this.timesUpgraded;
+            initializeDescription();
+            EXHAUST = false;
+        } else if (this.timesUpgraded == 1){
+            this.baseDamage = 6;
+            this.timesUpgraded = 2;
+            this.name = cardStrings.NAME + "+" + this.timesUpgraded;
+            rawDescription = UPGRADE_DESCRIPTION;
+            initializeDescription();
+            EXHAUST = false;
+        } else if (this.timesUpgraded == 0){
+            this.baseDamage = 4;
+            this.upgradeMagicNumber(1);
+            this.timesUpgraded = 1;
+            this.name = cardStrings.NAME + "+" + this.timesUpgraded;
+            EXHAUST = true;
         }
     }
 

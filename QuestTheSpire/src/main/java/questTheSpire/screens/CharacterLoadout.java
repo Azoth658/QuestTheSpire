@@ -17,6 +17,7 @@ import com.megacrit.cardcrawl.helpers.*;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
+import com.megacrit.cardcrawl.screens.select.GridCardSelectScreen;
 import questTheSpire.QuestTheSpire;
 import questTheSpire.cards.BlankCard;
 import questTheSpire.patches.MainMenuPatches;
@@ -92,6 +93,7 @@ public class CharacterLoadout {
     private static final float COLUMN_Y = HEADER_Y + Y_OFFSET_PER_OPTION;
     private CharacterSaveFile file;
     private final AbstractCard clickableMasteryCard = new BlankCard();
+    public static GridCardSelectScreen gridSelectScreen;
 
     public CharacterLoadout(String optionName, AbstractPlayer c, Texture buttonImg, Texture portraitImg) {
         this.infoX = START_INFO_X;
@@ -263,10 +265,13 @@ public class CharacterLoadout {
         //Second Column
         cX = COLUMN_2_X;
         cY = COLUMN_Y;
-        customizationOptions.add(new ClickableUIContainers.ClickableText("Test Message", cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.ClickableText("Mastery Card Selection", cX, cY) {
             @Override
             public void onClick() {
-
+                CardGroup group = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
+                for (AbstractCard c : CardLibrary.getAllCards().stream().filter(c -> c.color == COLOR_MASTERY).collect(Collectors.toList())) {
+                    group.addToBottom(c);
+                }
             }
         });
         cY += Y_OFFSET_PER_OPTION;
