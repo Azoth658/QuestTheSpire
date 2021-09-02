@@ -62,12 +62,12 @@ public class PoisonMastery extends AbstractDynamicCard {
             initializeDescription();
         } else if (this.timesUpgraded == 1){
             this.timesUpgraded = 2;
-            this.magicNumber++;
+            this.upgradeMagicNumber(1);
             this.name = cardStrings.NAME + "+" + this.timesUpgraded;
             initializeDescription();
         } else if (this.timesUpgraded == 0){
             this.timesUpgraded = 1;
-            this.magicNumber++;
+            this.upgradeMagicNumber(1);
             this.name = cardStrings.NAME + "+" + this.timesUpgraded;
             initializeDescription();
             this.upgraded = true;
