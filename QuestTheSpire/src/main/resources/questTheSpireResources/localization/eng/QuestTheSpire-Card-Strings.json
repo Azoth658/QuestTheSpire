@@ -113,6 +113,10 @@
     "EXTENDED_DESCRIPTION": [
       "Retain. NL Gain !M! Focus for each Buff you have."
       ]
+  },
+  "questTheSpire:PoisonMastery": {
+    "NAME": "Poison Mastery",
+    "DESCRIPTION": "Gain !M! Block when you apply Poison."
   }
 }
 
