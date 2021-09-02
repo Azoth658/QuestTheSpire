@@ -105,6 +105,14 @@
     "NAME": "Shiv Mastery",
     "DESCRIPTION": "Deal !D! damage. NL Gain !M! *Accuracy. NL Exhaust.",
     "UPGRADE_DESCRIPTION": "Deal !D! damage. NL Gain !M! *Accuracy. NL Put this on the top of your draw pile."
+  },
+  "questTheSpire:PowerMastery": {
+    "NAME": "Power Mastery",
+    "DESCRIPTION": "For each Buff you have Gain !M! Focus. NL Exhaust.",
+    "UPGRADE_DESCRIPTION":"Retain. NL Gain !M! Focus for each Buff you have. NL Exhaust.",
+    "EXTENDED_DESCRIPTION": [
+      "Retain. NL Gain !M! Focus for each Buff you have."
+      ]
   }
 }
 
