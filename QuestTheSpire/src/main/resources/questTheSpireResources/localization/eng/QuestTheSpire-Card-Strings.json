@@ -117,6 +117,14 @@
   "questTheSpire:PoisonMastery": {
     "NAME": "Poison Mastery",
     "DESCRIPTION": "Gain !M! Block when you apply Poison."
+  },
+  "questTheSpire:RecursionMastery": {
+    "NAME": "Recursion Mastery",
+    "DESCRIPTION": "Deal !M! Damage. Recurse your rightmost orb 1 time.",
+    "EXTENDED_DESCRIPTION": [
+      "Deal !M! Damage. Recurse your rightmost orb 2 times.",
+      "Deal !M! Damage. Recurse your rightmost orb 3 times."
+    ]
   }
 }
 
