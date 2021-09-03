@@ -125,6 +125,10 @@
       "Deal !M! Damage. Recurse your rightmost orb 2 times.",
       "Deal !M! Damage. Recurse your rightmost orb 3 times."
     ]
+  },
+  "questTheSpire:StrengthMastery": {
+    "NAME": "Strength Mastery",
+    "DESCRIPTION": "Deal !D! Damage. NL Gain Strength equal to unblocked damage dealt."
   }
 }
 
