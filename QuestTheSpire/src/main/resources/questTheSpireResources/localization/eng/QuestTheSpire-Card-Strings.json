@@ -128,7 +128,7 @@
   },
   "questTheSpire:StrengthMastery": {
     "NAME": "Strength Mastery",
-    "DESCRIPTION": "Deal !D! Damage. NL Gain Strength equal to unblocked damage dealt."
+    "DESCRIPTION": "Deal !D! Damage. NL Gain !M! Strength."
   }
 }
 

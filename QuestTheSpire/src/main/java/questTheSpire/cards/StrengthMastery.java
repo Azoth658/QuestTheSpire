@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.BlurPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import questTheSpire.QuestTheSpire;
 import questTheSpire.actions.StrengthMasteryAction;
@@ -44,13 +45,16 @@ public class StrengthMastery extends AbstractDynamicCard {
 
     public StrengthMastery() {
         super(ID, IMG, COST, TYPE, COLOR, RARITY, TARGET);
-        this.baseDamage = 1;
+        this.baseDamage = 6;
+        this.baseMagicNumber = 1;
+        this.magicNumber = this.baseMagicNumber;
     }
 
     // Actions the card should do.
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        this.addToBot(new StrengthMasteryAction(m, new DamageInfo(p, damage, damageTypeForTurn), AbstractGameAction.AttackEffect.NONE));
+        this.addToBot(new DamageAction(m, new DamageInfo(p, damage, damageTypeForTurn), AbstractGameAction.AttackEffect.FIRE));
+        this.addToBot(new ApplyPowerAction(p, p, new StrengthPower(p, magicNumber), magicNumber));
     }
 
     //Upgraded stats.
@@ -62,12 +66,14 @@ public class StrengthMastery extends AbstractDynamicCard {
             this.name = cardStrings.NAME + "+" + this.timesUpgraded;
             initializeDescription();
         } else if (this.timesUpgraded == 1){
-            this.upgradeDamage(1);
+            this.upgradeDamage(2);
+            this.upgradeMagicNumber(1);
             this.timesUpgraded = 2;
             this.name = cardStrings.NAME + "+" + this.timesUpgraded;
             initializeDescription();
         } else if (this.timesUpgraded == 0){
-            this.upgradeDamage(1);
+            this.upgradeDamage(2);
+            this.upgradeMagicNumber(1);
             this.timesUpgraded = 1;
             this.name = cardStrings.NAME + "+" + this.timesUpgraded;
             this.upgraded = true;
