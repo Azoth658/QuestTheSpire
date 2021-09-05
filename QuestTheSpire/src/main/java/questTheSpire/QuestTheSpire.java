@@ -362,6 +362,8 @@ public class QuestTheSpire implements
         BaseMod.addEvent(new AddEventParams.Builder(dragonHoard.ID, dragonHoard.class).eventType(EventUtils.EventType.NORMAL).bonusCondition(() -> AbstractDungeon.player.gold > 1000).create());
         BaseMod.addEvent(new AddEventParams.Builder(alchemyLab.ID, alchemyLab.class).eventType(EventUtils.EventType.NORMAL).bonusCondition(() -> AbstractDungeon.player.potionSlots > 0 && !AbstractDungeon.player.hasRelic(Sozu.ID)).dungeonID(TheCity.ID).create());
         */
+        BaseMod.addEvent(new AddEventParams.Builder(act1Keys.ID, act1Keys.class).dungeonID(Exordium.ID).eventType(EventUtils.EventType.NORMAL).bonusCondition(() -> Settings.hasSapphireKey && Settings.hasRubyKey && Settings.hasEmeraldKey).create());
+
 
         // =============== SAVABLES =================
         logger.info("Preparing CustomSavables");

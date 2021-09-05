@@ -124,5 +124,24 @@
         "[Reinforce] #rLose #rALL #ryour #rGold. #gUpgrade #gall #gyour #gskills.",
         "[Leave]"
       ]
-    }
+    },
+  "questTheSpire:act1Keys": {
+    "NAME": "Exordium's Secret Door",
+    "DESCRIPTIONS": [
+      "A door before you",
+      "Sacrifice",
+      "Open the tome",
+      "Cast the spell",
+      "Eat the apple",
+      "Leave safely"
+    ],
+    "OPTIONS": [
+      "[Open]",
+      "[Sacrifice]",
+      "[Read] Fight a powerful guardian of the tome.",
+      "[Cast] A powerful fight with many rewards.",
+      "[Eat]",
+      "[Leave]"
+    ]
+  }
   }
