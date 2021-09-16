@@ -57,7 +57,12 @@
       "Artifact",
       "Common Relic",
       "Uncommon Relic",
-      "Rare Relic"
+      "Rare Relic",
+      "Plated Armor",
+      "Potion Slots",
+      "Energy Per Turn",
+      "Card Draw Per Turn",
+      "Removals"
     ]
   }
 }

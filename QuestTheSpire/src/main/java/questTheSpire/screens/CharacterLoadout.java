@@ -50,6 +50,11 @@ public class CharacterLoadout {
     public static final String COMMON_RELIC = TEXT[15];
     public static final String UNCOMMON_RELIC = TEXT[16];
     public static final String RARE_RELIC = TEXT[17];
+    public static final String ARMOR = TEXT[18];
+    public static final String SLOTS = TEXT[19];
+    public static final String ENERGY = TEXT[20];
+    public static final String DRAW = TEXT[21];
+    public static final String REMOVAlS = TEXT[22];
     public static final AtlasRegion PERK_IMAGE = ImageMaster.CARD_COLORLESS_ORB;
     public static final AtlasRegion RESET_IMAGE = new TextureAtlas(Gdx.files.internal("powers/powers.atlas")).findRegion("128/" + "retain");
     private Texture buttonImg;
@@ -168,6 +173,57 @@ public class CharacterLoadout {
             }
         });
         cY += Y_OFFSET_PER_OPTION;
+        //Potions
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.POTION_SLOTS, SLOTS, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 3 + (currentUpgrades * 3);
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                if (currentUpgrades>0){
+                    return currentUpgrades * 3;
+                } else return 3;
+            }
+
+            @Override
+            public int maxUpgrades(){return 2;}
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        //Energy
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.ENERGY, ENERGY, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 5 + (currentUpgrades * 5);
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                if (currentUpgrades>0){
+                    return currentUpgrades * 5;
+                } else return 5;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        //Draw
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.DRAW, DRAW, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 3 + (currentUpgrades * 3);
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                if (currentUpgrades>0){
+                    return currentUpgrades * 3;
+                } else return 3;
+            }
+
+            @Override
+            public int maxUpgrades(){return 5;}
+        });
+        cY += Y_OFFSET_PER_OPTION;
         //Strength
         customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.STR, STRENGTH, cX, cY) {
             @Override
@@ -222,6 +278,19 @@ public class CharacterLoadout {
             @Override
             public int maxUpgrades() {
                 return 4;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        //Plated Armor
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.ARMOR, ARMOR, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 1 + currentUpgrades;
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                return currentUpgrades;
             }
         });
         cY += Y_OFFSET_PER_OPTION;
@@ -333,6 +402,24 @@ public class CharacterLoadout {
                 return 3;
             }
         });
+        cY += Y_OFFSET_PER_OPTION;
+        //Removals
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.REMOVALS, REMOVAlS, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 1;
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                return 1;
+            }
+
+            @Override
+            public int maxUpgrades() {
+                return 6;
+            }
+        });
     }
 
     public void setAllButtonsNeedUpdate() {
@@ -413,15 +500,20 @@ public class CharacterLoadout {
                 file.setCurrentPerkPoints(file.getMaxPerkPoints());
                 file.setMaxHP(0);
                 file.setStartGold(0);
+                file.setPotionSlots(0);
+                file.setEnergy(0);
+                file.setDraw(0);
                 file.setStr(0);
                 file.setDex(0);
                 file.setFoc(0);
                 file.setReg(0);
                 file.setArt(0);
                 file.setDev(0);
+                file.setArmor(0);
                 file.setCommonRelic(0);
                 file.setUncommonRelic(0);
                 file.setRareRelic(0);
+                file.setRemovals(0);
                 this.setAllButtonsNeedUpdate();
             }
         }

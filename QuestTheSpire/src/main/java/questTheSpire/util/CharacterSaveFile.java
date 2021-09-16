@@ -20,6 +20,9 @@ public class CharacterSaveFile {
     public static final String WINS = "Wins";
     public static final String MAX_HP = "MaxHP";
     public static final String GOLD = "Gold";
+    public static final String POTION_SLOTS = "PotionSlots";
+    public static final String ENERGY = "Energy";
+    public static final String DRAW = "Draw";
     public static final String STR = "Strength";
     public static final String DEX = "Dexterity";
     public static final String FOC = "Focus";
@@ -27,11 +30,13 @@ public class CharacterSaveFile {
     public static final String DEV = "Devotion";
     public static final String REG = "Regen";
     public static final String ART = "Artifact";
+    public static final String ARMOR = "PlatedArmor";
     public static final String HOARDER = "HoarderAspect";
 
     public static final String COMMON_RELIC = "CommonRelic";
     public static final String UNCOMMON_RELIC = "UncommonRelic";
     public static final String RARE_RELIC = "RareRelic";
+    public static final String REMOVALS = "Removals";
 
     public static final int BASE_REQ = 500;
     public static final int REQ_INCREASE_PER_LEVEL = 100;
@@ -104,6 +109,18 @@ public class CharacterSaveFile {
         return config.getInt(GOLD);
     }
 
+    public int getPotionSlots() {
+        return config.getInt(POTION_SLOTS);
+    }
+
+    public int getEnergy() {
+        return config.getInt(ENERGY);
+    }
+
+    public int getDraw() {
+        return config.getInt(DRAW);
+    }
+
     public int getStr() {
         return config.getInt(STR);
     }
@@ -132,6 +149,10 @@ public class CharacterSaveFile {
         return config.getInt(ART);
     }
 
+    public int getArmor() {
+        return config.getInt(ARMOR);
+    }
+
     public int getHoarderAspect(){return config.getInt(HOARDER);}
 
     public int getCommonRelic() {
@@ -144,6 +165,10 @@ public class CharacterSaveFile {
 
     public int getRareRelic() {
         return config.getInt(RARE_RELIC);
+    }
+
+    public int getRemovals() {
+        return config.getInt(REMOVALS);
     }
 
     public void setExp(int exp) {
@@ -220,6 +245,21 @@ public class CharacterSaveFile {
         saveConfig();
     }
 
+    public void setPotionSlots(int PotionSlots) {
+        config.setInt(POTION_SLOTS, PotionSlots);
+        saveConfig();
+    }
+
+    public void setEnergy(int Energy) {
+        config.setInt(ENERGY, Energy);
+        saveConfig();
+    }
+
+    public void setDraw(int Draw) {
+        config.setInt(DRAW, Draw);
+        saveConfig();
+    }
+
     public void setStr(int PerkStr) {
         config.setInt(STR, PerkStr);
         saveConfig();
@@ -255,6 +295,11 @@ public class CharacterSaveFile {
         saveConfig();
     }
 
+    public void setArmor(int PerkArmor) {
+        config.setInt(ARMOR, PerkArmor);
+        saveConfig();
+    }
+
     public void setHoarderAspect(int AspectHoarder) {
         config.setInt(HOARDER, AspectHoarder);
         saveConfig();
@@ -272,6 +317,11 @@ public class CharacterSaveFile {
 
     public void setRareRelic(int PerkRareRelic) {
         config.setInt(RARE_RELIC, PerkRareRelic);
+        saveConfig();
+    }
+
+    public void setRemovals(int PerkRemovals) {
+        config.setInt(REMOVALS, PerkRemovals);
         saveConfig();
     }
 
@@ -343,6 +393,9 @@ public class CharacterSaveFile {
         questTheSpireCharacterStats.setProperty(WINS, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(MAX_HP, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(GOLD, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(POTION_SLOTS, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(ENERGY, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(DRAW, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(STR, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(DEX, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(FOC, String.valueOf(0));
@@ -350,10 +403,12 @@ public class CharacterSaveFile {
         questTheSpireCharacterStats.setProperty(DEV, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(REG, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(ART, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(ARMOR, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(HOARDER, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(COMMON_RELIC, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(UNCOMMON_RELIC, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(RARE_RELIC, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(REMOVALS, String.valueOf(0));
 
         LOOKUP_TABLE[0] = BASE_REQ;
         for (int i = 1 ; i < MAX_LEVEL ; i++) {

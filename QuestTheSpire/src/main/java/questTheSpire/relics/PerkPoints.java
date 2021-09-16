@@ -5,8 +5,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
+import com.megacrit.cardcrawl.potions.PotionSlot;
 import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.powers.watcher.DevotionPower;
 import com.megacrit.cardcrawl.powers.watcher.MantraPower;
@@ -34,7 +36,6 @@ public class PerkPoints extends CustomRelic {
     }
 
 
-
     @Override
     public void atBattleStart() {
         int strPerk;
@@ -44,6 +45,7 @@ public class PerkPoints extends CustomRelic {
         int devotionPerk;
         int regenPerk;
         int artifactPerk;
+        int armorPerk;
 
         strPerk = activeCharacterFile.getStr();
         dexPerk = activeCharacterFile.getDex();
@@ -52,6 +54,7 @@ public class PerkPoints extends CustomRelic {
         devotionPerk = activeCharacterFile.getDev();
         regenPerk = activeCharacterFile.getReg();
         artifactPerk = activeCharacterFile.getArt();
+        armorPerk = activeCharacterFile.getArmor();
 
         if (strPerk > 0) {
             this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, strPerk), strPerk));
@@ -73,6 +76,9 @@ public class PerkPoints extends CustomRelic {
         }
         if (artifactPerk > 0) {
             this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new ArtifactPower(AbstractDungeon.player, artifactPerk), artifactPerk));
+        }
+        if (armorPerk > 0) {
+            this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new PlatedArmorPower(AbstractDungeon.player, armorPerk), armorPerk));
         }
     }
 
