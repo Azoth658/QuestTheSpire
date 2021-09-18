@@ -55,6 +55,7 @@ public class CharacterLoadout {
     public static final String ENERGY = TEXT[20];
     public static final String DRAW = TEXT[21];
     public static final String REMOVAlS = TEXT[22];
+    public static final String THORNS = TEXT[23];
     public static final AtlasRegion PERK_IMAGE = ImageMaster.CARD_COLORLESS_ORB;
     public static final AtlasRegion RESET_IMAGE = new TextureAtlas(Gdx.files.internal("powers/powers.atlas")).findRegion("128/" + "retain");
     private Texture buttonImg;
@@ -334,7 +335,20 @@ public class CharacterLoadout {
         //Second Column
         cX = COLUMN_2_X;
         cY = COLUMN_Y;
-        customizationOptions.add(new ClickableUIContainers.ClickableText("Mastery Card Selection", cX, cY) {
+        //Thorns
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.THORNS, THORNS, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 1 + currentUpgrades;
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                return currentUpgrades;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        customizationOptions.add(new ClickableUIContainers.ClickableText("TODO - Mastery Card Selection", cX, cY) {
             @Override
             public void onClick() {
                 CardGroup group = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
@@ -510,6 +524,7 @@ public class CharacterLoadout {
                 file.setArt(0);
                 file.setDev(0);
                 file.setArmor(0);
+                file.setThorns(0);
                 file.setCommonRelic(0);
                 file.setUncommonRelic(0);
                 file.setRareRelic(0);

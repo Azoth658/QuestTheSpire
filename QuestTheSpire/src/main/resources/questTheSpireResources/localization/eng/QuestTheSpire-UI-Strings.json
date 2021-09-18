@@ -43,8 +43,8 @@
       "Level: ",
       "   Prestige: ",
       "Perk Points: ",
-      "Core Buffs",
-      "Aspects",
+      "Character Upgrades",
+      "Secondary Upgrades",
       "Extra Stuff",
       "Max Health",
       "Extra Gold",
@@ -62,7 +62,8 @@
       "Potion Slots",
       "Energy Per Turn",
       "Card Draw Per Turn",
-      "Removals"
+      "Removals",
+      "Thorns"
     ]
   }
 }

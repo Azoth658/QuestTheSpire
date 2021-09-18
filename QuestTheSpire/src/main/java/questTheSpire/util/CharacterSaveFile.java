@@ -31,6 +31,7 @@ public class CharacterSaveFile {
     public static final String REG = "Regen";
     public static final String ART = "Artifact";
     public static final String ARMOR = "PlatedArmor";
+    public static final String THORNS = "Thorns";
     public static final String HOARDER = "HoarderAspect";
 
     public static final String COMMON_RELIC = "CommonRelic";
@@ -151,6 +152,10 @@ public class CharacterSaveFile {
 
     public int getArmor() {
         return config.getInt(ARMOR);
+    }
+
+    public int getThorns() {
+        return config.getInt(THORNS);
     }
 
     public int getHoarderAspect(){return config.getInt(HOARDER);}
@@ -300,6 +305,11 @@ public class CharacterSaveFile {
         saveConfig();
     }
 
+    public void setThorns(int PerkThorns) {
+        config.setInt(THORNS, PerkThorns);
+        saveConfig();
+    }
+
     public void setHoarderAspect(int AspectHoarder) {
         config.setInt(HOARDER, AspectHoarder);
         saveConfig();
@@ -404,6 +414,7 @@ public class CharacterSaveFile {
         questTheSpireCharacterStats.setProperty(REG, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(ART, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(ARMOR, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(THORNS, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(HOARDER, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(COMMON_RELIC, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(UNCOMMON_RELIC, String.valueOf(0));

@@ -46,6 +46,7 @@ public class PerkPoints extends CustomRelic {
         int regenPerk;
         int artifactPerk;
         int armorPerk;
+        int thornPerk;
 
         strPerk = activeCharacterFile.getStr();
         dexPerk = activeCharacterFile.getDex();
@@ -55,6 +56,7 @@ public class PerkPoints extends CustomRelic {
         regenPerk = activeCharacterFile.getReg();
         artifactPerk = activeCharacterFile.getArt();
         armorPerk = activeCharacterFile.getArmor();
+        thornPerk = activeCharacterFile.getThorns();
 
         if (strPerk > 0) {
             this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, strPerk), strPerk));
@@ -79,6 +81,9 @@ public class PerkPoints extends CustomRelic {
         }
         if (armorPerk > 0) {
             this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new PlatedArmorPower(AbstractDungeon.player, armorPerk), armorPerk));
+        }
+        if (thornPerk > 0) {
+            this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new ThornsPower(AbstractDungeon.player, thornPerk), thornPerk));
         }
     }
 
