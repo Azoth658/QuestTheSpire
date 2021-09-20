@@ -23,6 +23,7 @@ public class CharacterSaveFile {
     public static final String POTION_SLOTS = "PotionSlots";
     public static final String ENERGY = "Energy";
     public static final String DRAW = "Draw";
+    public static final String RETAIN_BLOCK = "RetainBlock";
     public static final String STR = "Strength";
     public static final String DEX = "Dexterity";
     public static final String FOC = "Focus";
@@ -120,6 +121,10 @@ public class CharacterSaveFile {
 
     public int getDraw() {
         return config.getInt(DRAW);
+    }
+
+    public int getRetainBlock() {
+        return config.getInt(RETAIN_BLOCK);
     }
 
     public int getStr() {
@@ -265,6 +270,11 @@ public class CharacterSaveFile {
         saveConfig();
     }
 
+    public void setRetainBlock(int RetainBlock) {
+        config.setInt(RETAIN_BLOCK, RetainBlock);
+        saveConfig();
+    }
+
     public void setStr(int PerkStr) {
         config.setInt(STR, PerkStr);
         saveConfig();
@@ -406,6 +416,7 @@ public class CharacterSaveFile {
         questTheSpireCharacterStats.setProperty(POTION_SLOTS, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(ENERGY, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(DRAW, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(RETAIN_BLOCK, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(STR, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(DEX, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(FOC, String.valueOf(0));

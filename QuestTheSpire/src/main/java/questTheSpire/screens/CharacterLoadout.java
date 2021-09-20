@@ -56,6 +56,7 @@ public class CharacterLoadout {
     public static final String DRAW = TEXT[21];
     public static final String REMOVAlS = TEXT[22];
     public static final String THORNS = TEXT[23];
+    public static final String RETAIN_BLOCK = TEXT[24];
     public static final AtlasRegion PERK_IMAGE = ImageMaster.CARD_COLORLESS_ORB;
     public static final AtlasRegion RESET_IMAGE = new TextureAtlas(Gdx.files.internal("powers/powers.atlas")).findRegion("128/" + "retain");
     private Texture buttonImg;
@@ -192,6 +193,7 @@ public class CharacterLoadout {
             public int maxUpgrades(){return 2;}
         });
         cY += Y_OFFSET_PER_OPTION;
+        cY += Y_OFFSET_PER_OPTION;
         //Energy
         customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.ENERGY, ENERGY, cX, cY) {
             @Override
@@ -223,6 +225,14 @@ public class CharacterLoadout {
 
             @Override
             public int maxUpgrades(){return 5;}
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        //Retain Block
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.RETAIN_BLOCK, RETAIN_BLOCK, cX, cY) {
+            @Override
+            public int amountPerUpgrade() {
+                return 5;
+            }
         });
         cY += Y_OFFSET_PER_OPTION;
         //Strength
@@ -264,24 +274,10 @@ public class CharacterLoadout {
             }
         });
         cY += Y_OFFSET_PER_OPTION;
-        //Regen
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.REG, REGEN, cX, cY) {
-            @Override
-            public int getUpgradeCost(int currentUpgrades) {
-                return 1 + currentUpgrades;
-            }
 
-            @Override
-            public int getDowngradeRefund(int currentUpgrades) {
-                return currentUpgrades;
-            }
-
-            @Override
-            public int maxUpgrades() {
-                return 4;
-            }
-        });
-        cY += Y_OFFSET_PER_OPTION;
+        //Second Column
+        cX = COLUMN_2_X;
+        cY = COLUMN_Y;
         //Plated Armor
         customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.ARMOR, ARMOR, cX, cY) {
             @Override
@@ -313,6 +309,24 @@ public class CharacterLoadout {
             }
         });
         cY += Y_OFFSET_PER_OPTION;
+        //Regen
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.REG, REGEN, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 1 + currentUpgrades;
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                return currentUpgrades;
+            }
+
+            @Override
+            public int maxUpgrades() {
+                return 4;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
         //Devotion
         customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.DEV, DEVOTION, cX, cY) {
             @Override
@@ -331,10 +345,6 @@ public class CharacterLoadout {
             }
         });
         cY += Y_OFFSET_PER_OPTION;
-
-        //Second Column
-        cX = COLUMN_2_X;
-        cY = COLUMN_Y;
         //Thorns
         customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.THORNS, THORNS, cX, cY) {
             @Override
@@ -348,21 +358,7 @@ public class CharacterLoadout {
             }
         });
         cY += Y_OFFSET_PER_OPTION;
-        customizationOptions.add(new ClickableUIContainers.ClickableText("TODO - Mastery Card Selection", cX, cY) {
-            @Override
-            public void onClick() {
-                CardGroup group = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-                for (AbstractCard c : CardLibrary.getAllCards().stream().filter(c -> c.color == COLOR_MASTERY).collect(Collectors.toList())) {
-                    group.addToBottom(c);
-                }
-            }
-        });
         cY += Y_OFFSET_PER_OPTION;
-
-        //Third Column
-        cX = COLUMN_3_X;
-        cY = COLUMN_Y;
-
         //Common Relic
         customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.COMMON_RELIC, COMMON_RELIC, cX, cY) {
             @Override
@@ -417,6 +413,7 @@ public class CharacterLoadout {
             }
         });
         cY += Y_OFFSET_PER_OPTION;
+        cY += Y_OFFSET_PER_OPTION;
         //Removals
         customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.REMOVALS, REMOVAlS, cX, cY) {
             @Override
@@ -434,6 +431,23 @@ public class CharacterLoadout {
                 return 6;
             }
         });
+        cY += Y_OFFSET_PER_OPTION;
+
+
+        //Third Column
+        cX = COLUMN_3_X;
+        cY = COLUMN_Y;
+
+        customizationOptions.add(new ClickableUIContainers.ClickableText("TODO - Mastery Card Selection", cX, cY) {
+            @Override
+            public void onClick() {
+                CardGroup group = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
+                for (AbstractCard c : CardLibrary.getAllCards().stream().filter(c -> c.color == COLOR_MASTERY).collect(Collectors.toList())) {
+                    group.addToBottom(c);
+                }
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
     }
 
     public void setAllButtonsNeedUpdate() {
@@ -517,6 +531,7 @@ public class CharacterLoadout {
                 file.setPotionSlots(0);
                 file.setEnergy(0);
                 file.setDraw(0);
+                file.setRetainBlock(0);
                 file.setStr(0);
                 file.setDex(0);
                 file.setFoc(0);

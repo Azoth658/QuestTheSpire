@@ -62,8 +62,9 @@
       "Potion Slots",
       "Energy Per Turn",
       "Card Draw Per Turn",
-      "Removals",
-      "Thorns"
+      "TODO - Removals",
+      "Thorns",
+      "Block Retained"
     ]
   }
 }

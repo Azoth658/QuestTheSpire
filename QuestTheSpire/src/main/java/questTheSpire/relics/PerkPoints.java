@@ -16,6 +16,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import questTheSpire.QuestTheSpire;
 import questTheSpire.characters.MasteryCards;
+import questTheSpire.powers.RetainBlockPower;
 import questTheSpire.util.TextureLoader;
 
 import java.util.Iterator;
@@ -47,6 +48,7 @@ public class PerkPoints extends CustomRelic {
         int artifactPerk;
         int armorPerk;
         int thornPerk;
+        int retainBlockPerk;
 
         strPerk = activeCharacterFile.getStr();
         dexPerk = activeCharacterFile.getDex();
@@ -57,6 +59,7 @@ public class PerkPoints extends CustomRelic {
         artifactPerk = activeCharacterFile.getArt();
         armorPerk = activeCharacterFile.getArmor();
         thornPerk = activeCharacterFile.getThorns();
+        retainBlockPerk = activeCharacterFile.getRetainBlock();
 
         if (strPerk > 0) {
             this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, strPerk), strPerk));
@@ -84,6 +87,9 @@ public class PerkPoints extends CustomRelic {
         }
         if (thornPerk > 0) {
             this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new ThornsPower(AbstractDungeon.player, thornPerk), thornPerk));
+        }
+        if (thornPerk > 0) {
+            this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new RetainBlockPower(AbstractDungeon.player, retainBlockPerk), retainBlockPerk));
         }
     }
 

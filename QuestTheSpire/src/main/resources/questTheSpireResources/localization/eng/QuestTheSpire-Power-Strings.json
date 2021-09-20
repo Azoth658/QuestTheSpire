@@ -13,5 +13,11 @@
                 "Whenever you apply #yPoison, gain #b",
                 " #yBlock."]
 
-}
+},
+"questTheSpire:RetainBlockPower": {
+        "NAME": "Retain Block",
+        "DESCRIPTIONS": [
+                "Retain #b",
+                " #yBlock."]
+        }
 }
