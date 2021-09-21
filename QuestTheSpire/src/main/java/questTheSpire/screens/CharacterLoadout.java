@@ -57,6 +57,10 @@ public class CharacterLoadout {
     public static final String REMOVAlS = TEXT[22];
     public static final String THORNS = TEXT[23];
     public static final String RETAIN_BLOCK = TEXT[24];
+    public static final String COMMON_CARD = TEXT[25];
+    public static final String UNCOMMON_CARD = TEXT[26];
+    public static final String RARE_CARD = TEXT[27];
+    public static final String UPGRADES = TEXT[28];
     public static final AtlasRegion PERK_IMAGE = ImageMaster.CARD_COLORLESS_ORB;
     public static final AtlasRegion RESET_IMAGE = new TextureAtlas(Gdx.files.internal("powers/powers.atlas")).findRegion("128/" + "retain");
     private Texture buttonImg;
@@ -171,7 +175,7 @@ public class CharacterLoadout {
         customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.GOLD, EXTRA_GOLD, cX, cY) {
             @Override
             public int amountPerUpgrade() {
-                return 20;
+                return 50;
             }
         });
         cY += Y_OFFSET_PER_OPTION;
@@ -194,171 +198,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         cY += Y_OFFSET_PER_OPTION;
-        //Energy
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.ENERGY, ENERGY, cX, cY) {
-            @Override
-            public int getUpgradeCost(int currentUpgrades) {
-                return 5 + (currentUpgrades * 5);
-            }
 
-            @Override
-            public int getDowngradeRefund(int currentUpgrades) {
-                if (currentUpgrades>0){
-                    return currentUpgrades * 5;
-                } else return 5;
-            }
-        });
-        cY += Y_OFFSET_PER_OPTION;
-        //Draw
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.DRAW, DRAW, cX, cY) {
-            @Override
-            public int getUpgradeCost(int currentUpgrades) {
-                return 3 + (currentUpgrades * 3);
-            }
-
-            @Override
-            public int getDowngradeRefund(int currentUpgrades) {
-                if (currentUpgrades>0){
-                    return currentUpgrades * 3;
-                } else return 3;
-            }
-
-            @Override
-            public int maxUpgrades(){return 5;}
-        });
-        cY += Y_OFFSET_PER_OPTION;
-        //Retain Block
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.RETAIN_BLOCK, RETAIN_BLOCK, cX, cY) {
-            @Override
-            public int amountPerUpgrade() {
-                return 5;
-            }
-        });
-        cY += Y_OFFSET_PER_OPTION;
-        //Strength
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.STR, STRENGTH, cX, cY) {
-            @Override
-            public int getUpgradeCost(int currentUpgrades) {
-                return 3;
-            }
-
-            @Override
-            public int getDowngradeRefund(int currentUpgrades) {
-                return 3;
-            }
-        });
-        cY += Y_OFFSET_PER_OPTION;
-        //Dex
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.DEX, DEXTERITY, cX, cY) {
-            @Override
-            public int getUpgradeCost(int currentUpgrades) {
-                return 3;
-            }
-
-            @Override
-            public int getDowngradeRefund(int currentUpgrades) {
-                return 3;
-            }
-        });
-        cY += Y_OFFSET_PER_OPTION;
-        //Focus
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.FOC, FOCUS, cX, cY) {
-            @Override
-            public int getUpgradeCost(int currentUpgrades) {
-                return 4;
-            }
-
-            @Override
-            public int getDowngradeRefund(int currentUpgrades) {
-                return 4;
-            }
-        });
-        cY += Y_OFFSET_PER_OPTION;
-
-        //Second Column
-        cX = COLUMN_2_X;
-        cY = COLUMN_Y;
-        //Plated Armor
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.ARMOR, ARMOR, cX, cY) {
-            @Override
-            public int getUpgradeCost(int currentUpgrades) {
-                return 1 + currentUpgrades;
-            }
-
-            @Override
-            public int getDowngradeRefund(int currentUpgrades) {
-                return currentUpgrades;
-            }
-        });
-        cY += Y_OFFSET_PER_OPTION;
-        //Artifact
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.ART, ARTIFACT, cX, cY) {
-            @Override
-            public int getUpgradeCost(int currentUpgrades) {
-                return 2 + currentUpgrades;
-            }
-
-            @Override
-            public int getDowngradeRefund(int currentUpgrades) {
-                return 1 + currentUpgrades;
-            }
-
-            @Override
-            public int maxUpgrades() {
-                return 5;
-            }
-        });
-        cY += Y_OFFSET_PER_OPTION;
-        //Regen
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.REG, REGEN, cX, cY) {
-            @Override
-            public int getUpgradeCost(int currentUpgrades) {
-                return 1 + currentUpgrades;
-            }
-
-            @Override
-            public int getDowngradeRefund(int currentUpgrades) {
-                return currentUpgrades;
-            }
-
-            @Override
-            public int maxUpgrades() {
-                return 4;
-            }
-        });
-        cY += Y_OFFSET_PER_OPTION;
-        //Devotion
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.DEV, DEVOTION, cX, cY) {
-            @Override
-            public int getUpgradeCost(int currentUpgrades) {
-                return 3;
-            }
-
-            @Override
-            public int getDowngradeRefund(int currentUpgrades) {
-                return 3;
-            }
-
-            @Override
-            public int maxUpgrades() {
-                return 3;
-            }
-        });
-        cY += Y_OFFSET_PER_OPTION;
-        //Thorns
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.THORNS, THORNS, cX, cY) {
-            @Override
-            public int getUpgradeCost(int currentUpgrades) {
-                return 1 + currentUpgrades;
-            }
-
-            @Override
-            public int getDowngradeRefund(int currentUpgrades) {
-                return currentUpgrades;
-            }
-        });
-        cY += Y_OFFSET_PER_OPTION;
-        cY += Y_OFFSET_PER_OPTION;
         //Common Relic
         customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.COMMON_RELIC, COMMON_RELIC, cX, cY) {
             @Override
@@ -413,6 +253,212 @@ public class CharacterLoadout {
             }
         });
         cY += Y_OFFSET_PER_OPTION;
+
+        //Second Column
+        cX = COLUMN_2_X;
+        cY = COLUMN_Y;
+        //Energy
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.ENERGY, ENERGY, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 5 + (currentUpgrades * 5);
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                if (currentUpgrades>0){
+                    return currentUpgrades * 5;
+                } else return 5;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        //Draw
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.DRAW, DRAW, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 3 + (currentUpgrades * 3);
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                if (currentUpgrades>0){
+                    return currentUpgrades * 3;
+                } else return 3;
+            }
+
+            @Override
+            public int maxUpgrades(){return 5;}
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        //Retain Block
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.RETAIN_BLOCK, RETAIN_BLOCK, cX, cY) {
+            @Override
+            public int amountPerUpgrade() {
+                return 3                        ;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        //Strength
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.STR, STRENGTH, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 3;
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                return 3;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        //Dex
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.DEX, DEXTERITY, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 3;
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                return 3;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        //Focus
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.FOC, FOCUS, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 4;
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                return 4;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        //Plated Armor
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.ARMOR, ARMOR, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 1 + currentUpgrades;
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                return currentUpgrades;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        //Artifact
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.ART, ARTIFACT, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 2 + currentUpgrades;
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                return 1 + currentUpgrades;
+            }
+
+            @Override
+            public int maxUpgrades() {
+                return 5;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        //Regen
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.REG, REGEN, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 1 + currentUpgrades;
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                return currentUpgrades;
+            }
+
+            @Override
+            public int maxUpgrades() {
+                return 4;
+            }
+        });
+        /*@Deprecated
+        cY += Y_OFFSET_PER_OPTION;
+        //Devotion
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.DEV, DEVOTION, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 3;
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                return 3;
+            }
+
+            @Override
+            public int maxUpgrades() {
+                return 3;
+            }
+        });
+        */
+        cY += Y_OFFSET_PER_OPTION;
+        //Thorns
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.THORNS, THORNS, cX, cY) {
+            @Override
+            public int getUpgradeCost(int currentUpgrades) {
+                return 1 + currentUpgrades;
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                return currentUpgrades;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+
+        //Third Column
+        cX = COLUMN_3_X;
+        cY = COLUMN_Y;
+
+        //Mastery Card
+        customizationOptions.add(new ClickableUIContainers.ClickableText("TODO - Mastery Card Selection", cX, cY) {
+            @Override
+            public void onClick() {
+                CardGroup group = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
+                for (AbstractCard c : CardLibrary.getAllCards().stream().filter(c -> c.color == COLOR_MASTERY).collect(Collectors.toList())) {
+                    group.addToBottom(c);
+                }
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        cY += Y_OFFSET_PER_OPTION;
+        //Common Card
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.COMMON_CARD, COMMON_CARD, cX, cY) {
+            @Override
+            public int amountPerUpgrade() {
+                return 1;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        //Uncommon Card
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.UNCOMMON_CARD, UNCOMMON_CARD, cX, cY) {
+            @Override
+            public int amountPerUpgrade() {
+                return 1;
+            }
+        });
+        cY += Y_OFFSET_PER_OPTION;
+        //Rare Card
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.RARE_CARD, RARE_CARD, cX, cY) {
+            @Override
+            public int amountPerUpgrade() {
+                return 1;
+            }
+        });
         cY += Y_OFFSET_PER_OPTION;
         //Removals
         customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.REMOVALS, REMOVAlS, cX, cY) {
@@ -432,19 +478,21 @@ public class CharacterLoadout {
             }
         });
         cY += Y_OFFSET_PER_OPTION;
-
-
-        //Third Column
-        cX = COLUMN_3_X;
-        cY = COLUMN_Y;
-
-        customizationOptions.add(new ClickableUIContainers.ClickableText("TODO - Mastery Card Selection", cX, cY) {
+        //Upgrades
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.UPGRADES, UPGRADES, cX, cY) {
             @Override
-            public void onClick() {
-                CardGroup group = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-                for (AbstractCard c : CardLibrary.getAllCards().stream().filter(c -> c.color == COLOR_MASTERY).collect(Collectors.toList())) {
-                    group.addToBottom(c);
-                }
+            public int getUpgradeCost(int currentUpgrades) {
+                return 2;
+            }
+
+            @Override
+            public int getDowngradeRefund(int currentUpgrades) {
+                return 2;
+            }
+
+            @Override
+            public int maxUpgrades() {
+                return 5;
             }
         });
         cY += Y_OFFSET_PER_OPTION;
@@ -511,7 +559,6 @@ public class CharacterLoadout {
     }
 
     private void updateResetHitbox() {
-        //TODO Make the reset button glow or something on hover and click so it it more clear it is working (Done? Added hitbox hovered check to render color)
         if (selected) {
             this.resetHitbox.update();
             if (this.resetHitbox.justHovered) {
@@ -543,7 +590,11 @@ public class CharacterLoadout {
                 file.setCommonRelic(0);
                 file.setUncommonRelic(0);
                 file.setRareRelic(0);
+                file.setCommonCard(0);
+                file.setUncommonCard(0);
+                file.setRareCard(0);
                 file.setRemovals(0);
+                file.setUpgrades(0);
                 this.setAllButtonsNeedUpdate();
             }
         }

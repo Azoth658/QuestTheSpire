@@ -44,8 +44,8 @@
       "   Prestige: ",
       "Perk Points: ",
       "Character Upgrades",
-      "Secondary Upgrades",
-      "Extra Stuff",
+      "Combat Upgrades",
+      "Deck Changes",
       "Max Health",
       "Extra Gold",
       "Strength",
@@ -64,7 +64,11 @@
       "Card Draw Per Turn",
       "TODO - Removals",
       "Thorns",
-      "Block Retained"
+      "Block Retained",
+      "TODO - Choose a Common Card",
+      "TODO - Choose a Uncommon Card",
+      "TODO - Choose a Rare Card",
+      "TODO - Upgrades"
     ]
   }
 }

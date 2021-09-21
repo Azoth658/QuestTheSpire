@@ -88,7 +88,7 @@ public class PerkPoints extends CustomRelic {
         if (thornPerk > 0) {
             this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new ThornsPower(AbstractDungeon.player, thornPerk), thornPerk));
         }
-        if (thornPerk > 0) {
+        if (retainBlockPerk > 0) {
             this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new RetainBlockPower(AbstractDungeon.player, retainBlockPerk), retainBlockPerk));
         }
     }

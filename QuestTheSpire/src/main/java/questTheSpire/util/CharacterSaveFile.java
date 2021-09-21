@@ -35,10 +35,16 @@ public class CharacterSaveFile {
     public static final String THORNS = "Thorns";
     public static final String HOARDER = "HoarderAspect";
 
+
     public static final String COMMON_RELIC = "CommonRelic";
     public static final String UNCOMMON_RELIC = "UncommonRelic";
     public static final String RARE_RELIC = "RareRelic";
+
+    public static final String COMMON_CARD = "CommonCard";
+    public static final String UNCOMMON_CARD = "UncommonCard";
+    public static final String RARE_CARD = "RareCard";
     public static final String REMOVALS = "Removals";
+    public static final String UPGRADES = "Upgrades";
 
     public static final int BASE_REQ = 500;
     public static final int REQ_INCREASE_PER_LEVEL = 100;
@@ -177,8 +183,24 @@ public class CharacterSaveFile {
         return config.getInt(RARE_RELIC);
     }
 
+    public int getCommonCard() {
+        return config.getInt(COMMON_CARD);
+    }
+
+    public int getUncommonCard() {
+        return config.getInt(UNCOMMON_CARD);
+    }
+
+    public int getRareCard() {
+        return config.getInt(RARE_CARD);
+    }
+
     public int getRemovals() {
         return config.getInt(REMOVALS);
+    }
+
+    public int getUpgrades() {
+        return config.getInt(UPGRADES);
     }
 
     public void setExp(int exp) {
@@ -340,8 +362,28 @@ public class CharacterSaveFile {
         saveConfig();
     }
 
+    public void setCommonCard(int PerkCommonCard) {
+        config.setInt(COMMON_CARD, PerkCommonCard);
+        saveConfig();
+    }
+
+    public void setUncommonCard(int PerkUncommonCard) {
+        config.setInt(UNCOMMON_CARD, PerkUncommonCard);
+        saveConfig();
+    }
+
+    public void setRareCard(int PerkRareCard) {
+        config.setInt(RARE_CARD, PerkRareCard);
+        saveConfig();
+    }
+
     public void setRemovals(int PerkRemovals) {
         config.setInt(REMOVALS, PerkRemovals);
+        saveConfig();
+    }
+
+    public void setUpgrades(int PerkUpgrades) {
+        config.setInt(UPGRADES, PerkUpgrades);
         saveConfig();
     }
 
@@ -430,7 +472,11 @@ public class CharacterSaveFile {
         questTheSpireCharacterStats.setProperty(COMMON_RELIC, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(UNCOMMON_RELIC, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(RARE_RELIC, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(COMMON_CARD, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(UNCOMMON_CARD, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(RARE_CARD, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(REMOVALS, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(UPGRADES, String.valueOf(0));
 
         LOOKUP_TABLE[0] = BASE_REQ;
         for (int i = 1 ; i < MAX_LEVEL ; i++) {
