@@ -39,6 +39,7 @@ public class CharacterSaveFile {
     public static final String COMMON_RELIC = "CommonRelic";
     public static final String UNCOMMON_RELIC = "UncommonRelic";
     public static final String RARE_RELIC = "RareRelic";
+    public static final String RELIC_CHOICE = "RelicChoice";
 
     public static final String COMMON_CARD = "CommonCard";
     public static final String UNCOMMON_CARD = "UncommonCard";
@@ -181,6 +182,10 @@ public class CharacterSaveFile {
 
     public int getRareRelic() {
         return config.getInt(RARE_RELIC);
+    }
+
+    public int getRelicChoice() {
+        return config.getInt(RELIC_CHOICE);
     }
 
     public int getCommonCard() {
@@ -362,6 +367,11 @@ public class CharacterSaveFile {
         saveConfig();
     }
 
+    public void setRelicChoice(int PerkRelicChoice) {
+        config.setInt(RELIC_CHOICE, PerkRelicChoice);
+        saveConfig();
+    }
+
     public void setCommonCard(int PerkCommonCard) {
         config.setInt(COMMON_CARD, PerkCommonCard);
         saveConfig();
@@ -472,6 +482,7 @@ public class CharacterSaveFile {
         questTheSpireCharacterStats.setProperty(COMMON_RELIC, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(UNCOMMON_RELIC, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(RARE_RELIC, String.valueOf(0));
+        questTheSpireCharacterStats.setProperty(RELIC_CHOICE, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(COMMON_CARD, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(UNCOMMON_CARD, String.valueOf(0));
         questTheSpireCharacterStats.setProperty(RARE_CARD, String.valueOf(0));
