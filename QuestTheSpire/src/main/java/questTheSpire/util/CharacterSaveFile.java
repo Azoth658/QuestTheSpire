@@ -6,46 +6,70 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 import java.io.IOException;
+import java.util.EnumSet;
 import java.util.Properties;
 
 public class CharacterSaveFile {
     public static Properties questTheSpireCharacterStats = new Properties();
-    public static final String EXP = "Experience";
-    public static final String LEVEL = "Level";
-    public static final String PRESTIGE_LEVEL = "PrestigeLevel";
-    public static final String MAX_PERK_POINTS = "MaxPerkPoints";
-    public static final String CURRENT_PERK_POINTS = "CurrentPerkPoints";
-    public static final String RUNS = "Runs";
-    public static final String DEATHS = "Deaths";
-    public static final String WINS = "Wins";
-    public static final String MAX_HP = "MaxHP";
-    public static final String GOLD = "Gold";
-    public static final String POTION_SLOTS = "PotionSlots";
-    public static final String ENERGY = "Energy";
-    public static final String DRAW = "Draw";
-    public static final String RETAIN_BLOCK = "RetainBlock";
-    public static final String STR = "Strength";
-    public static final String DEX = "Dexterity";
-    public static final String FOC = "Focus";
-    public static final String MAN = "Mantra";
-    public static final String DEV = "Devotion";
-    public static final String REG = "Regen";
-    public static final String ART = "Artifact";
-    public static final String ARMOR = "PlatedArmor";
-    public static final String THORNS = "Thorns";
-    public static final String HOARDER = "HoarderAspect";
 
+    public enum SaveDataEnum {
+        EXPERIENCE,
+        LEVEL(1),
+        PRESTIGE_LEVEL,
+        MAX_PERK_POINTS(1),
+        CURRENT_PERK_POINTS(1),
+        RUNS,
+        DEATHS,
+        WINS,
 
-    public static final String COMMON_RELIC = "CommonRelic";
-    public static final String UNCOMMON_RELIC = "UncommonRelic";
-    public static final String RARE_RELIC = "RareRelic";
-    public static final String RELIC_CHOICE = "RelicChoice";
+        //Character data above, perk allocation data below.
 
-    public static final String COMMON_CARD = "CommonCard";
-    public static final String UNCOMMON_CARD = "UncommonCard";
-    public static final String RARE_CARD = "RareCard";
-    public static final String REMOVALS = "Removals";
-    public static final String UPGRADES = "Upgrades";
+        MAX_HP,
+        GOLD,
+        POTION_SLOTS,
+        ENERGY,
+        DRAW_AMOUNT,
+        RETAIN_BLOCK,
+        STRENGTH,
+        DEXTERITY,
+        FOCUS,
+        MANTRA,
+        DEVOTION,
+        REGEN,
+        ARTIFACT,
+        PLATED_ARMOR,
+        THORNS,
+        COMMON_RELIC,
+        UNCOMMON_RELIC,
+        RARE_RELIC,
+
+        //Unimplemented options below
+
+        COMMON_CARD,
+        UNCOMMON_CARD,
+        RARE_CARD,
+        CARD_REMOVALS,
+        CARD_UPGRADES,
+        HOARDER_ASPECT;
+
+        private final int defaultValue;
+
+        SaveDataEnum(int defaultValue) {
+            this.defaultValue = defaultValue;
+        }
+
+        SaveDataEnum() {
+            this(0);
+        }
+
+        public int getDefaultValue() {
+            return defaultValue;
+        }
+
+    }
+
+    private final static EnumSet<SaveDataEnum> CHARACTER_DATA_SET = EnumSet.range(SaveDataEnum.EXPERIENCE, SaveDataEnum.WINS); //Update me if you add more character data.
+    private final static EnumSet<SaveDataEnum> PERK_ALLOCATION_DATA_SET = EnumSet.complementOf(CHARACTER_DATA_SET);
 
     public static final int BASE_REQ = 500;
     public static final int REQ_INCREASE_PER_LEVEL = 100;
@@ -78,325 +102,51 @@ public class CharacterSaveFile {
         return config;
     }
 
-    public int getExp() {
-        return config.getInt(EXP);
-    }
-
-    public int getLevel() {
-        return config.getInt(LEVEL);
-    }
-
-    public int getPrestigeLevel() {
-        return config.getInt(PRESTIGE_LEVEL);
-    }
-
-    public int getMaxPerkPoints() {
-        return config.getInt(MAX_PERK_POINTS);
-    }
-
-    public int getCurrentPerkPoints() {
-        return config.getInt(CURRENT_PERK_POINTS);
-    }
-
-    public int getDeaths() {
-        return config.getInt(DEATHS);
-    }
-
-    public int getRuns() {
-        return config.getInt(RUNS);
-    }
-
-    public int getWins() {
-        return config.getInt(WINS);
-    }
-
-    public int getStartMaxHP() {
-        return config.getInt(MAX_HP);
-    }
-
-    public int getStartGold() {
-        return config.getInt(GOLD);
-    }
-
-    public int getPotionSlots() {
-        return config.getInt(POTION_SLOTS);
-    }
-
-    public int getEnergy() {
-        return config.getInt(ENERGY);
-    }
-
-    public int getDraw() {
-        return config.getInt(DRAW);
-    }
-
-    public int getRetainBlock() {
-        return config.getInt(RETAIN_BLOCK);
-    }
-
-    public int getStr() {
-        return config.getInt(STR);
-    }
-
-    public int getDex() {
-        return config.getInt(DEX);
-    }
-
-    public int getFoc() {
-        return config.getInt(FOC);
-    }
-
-    public int getMan() {
-        return config.getInt(MAN);
-    }
-
-    public int getDev() {
-        return config.getInt(DEV);
-    }
-
-    public int getReg() {
-        return config.getInt(REG);
-    }
-
-    public int getArt() {
-        return config.getInt(ART);
-    }
-
-    public int getArmor() {
-        return config.getInt(ARMOR);
-    }
-
-    public int getThorns() {
-        return config.getInt(THORNS);
-    }
-
-    public int getHoarderAspect(){return config.getInt(HOARDER);}
-
-    public int getCommonRelic() {
-        return config.getInt(COMMON_RELIC);
-    }
-
-    public int getUncommonRelic() {
-        return config.getInt(UNCOMMON_RELIC);
-    }
-
-    public int getRareRelic() {
-        return config.getInt(RARE_RELIC);
-    }
-
-    public int getRelicChoice() {
-        return config.getInt(RELIC_CHOICE);
-    }
-
-    public int getCommonCard() {
-        return config.getInt(COMMON_CARD);
-    }
-
-    public int getUncommonCard() {
-        return config.getInt(UNCOMMON_CARD);
-    }
-
-    public int getRareCard() {
-        return config.getInt(RARE_CARD);
-    }
-
-    public int getRemovals() {
-        return config.getInt(REMOVALS);
-    }
-
-    public int getUpgrades() {
-        return config.getInt(UPGRADES);
-    }
-
-    public void setExp(int exp) {
-        config.setInt(EXP, exp);
-        saveConfig();
+    public int getData(SaveDataEnum s) {
+        return config.getInt(s.toString());
     }
 
     public void addExp(int exp) {
-        setExp(getExp()+exp);
-    }
-
-    public void setLevel(int level) {
-        config.setInt(LEVEL, level);
-        saveConfig();
+        setData(SaveDataEnum.EXPERIENCE, getData(SaveDataEnum.EXPERIENCE) +exp);
     }
 
     public void addLevel(int level) {
-        setLevel(getLevel()+level);
-    }
-
-    public void setPrestigeLevel(int pLevel) {
-        config.setInt(PRESTIGE_LEVEL, pLevel);
-        saveConfig();
+        setData(SaveDataEnum.LEVEL, getData(SaveDataEnum.LEVEL) +level);
     }
 
     public void addPrestigeLevel(int pLevel) {
-        setPrestigeLevel(getPrestigeLevel()+pLevel);
-    }
-
-    public void setMaxPerkPoints(int maxPerkPoints) {
-        config.setInt(MAX_PERK_POINTS, maxPerkPoints);
-        saveConfig();
-    }
-
-    public void setCurrentPerkPoints(int currentPerkPoints) {
-        config.setInt(CURRENT_PERK_POINTS, currentPerkPoints);
-        saveConfig();
-    }
-
-    public void setDeaths(int deaths) {
-        config.setInt(DEATHS, deaths);
-        saveConfig();
+        setData(SaveDataEnum.PRESTIGE_LEVEL, getData(SaveDataEnum.PRESTIGE_LEVEL) +pLevel);
     }
 
     public void incrementDeaths() {
-        setDeaths(getDeaths()+1);
-    }
-
-    public void setRuns(int runs) {
-        config.setInt(RUNS, runs);
-        saveConfig();
+        setData(SaveDataEnum.DEATHS, getData(SaveDataEnum.DEATHS) +1);
     }
 
     public void incrementRuns() {
-        setRuns(getRuns()+1);
-    }
-
-    public void setWins(int wins) {
-        config.setInt(WINS, wins);
-        saveConfig();
+        setData(SaveDataEnum.RUNS, getData(SaveDataEnum.RUNS) +1);
     }
 
     public void incrementWins() {
-        setWins(getWins()+1);
+        setData(SaveDataEnum.WINS, getData(SaveDataEnum.WINS) +1);
     }
 
-    public void setMaxHP(int MaxHP) {
-        config.setInt(MAX_HP, MaxHP);
+    public void setData(SaveDataEnum s, int value) {
+        config.setInt(s.toString(), value);
         saveConfig();
     }
 
-    public void setStartGold(int StartGold) {
-        config.setInt(GOLD, StartGold);
-        saveConfig();
+    public void resetPerkAllocations() {
+        setData(SaveDataEnum.CURRENT_PERK_POINTS, getData(SaveDataEnum.MAX_PERK_POINTS));
+        for (SaveDataEnum s : PERK_ALLOCATION_DATA_SET) {
+            setData(s, s.getDefaultValue());
+        }
     }
 
-    public void setPotionSlots(int PotionSlots) {
-        config.setInt(POTION_SLOTS, PotionSlots);
-        saveConfig();
+    public void wipeAllStoredData() {
+        for (SaveDataEnum s : SaveDataEnum.values()) {
+            setData(s, s.getDefaultValue());
+        }
     }
-
-    public void setEnergy(int Energy) {
-        config.setInt(ENERGY, Energy);
-        saveConfig();
-    }
-
-    public void setDraw(int Draw) {
-        config.setInt(DRAW, Draw);
-        saveConfig();
-    }
-
-    public void setRetainBlock(int RetainBlock) {
-        config.setInt(RETAIN_BLOCK, RetainBlock);
-        saveConfig();
-    }
-
-    public void setStr(int PerkStr) {
-        config.setInt(STR, PerkStr);
-        saveConfig();
-    }
-
-    public void setDex(int PerkDex) {
-        config.setInt(DEX, PerkDex);
-        saveConfig();
-    }
-
-    public void setFoc(int PerkFoc) {
-        config.setInt(FOC, PerkFoc);
-        saveConfig();
-    }
-
-    public void setMan(int PerkMan) {
-        config.setInt(MAN, PerkMan);
-        saveConfig();
-    }
-
-    public void setDev(int PerkDev) {
-        config.setInt(DEV, PerkDev);
-        saveConfig();
-    }
-
-    public void setReg(int PerkReg) {
-        config.setInt(REG, PerkReg);
-        saveConfig();
-    }
-
-    public void setArt(int PerkArt) {
-        config.setInt(ART, PerkArt);
-        saveConfig();
-    }
-
-    public void setArmor(int PerkArmor) {
-        config.setInt(ARMOR, PerkArmor);
-        saveConfig();
-    }
-
-    public void setThorns(int PerkThorns) {
-        config.setInt(THORNS, PerkThorns);
-        saveConfig();
-    }
-
-    public void setHoarderAspect(int AspectHoarder) {
-        config.setInt(HOARDER, AspectHoarder);
-        saveConfig();
-    }
-
-    public void setCommonRelic(int PerkCommonRelic) {
-        config.setInt(COMMON_RELIC, PerkCommonRelic);
-        saveConfig();
-    }
-
-    public void setUncommonRelic(int PerkUncommonRelic) {
-        config.setInt(UNCOMMON_RELIC, PerkUncommonRelic);
-        saveConfig();
-    }
-
-    public void setRareRelic(int PerkRareRelic) {
-        config.setInt(RARE_RELIC, PerkRareRelic);
-        saveConfig();
-    }
-
-    public void setRelicChoice(int PerkRelicChoice) {
-        config.setInt(RELIC_CHOICE, PerkRelicChoice);
-        saveConfig();
-    }
-
-    public void setCommonCard(int PerkCommonCard) {
-        config.setInt(COMMON_CARD, PerkCommonCard);
-        saveConfig();
-    }
-
-    public void setUncommonCard(int PerkUncommonCard) {
-        config.setInt(UNCOMMON_CARD, PerkUncommonCard);
-        saveConfig();
-    }
-
-    public void setRareCard(int PerkRareCard) {
-        config.setInt(RARE_CARD, PerkRareCard);
-        saveConfig();
-    }
-
-    public void setRemovals(int PerkRemovals) {
-        config.setInt(REMOVALS, PerkRemovals);
-        saveConfig();
-    }
-
-    public void setUpgrades(int PerkUpgrades) {
-        config.setInt(UPGRADES, PerkUpgrades);
-        saveConfig();
-    }
-
 
     public void saveConfig() {
         try {
@@ -455,39 +205,10 @@ public class CharacterSaveFile {
     }
 
     static {
-        questTheSpireCharacterStats.setProperty(EXP, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(LEVEL, String.valueOf(1));
-        questTheSpireCharacterStats.setProperty(PRESTIGE_LEVEL, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(MAX_PERK_POINTS, String.valueOf(1));
-        questTheSpireCharacterStats.setProperty(CURRENT_PERK_POINTS, String.valueOf(1));
-        questTheSpireCharacterStats.setProperty(DEATHS, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(RUNS, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(WINS, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(MAX_HP, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(GOLD, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(POTION_SLOTS, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(ENERGY, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(DRAW, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(RETAIN_BLOCK, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(STR, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(DEX, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(FOC, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(MAN, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(DEV, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(REG, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(ART, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(ARMOR, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(THORNS, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(HOARDER, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(COMMON_RELIC, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(UNCOMMON_RELIC, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(RARE_RELIC, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(RELIC_CHOICE, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(COMMON_CARD, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(UNCOMMON_CARD, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(RARE_CARD, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(REMOVALS, String.valueOf(0));
-        questTheSpireCharacterStats.setProperty(UPGRADES, String.valueOf(0));
+        for (SaveDataEnum s : SaveDataEnum.values()) {
+            questTheSpireCharacterStats.setProperty(s.toString(), String.valueOf(s.getDefaultValue()));
+        }
+
 
         LOOKUP_TABLE[0] = BASE_REQ;
         for (int i = 1 ; i < MAX_LEVEL ; i++) {

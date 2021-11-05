@@ -200,16 +200,16 @@ public class ClickableUIContainers {
         private int points;
         private final Button lb;
         private final Button rb;
-        private final SpireConfig config;
-        private final String varPath;
+        private final CharacterSaveFile file;
+        private final CharacterSaveFile.SaveDataEnum dataEnum;
         private final String baseText;
 
-        public PlusMinusLoadoutOption(CharacterLoadout loadout, CharacterSaveFile file, String variablePath, String labelText, float x, float y) {
+        public PlusMinusLoadoutOption(CharacterLoadout loadout, CharacterSaveFile file, CharacterSaveFile.SaveDataEnum dataEnum, String labelText, float x, float y) {
             this.x = x;
             this.y = y;
             this.loadout = loadout;
-            this.config = file.getWrappedConfig();
-            this.varPath = variablePath;
+            this.file = file;
+            this.dataEnum = dataEnum;
             this.baseText = labelText;
             lb = new Button(false, 0, 0);
             rb = new Button(true, 0, 0);
@@ -217,9 +217,9 @@ public class ClickableUIContainers {
         }
 
         protected void readValues() {
-            amount = config.getInt(varPath);
+            amount = file.getData(dataEnum);
             upgrades = amount/amountPerUpgrade();
-            points = config.getInt(CharacterSaveFile.CURRENT_PERK_POINTS);
+            points = file.getData(CharacterSaveFile.SaveDataEnum.CURRENT_PERK_POINTS);
             makeLabel();
             canUp = canUpgrade();
             canDown = canDowngrade();
@@ -230,13 +230,8 @@ public class ClickableUIContainers {
         }
 
         protected void saveValues() {
-            config.setInt(varPath, amount);
-            config.setInt(CharacterSaveFile.CURRENT_PERK_POINTS, points);
-            try {
-                config.save();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            file.setData(dataEnum, amount);
+            file.setData(CharacterSaveFile.SaveDataEnum.CURRENT_PERK_POINTS, points);
         }
 
         protected void makeLabel() {

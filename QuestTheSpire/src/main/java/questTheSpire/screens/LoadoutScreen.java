@@ -14,14 +14,14 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.screens.charSelect.CharacterSelectScreen;
 import com.megacrit.cardcrawl.screens.mainMenu.MainMenuScreen;
 import com.megacrit.cardcrawl.screens.mainMenu.MenuCancelButton;
-import questTheSpire.QuestTheSpire;
+import questTheSpire.QuestTheSpireMod;
 import questTheSpire.patches.MainMenuPatches;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class LoadoutScreen {
-    private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(QuestTheSpire.makeID("LoadoutScreen"));
+    private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(QuestTheSpireMod.makeID("LoadoutScreen"));
     public static final String[] TEXT = uiStrings.TEXT;
     private int optionsPerIndex = 4;
     private int selectIndex = 0;

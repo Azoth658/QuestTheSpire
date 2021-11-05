@@ -18,7 +18,7 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import com.megacrit.cardcrawl.screens.select.GridCardSelectScreen;
-import questTheSpire.QuestTheSpire;
+import questTheSpire.QuestTheSpireMod;
 import questTheSpire.cards.BlankCard;
 import questTheSpire.patches.MainMenuPatches;
 import questTheSpire.util.CharacterSaveFile;
@@ -30,37 +30,37 @@ import static com.megacrit.cardcrawl.core.Settings.scale;
 import static questTheSpire.characters.MasteryCards.Enums.COLOR_MASTERY;
 
 public class CharacterLoadout {
-    private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(QuestTheSpire.makeID("LoadoutScreen"));
+    private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(QuestTheSpireMod.makeID("LoadoutScreen"));
     private static final String[] TEXT = uiStrings.TEXT;
-    public static final String LEVEL = TEXT[0];
-    public static final String PRESTIGE = TEXT[1];
-    public static final String PERK_POINTS = TEXT[2];
-    public static final String CORE_BUFFS = TEXT[3];
-    public static final String ASPECTS = TEXT[4];
-    public static final String EXTRA_STUFF = TEXT[5];
-    public static final String MAX_HEALTH = TEXT[6];
-    public static final String EXTRA_GOLD = TEXT[7];
-    public static final String STRENGTH = TEXT[8];
-    public static final String DEXTERITY = TEXT[9];
-    public static final String FOCUS = TEXT[10];
-    public static final String REGEN = TEXT[11];
-    public static final String DEVOTION = TEXT[12];
-    public static final String RESET = TEXT[13];
-    public static final String ARTIFACT = TEXT[14];
-    public static final String COMMON_RELIC = TEXT[15];
-    public static final String UNCOMMON_RELIC = TEXT[16];
-    public static final String RARE_RELIC = TEXT[17];
-    public static final String ARMOR = TEXT[18];
-    public static final String SLOTS = TEXT[19];
-    public static final String ENERGY = TEXT[20];
-    public static final String DRAW = TEXT[21];
-    public static final String REMOVAlS = TEXT[22];
-    public static final String THORNS = TEXT[23];
-    public static final String RETAIN_BLOCK = TEXT[24];
-    public static final String COMMON_CARD = TEXT[25];
-    public static final String UNCOMMON_CARD = TEXT[26];
-    public static final String RARE_CARD = TEXT[27];
-    public static final String UPGRADES = TEXT[28];
+    public static final String LEVEL_TEXT = TEXT[0];
+    public static final String PRESTIGE_TEXT = TEXT[1];
+    public static final String PERK_POINTS_TEXT = TEXT[2];
+    public static final String CORE_BUFFS_TEXT = TEXT[3];
+    public static final String ASPECTS_TEXT = TEXT[4];
+    public static final String EXTRA_STUFF_TEXT = TEXT[5];
+    public static final String MAX_HEALTH_TEXT = TEXT[6];
+    public static final String EXTRA_GOLD_TEXT = TEXT[7];
+    public static final String STRENGTH_TEXT = TEXT[8];
+    public static final String DEXTERITY_TEXT = TEXT[9];
+    public static final String FOCUS_TEXT = TEXT[10];
+    public static final String REGEN_TEXT = TEXT[11];
+    public static final String DEVOTION_TEXT = TEXT[12];
+    public static final String RESET_TEXT = TEXT[13];
+    public static final String ARTIFACT_TEXT = TEXT[14];
+    public static final String COMMON_RELIC_TEXT = TEXT[15];
+    public static final String UNCOMMON_RELIC_TEXT = TEXT[16];
+    public static final String RARE_RELIC_TEXT = TEXT[17];
+    public static final String ARMOR_TEXT = TEXT[18];
+    public static final String SLOTS_TEXT = TEXT[19];
+    public static final String ENERGY_TEXT = TEXT[20];
+    public static final String DRAW_TEXT = TEXT[21];
+    public static final String REMOVALS_TEXT = TEXT[22];
+    public static final String THORNS_TEXT = TEXT[23];
+    public static final String RETAIN_BLOCK_TEXT = TEXT[24];
+    public static final String COMMON_CARD_TEXT = TEXT[25];
+    public static final String UNCOMMON_CARD_TEXT = TEXT[26];
+    public static final String RARE_CARD_TEXT = TEXT[27];
+    public static final String UPGRADES_TEXT = TEXT[28];
     public static final AtlasRegion PERK_IMAGE = ImageMaster.CARD_COLORLESS_ORB;
     public static final AtlasRegion RESET_IMAGE = new TextureAtlas(Gdx.files.internal("powers/powers.atlas")).findRegion("128/" + "retain");
     private Texture buttonImg;
@@ -157,14 +157,14 @@ public class CharacterLoadout {
 
     private void getFile() {
         file = new CharacterSaveFile(c.chosenClass);
-        levelInfo = LEVEL + file.getLevel() + (file.getPrestigeLevel() > 0 ? " " + PRESTIGE + file.getPrestigeLevel() : "");
+        levelInfo = LEVEL_TEXT + file.getData(CharacterSaveFile.SaveDataEnum.LEVEL) + (file.getData(CharacterSaveFile.SaveDataEnum.PRESTIGE_LEVEL) > 0 ? " " + PRESTIGE_TEXT + file.getData(CharacterSaveFile.SaveDataEnum.PRESTIGE_LEVEL) : "");
     }
 
     private void setupCustomizationOptions() {
         //First Column
         float cX = COLUMN_1_X, cY = COLUMN_Y;
         //Max HP
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.MAX_HP, MAX_HEALTH, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.MAX_HP, MAX_HEALTH_TEXT, cX, cY) {
             @Override
             public int amountPerUpgrade() {
                 return 5;
@@ -172,7 +172,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         //Gold
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.GOLD, EXTRA_GOLD, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.GOLD, EXTRA_GOLD_TEXT, cX, cY) {
             @Override
             public int amountPerUpgrade() {
                 return 50;
@@ -180,7 +180,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         //Potions
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.POTION_SLOTS, SLOTS, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.POTION_SLOTS, SLOTS_TEXT, cX, cY) {
             @Override
             public int getUpgradeCost(int currentUpgrades) {
                 return 3 + (currentUpgrades * 3);
@@ -200,7 +200,7 @@ public class CharacterLoadout {
         cY += Y_OFFSET_PER_OPTION;
 
         //Common Relic
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.COMMON_RELIC, COMMON_RELIC, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.COMMON_RELIC, COMMON_RELIC_TEXT, cX, cY) {
             @Override
             public int getUpgradeCost(int currentUpgrades) {
                 return 3;
@@ -218,7 +218,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         //Uncommon Relic
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.UNCOMMON_RELIC, UNCOMMON_RELIC, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.UNCOMMON_RELIC, UNCOMMON_RELIC_TEXT, cX, cY) {
             @Override
             public int getUpgradeCost(int currentUpgrades) {
                 return 4;
@@ -236,7 +236,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         //Rare Relic
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.RARE_RELIC, RARE_RELIC, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.RARE_RELIC, RARE_RELIC_TEXT, cX, cY) {
             @Override
             public int getUpgradeCost(int currentUpgrades) {
                 return 5;
@@ -258,7 +258,7 @@ public class CharacterLoadout {
         cX = COLUMN_2_X;
         cY = COLUMN_Y;
         //Energy
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.ENERGY, ENERGY, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.ENERGY, ENERGY_TEXT, cX, cY) {
             @Override
             public int getUpgradeCost(int currentUpgrades) {
                 return 5 + (currentUpgrades * 5);
@@ -273,7 +273,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         //Draw
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.DRAW, DRAW, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.DRAW_AMOUNT, DRAW_TEXT, cX, cY) {
             @Override
             public int getUpgradeCost(int currentUpgrades) {
                 return 3 + (currentUpgrades * 3);
@@ -291,7 +291,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         //Retain Block
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.RETAIN_BLOCK, RETAIN_BLOCK, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.RETAIN_BLOCK, RETAIN_BLOCK_TEXT, cX, cY) {
             @Override
             public int amountPerUpgrade() {
                 return 3                        ;
@@ -299,7 +299,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         //Strength
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.STR, STRENGTH, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.STRENGTH, STRENGTH_TEXT, cX, cY) {
             @Override
             public int getUpgradeCost(int currentUpgrades) {
                 return 3;
@@ -312,7 +312,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         //Dex
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.DEX, DEXTERITY, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.DEXTERITY, DEXTERITY_TEXT, cX, cY) {
             @Override
             public int getUpgradeCost(int currentUpgrades) {
                 return 3;
@@ -325,7 +325,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         //Focus
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.FOC, FOCUS, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.FOCUS, FOCUS_TEXT, cX, cY) {
             @Override
             public int getUpgradeCost(int currentUpgrades) {
                 return 4;
@@ -338,7 +338,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         //Plated Armor
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.ARMOR, ARMOR, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.PLATED_ARMOR, ARMOR_TEXT, cX, cY) {
             @Override
             public int getUpgradeCost(int currentUpgrades) {
                 return 1 + currentUpgrades;
@@ -351,7 +351,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         //Artifact
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.ART, ARTIFACT, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.ARTIFACT, ARTIFACT_TEXT, cX, cY) {
             @Override
             public int getUpgradeCost(int currentUpgrades) {
                 return 2 + currentUpgrades;
@@ -369,7 +369,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         //Regen
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.REG, REGEN, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.REGEN, REGEN_TEXT, cX, cY) {
             @Override
             public int getUpgradeCost(int currentUpgrades) {
                 return 1 + currentUpgrades;
@@ -407,7 +407,7 @@ public class CharacterLoadout {
         */
         cY += Y_OFFSET_PER_OPTION;
         //Thorns
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.THORNS, THORNS, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.THORNS, THORNS_TEXT, cX, cY) {
             @Override
             public int getUpgradeCost(int currentUpgrades) {
                 return 1 + currentUpgrades;
@@ -437,7 +437,7 @@ public class CharacterLoadout {
         cY += Y_OFFSET_PER_OPTION;
         cY += Y_OFFSET_PER_OPTION;
         //Common Card
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.COMMON_CARD, COMMON_CARD, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.COMMON_CARD, COMMON_CARD_TEXT, cX, cY) {
             @Override
             public int amountPerUpgrade() {
                 return 1;
@@ -445,7 +445,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         //Uncommon Card
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.UNCOMMON_CARD, UNCOMMON_CARD, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.UNCOMMON_CARD, UNCOMMON_CARD_TEXT, cX, cY) {
             @Override
             public int amountPerUpgrade() {
                 return 1;
@@ -453,7 +453,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         //Rare Card
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.RARE_CARD, RARE_CARD, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.RARE_CARD, RARE_CARD_TEXT, cX, cY) {
             @Override
             public int amountPerUpgrade() {
                 return 1;
@@ -461,7 +461,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         //Removals
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.REMOVALS, REMOVAlS, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.CARD_REMOVALS, REMOVALS_TEXT, cX, cY) {
             @Override
             public int getUpgradeCost(int currentUpgrades) {
                 return 1;
@@ -479,7 +479,7 @@ public class CharacterLoadout {
         });
         cY += Y_OFFSET_PER_OPTION;
         //Upgrades
-        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.UPGRADES, UPGRADES, cX, cY) {
+        customizationOptions.add(new ClickableUIContainers.PlusMinusLoadoutOption(this, file, CharacterSaveFile.SaveDataEnum.CARD_UPGRADES, UPGRADES_TEXT, cX, cY) {
             @Override
             public int getUpgradeCost(int currentUpgrades) {
                 return 2;
@@ -572,29 +572,7 @@ public class CharacterLoadout {
 
             if (this.resetHitbox.clicked) {
                 this.resetHitbox.clicked = false;
-                file.setCurrentPerkPoints(file.getMaxPerkPoints());
-                file.setMaxHP(0);
-                file.setStartGold(0);
-                file.setPotionSlots(0);
-                file.setEnergy(0);
-                file.setDraw(0);
-                file.setRetainBlock(0);
-                file.setStr(0);
-                file.setDex(0);
-                file.setFoc(0);
-                file.setReg(0);
-                file.setArt(0);
-                file.setDev(0);
-                file.setArmor(0);
-                file.setThorns(0);
-                file.setCommonRelic(0);
-                file.setUncommonRelic(0);
-                file.setRareRelic(0);
-                file.setCommonCard(0);
-                file.setUncommonCard(0);
-                file.setRareCard(0);
-                file.setRemovals(0);
-                file.setUpgrades(0);
+                file.resetPerkAllocations();
                 this.setAllButtonsNeedUpdate();
             }
         }
@@ -688,13 +666,13 @@ public class CharacterLoadout {
         if (!this.name.equals("") && selected) {
             FontHelper.renderFontCentered(sb, FontHelper.bannerNameFont, this.name, COLUMN_2_X, NAME_Y, Settings.GOLD_COLOR, scale);
             FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, this.levelInfo, COLUMN_2_X, LEVEL_Y, Settings.BLUE_RELIC_COLOR, scale);
-            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, CORE_BUFFS, COLUMN_1_X, HEADER_Y, Settings.GOLD_COLOR, scale);
-            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, ASPECTS, COLUMN_2_X, HEADER_Y, Settings.GOLD_COLOR, scale);
-            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, EXTRA_STUFF, COLUMN_3_X, HEADER_Y, Settings.GOLD_COLOR, scale);
+            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, CORE_BUFFS_TEXT, COLUMN_1_X, HEADER_Y, Settings.GOLD_COLOR, scale);
+            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, ASPECTS_TEXT, COLUMN_2_X, HEADER_Y, Settings.GOLD_COLOR, scale);
+            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, EXTRA_STUFF_TEXT, COLUMN_3_X, HEADER_Y, Settings.GOLD_COLOR, scale);
             sb.draw(PERK_IMAGE, PERK_X - PERK_IMAGE.getRegionWidth()/2F, PERK_Y - PERK_IMAGE.getRegionHeight()/2F, PERK_IMAGE.getRegionWidth()/2F, PERK_IMAGE.getRegionHeight()/2F, PERK_IMAGE.getRegionWidth(), PERK_IMAGE.getRegionHeight(), scale, scale, 0.0F);
-            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, file.getCurrentPerkPoints()+" / "+file.getMaxPerkPoints(), PERK_X+3* PERK_IMAGE.getRegionWidth()/2f, PERK_Y, Settings.GOLD_COLOR, scale);
+            FontHelper.renderFontCentered(sb, FontHelper.charTitleFont, file.getData(CharacterSaveFile.SaveDataEnum.CURRENT_PERK_POINTS) +" / "+ file.getData(CharacterSaveFile.SaveDataEnum.MAX_PERK_POINTS), PERK_X+3* PERK_IMAGE.getRegionWidth()/2f, PERK_Y, Settings.GOLD_COLOR, scale);
             sb.draw(RESET_IMAGE, RESET_X - RESET_IMAGE.getRegionWidth()/2F, RESET_Y - RESET_IMAGE.getRegionHeight()/2F, RESET_IMAGE.getRegionWidth()/2F, RESET_IMAGE.getRegionHeight()/2F, RESET_IMAGE.getRegionWidth(), RESET_IMAGE.getRegionHeight(), (float) PERK_IMAGE.getRegionWidth()/ RESET_IMAGE.getRegionWidth()* scale, (float) PERK_IMAGE.getRegionHeight()/ RESET_IMAGE.getRegionHeight()* scale, 0.0F);
-            FontHelper.renderFontRightAligned(sb, FontHelper.charTitleFont, RESET, RESET_X - PERK_IMAGE.getRegionWidth(), RESET_Y, resetHitbox.hovered ? Settings.BLUE_TEXT_COLOR : Settings.GOLD_COLOR);
+            FontHelper.renderFontRightAligned(sb, FontHelper.charTitleFont, RESET_TEXT, RESET_X - PERK_IMAGE.getRegionWidth(), RESET_Y, resetHitbox.hovered ? Settings.BLUE_TEXT_COLOR : Settings.GOLD_COLOR);
         }
     }
 
