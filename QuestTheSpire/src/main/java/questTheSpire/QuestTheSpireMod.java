@@ -49,7 +49,7 @@ import java.util.HashSet;
 import java.util.Properties;
 
 @SpireInitializer
-public class QuestTheSpire implements
+public class QuestTheSpireMod implements
         EditCardsSubscriber,
         EditRelicsSubscriber,
         EditStringsSubscriber,
@@ -61,7 +61,7 @@ public class QuestTheSpire implements
         StartActSubscriber,
         StartGameSubscriber {
 
-    public static final Logger logger = LogManager.getLogger(QuestTheSpire.class.getName());
+    public static final Logger logger = LogManager.getLogger(QuestTheSpireMod.class.getName());
     private static String modID;
 
     // Mod-settings settings. This is if you want an on/off savable button
@@ -72,9 +72,7 @@ public class QuestTheSpire implements
     public static boolean enableCards = true; // The boolean we'll be setting on/off (true/false)
 
     //This is for the in-game mod settings panel.
-    private static final String MODNAME = "Quest The Spire";
-    private static final String AUTHOR = "Azoth658"; // And pretty soon - You!
-    private static final String DESCRIPTION = "An attempt at offering a Rogue Lite experience.";
+    private static final String AUTHOR = "Azoth658, Mistress Alison";
 
     //Permanent progression fields
     public static Properties questTheSpireStats = new Properties();
@@ -174,7 +172,7 @@ public class QuestTheSpire implements
     
     // =============== SUBSCRIBE, INITIALIZE =================
     
-    public QuestTheSpire() {
+    public QuestTheSpireMod() {
         logger.info("Subscribe to BaseMod hooks");
 
         BaseMod.subscribe(this);
@@ -242,7 +240,7 @@ public class QuestTheSpire implements
     public static void setModID(String ID) { // DON'T EDIT
         Gson coolG = new Gson(); // EY DON'T EDIT THIS
         //   String IDjson = Gdx.files.internal("IDCheckStringsDONT-EDIT-AT-ALL.json").readString(String.valueOf(StandardCharsets.UTF_8)); // i hate u Gdx.files
-        InputStream in = QuestTheSpire.class.getResourceAsStream("/IDCheckStringsDONT-EDIT-AT-ALL.json"); // DON'T EDIT THIS ETHER
+        InputStream in = QuestTheSpireMod.class.getResourceAsStream("/IDCheckStringsDONT-EDIT-AT-ALL.json"); // DON'T EDIT THIS ETHER
         IDCheckDontTouchPls EXCEPTION_STRINGS = coolG.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), IDCheckDontTouchPls.class); // OR THIS, DON'T EDIT IT
         logger.info("You are attempting to set your mod ID as: " + ID); // NO WHY
         if (ID.equals(EXCEPTION_STRINGS.DEFAULTID)) { // DO *NOT* CHANGE THIS ESPECIALLY, TO EDIT YOUR MOD ID, SCROLL UP JUST A LITTLE, IT'S JUST ABOVE
@@ -262,9 +260,9 @@ public class QuestTheSpire implements
     private static void pathCheck() { // ALSO NO
         Gson coolG = new Gson(); // NOPE DON'T EDIT THIS
         //   String IDjson = Gdx.files.internal("IDCheckStringsDONT-EDIT-AT-ALL.json").readString(String.valueOf(StandardCharsets.UTF_8)); // i still hate u btw Gdx.files
-        InputStream in = QuestTheSpire.class.getResourceAsStream("/IDCheckStringsDONT-EDIT-AT-ALL.json"); // DON'T EDIT THISSSSS
+        InputStream in = QuestTheSpireMod.class.getResourceAsStream("/IDCheckStringsDONT-EDIT-AT-ALL.json"); // DON'T EDIT THISSSSS
         IDCheckDontTouchPls EXCEPTION_STRINGS = coolG.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), IDCheckDontTouchPls.class); // NAH, NO EDIT
-        String packageName = QuestTheSpire.class.getPackage().getName(); // STILL NO EDIT ZONE
+        String packageName = QuestTheSpireMod.class.getPackage().getName(); // STILL NO EDIT ZONE
         FileHandle resourcePathExists = Gdx.files.internal(getModID() + "Resources"); // PLEASE DON'T EDIT THINGS HERE, THANKS
         if (!modID.equals(EXCEPTION_STRINGS.DEVID)) { // LEAVE THIS EDIT-LESS
             if (!packageName.equals(getModID())) { // NOT HERE ETHER
@@ -280,9 +278,9 @@ public class QuestTheSpire implements
     
     
     public static void initialize() {
-        logger.info("========================= Initializing Default Mod. Hi. =========================");
-        QuestTheSpire defaultmod = new QuestTheSpire();
-        logger.info("========================= /Default Mod Initialized. Hello World./ =========================");
+        logger.info("========================= Initializing Quest The Spire. =========================");
+        QuestTheSpireMod qts = new QuestTheSpireMod();
+        logger.info("========================= /Quest The Spire Initialized./ =========================");
     }
 
 
@@ -297,6 +295,10 @@ public class QuestTheSpire implements
         
         // Create the Mod Menu
         ModPanel settingsPanel = new ModPanel();
+
+        //Get the text
+        UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(QuestTheSpireMod.makeID("QuestTheSpire-MenuPanel"));
+        String[] TEXT = uiStrings.TEXT;
         
         // Create the on/off button:
         ModLabeledToggleButton enableNormalsButton = new ModLabeledToggleButton("Check to disable mod events. Requires restart to activate.",
@@ -338,7 +340,7 @@ public class QuestTheSpire implements
         settingsPanel.addUIElement(enableNormalsButton); // Add the button to the settings panel. Button is a go.
         settingsPanel.addUIElement(enableNormalsButton2); // Add the button to the settings panel. Button is a go.
         
-        BaseMod.registerModBadge(badgeTexture, MODNAME, AUTHOR, DESCRIPTION, settingsPanel);
+        BaseMod.registerModBadge(badgeTexture, TEXT[0], AUTHOR, TEXT[1], settingsPanel);
 
         
         // =============== EVENTS =================
@@ -599,8 +601,8 @@ public class QuestTheSpire implements
             e.printStackTrace();
         }
         if (AbstractDungeon.player.hasRelic(HoarderAspect.ID)){
-            activeCharacterFile.setHoarderAspect(AbstractDungeon.player.gold);
-        } else activeCharacterFile.setHoarderAspect(0);
+            activeCharacterFile.setData(CharacterSaveFile.SaveDataEnum.HOARDER_ASPECT, AbstractDungeon.player.gold);
+        } else activeCharacterFile.setData(CharacterSaveFile.SaveDataEnum.HOARDER_ASPECT, 0);
 
     }
 

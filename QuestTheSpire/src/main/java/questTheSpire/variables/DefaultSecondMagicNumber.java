@@ -4,7 +4,7 @@ import basemod.abstracts.DynamicVariable;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import questTheSpire.cards.AbstractDefaultCard;
 
-import static questTheSpire.QuestTheSpire.makeID;
+import static questTheSpire.QuestTheSpireMod.makeID;
 
 public class DefaultSecondMagicNumber extends DynamicVariable {
 

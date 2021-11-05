@@ -5,8 +5,9 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.potions.PotionSlot;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import questTheSpire.patches.CurrentRoomHack;
+import questTheSpire.util.CharacterSaveFile;
 
-import static questTheSpire.QuestTheSpire.activeCharacterFile;
+import static questTheSpire.QuestTheSpireMod.activeCharacterFile;
 
 public class LoadPerks {
 
@@ -17,14 +18,14 @@ public class LoadPerks {
         int potionPerk;
         int drawPerk;
 
-        energyPerk = activeCharacterFile.getEnergy();
-        potionPerk = activeCharacterFile.getPotionSlots();
-        drawPerk = activeCharacterFile.getDraw();
-        hpPerk = activeCharacterFile.getStartMaxHP();
+        energyPerk = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.ENERGY);
+        potionPerk = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.POTION_SLOTS);
+        drawPerk = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.DRAW_AMOUNT);
+        hpPerk = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.MAX_HP);
 
         AbstractDungeon.player.increaseMaxHp(hpPerk,true);
 
-        goldPerk = activeCharacterFile.getStartGold();
+        goldPerk = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.GOLD);
         AbstractDungeon.player.gainGold(goldPerk);
 
         AbstractDungeon.player.energy.energyMaster = AbstractDungeon.player.energy.energyMaster + energyPerk;
@@ -43,18 +44,18 @@ public class LoadPerks {
 
         CurrentRoomHack.roomHack = true;
         //TODO make loading relics with can spawn criteria work
-        if (activeCharacterFile.getCommonRelic() > 0){
-            for (int i = 1; i <= activeCharacterFile.getCommonRelic(); i++) {
+        if (activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.COMMON_RELIC) > 0){
+            for (int i = 1; i <= activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.COMMON_RELIC); i++) {
                 AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.COMMON).instantObtain();
             }
         }
-        if (activeCharacterFile.getUncommonRelic() > 0){
-            for (int i = 1; i <= activeCharacterFile.getUncommonRelic(); i++) {
+        if (activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.UNCOMMON_RELIC) > 0){
+            for (int i = 1; i <= activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.UNCOMMON_RELIC); i++) {
                 AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.UNCOMMON).instantObtain();
             }
         }
-        if (activeCharacterFile.getRareRelic() > 0){
-            for (int i = 1; i <= activeCharacterFile.getRareRelic(); i++) {
+        if (activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.RARE_RELIC) > 0){
+            for (int i = 1; i <= activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.RARE_RELIC); i++) {
                 AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.RARE).instantObtain();
             }
         }

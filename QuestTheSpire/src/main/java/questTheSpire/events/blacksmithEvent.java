@@ -2,31 +2,25 @@ package questTheSpire.events;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.EventStrings;
-import com.megacrit.cardcrawl.screens.DoorUnlockScreen;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
-import questTheSpire.QuestTheSpire;
-import questTheSpire.cards.EntSpirit;
+import questTheSpire.QuestTheSpireMod;
 import questTheSpire.cards.Excalibur;
-import questTheSpire.cards.FangSpirit;
 
 import static com.megacrit.cardcrawl.cards.AbstractCard.CardType.ATTACK;
 import static com.megacrit.cardcrawl.cards.AbstractCard.CardType.SKILL;
-import static questTheSpire.QuestTheSpire.makeEventPath;
+import static questTheSpire.QuestTheSpireMod.makeEventPath;
 
 public class blacksmithEvent extends AbstractImageEvent {
 
 
-    public static final String ID = QuestTheSpire.makeID("blacksmithEvent");
+    public static final String ID = QuestTheSpireMod.makeID("blacksmithEvent");
     private static final EventStrings eventStrings = CardCrawlGame.languagePack.getEventString(ID);
 
     private static final String NAME = eventStrings.NAME;

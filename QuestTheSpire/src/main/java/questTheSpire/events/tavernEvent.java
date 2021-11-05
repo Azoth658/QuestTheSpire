@@ -1,30 +1,23 @@
 package questTheSpire.events;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.red.Flex;
 import com.megacrit.cardcrawl.cards.status.Wound;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.dungeons.Exordium;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.EventStrings;
-import com.megacrit.cardcrawl.ui.campfire.RestOption;
-import com.megacrit.cardcrawl.vfx.campfire.CampfireSleepEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
-import questTheSpire.QuestTheSpire;
-import questTheSpire.cards.EntSpirit;
-import questTheSpire.cards.FangSpirit;
+import questTheSpire.QuestTheSpireMod;
 
-import static questTheSpire.QuestTheSpire.*;
+import static questTheSpire.QuestTheSpireMod.*;
 
 public class tavernEvent extends AbstractImageEvent {
 
 
-    public static final String ID = QuestTheSpire.makeID("tavernEvent");
+    public static final String ID = QuestTheSpireMod.makeID("tavernEvent");
     private static final EventStrings eventStrings = CardCrawlGame.languagePack.getEventString(ID);
 
     private static final String NAME = eventStrings.NAME;

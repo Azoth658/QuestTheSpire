@@ -9,8 +9,7 @@
       "Enable random pre/post combat phrases. Defaults: true, 50%."
     ],
     "EXTRA_TEXT": [
-      "The M10 Robot",
-      "Adds M10 Robot (and cards) from 100% Orange Juice! NL See the Mod Options if you would like to change any configurations!"
+      "More example stuff."
     ]
   },
   "questTheSpire:MainMenu": {

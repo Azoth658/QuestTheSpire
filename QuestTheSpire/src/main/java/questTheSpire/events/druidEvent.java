@@ -2,28 +2,24 @@ package questTheSpire.events;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.cards.colorless.Apotheosis;
-import com.megacrit.cardcrawl.cards.green.Alchemize;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.EventStrings;
-import com.megacrit.cardcrawl.potions.PotionSlot;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
-import questTheSpire.QuestTheSpire;
+import questTheSpire.QuestTheSpireMod;
 import questTheSpire.cards.EntSpirit;
 import questTheSpire.cards.FangSpirit;
 
-import static questTheSpire.QuestTheSpire.makeEventPath;
+import static questTheSpire.QuestTheSpireMod.makeEventPath;
 
 public class druidEvent extends AbstractImageEvent {
 
 
-    public static final String ID = QuestTheSpire.makeID("druidEvent");
+    public static final String ID = QuestTheSpireMod.makeID("druidEvent");
     private static final EventStrings eventStrings = CardCrawlGame.languagePack.getEventString(ID);
 
     private static final String NAME = eventStrings.NAME;

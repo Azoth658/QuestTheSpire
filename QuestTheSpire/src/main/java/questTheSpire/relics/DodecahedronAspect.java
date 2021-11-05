@@ -3,23 +3,19 @@ package questTheSpire.relics;
 import basemod.abstracts.CustomRelic;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.powers.RetainCardPower;
-import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.relics.deprecated.DEPRECATEDDodecahedron;
-import questTheSpire.QuestTheSpire;
+import questTheSpire.QuestTheSpireMod;
 import questTheSpire.util.TextureLoader;
 
-import static questTheSpire.QuestTheSpire.makeRelicOutlinePath;
-import static questTheSpire.QuestTheSpire.makeRelicPath;
+import static questTheSpire.QuestTheSpireMod.makeRelicOutlinePath;
+import static questTheSpire.QuestTheSpireMod.makeRelicPath;
 
 public class DodecahedronAspect extends CustomRelic {
 
-    public static final String ID = QuestTheSpire.makeID("DodecahedronAspect");
+    public static final String ID = QuestTheSpireMod.makeID("DodecahedronAspect");
 
     private static final Texture IMG = TextureLoader.getTexture(makeRelicPath("dodecahedron.png"));
     private static final Texture OUTLINE = TextureLoader.getTexture(makeRelicOutlinePath("dodecahedron.png"));

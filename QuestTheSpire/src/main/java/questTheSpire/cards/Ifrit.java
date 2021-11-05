@@ -5,20 +5,19 @@ import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.combat.WeightyImpactEffect;
-import questTheSpire.QuestTheSpire;
+import questTheSpire.QuestTheSpireMod;
 import questTheSpire.actions.DecreaseMaxHealthAction;
 
-import static questTheSpire.QuestTheSpire.makeCardPath;
+import static questTheSpire.QuestTheSpireMod.makeCardPath;
 import static questTheSpire.characters.MasteryCards.Enums.COLOR_MASTERY;
 
 public class Ifrit extends AbstractDynamicCard {
 
     // TEXT DECLARATION
 
-    public static final String ID = QuestTheSpire.makeID("Ifrit");
+    public static final String ID = QuestTheSpireMod.makeID("Ifrit");
     public static final String IMG = makeCardPath("Ifrit.jpg");
 
 

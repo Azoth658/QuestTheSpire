@@ -5,19 +5,17 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.powers.FocusPower;
-import questTheSpire.QuestTheSpire;
+import questTheSpire.QuestTheSpireMod;
 import questTheSpire.powers.PoisonMasteryPower;
 
-import static questTheSpire.QuestTheSpire.makeCardPath;
+import static questTheSpire.QuestTheSpireMod.makeCardPath;
 import static questTheSpire.characters.MasteryCards.Enums.COLOR_MASTERY;
 
 public class PoisonMastery extends AbstractDynamicCard {
 
     // TEXT DECLARATION
 
-    public static final String ID = QuestTheSpire.makeID("PoisonMastery");
+    public static final String ID = QuestTheSpireMod.makeID("PoisonMastery");
     public static final String IMG = makeCardPath("poisonMastery.png");
     private static final CardStrings cardStrings = CardCrawlGame.languagePack.getCardStrings(ID);
     public static final String UPGRADE_DESCRIPTION = cardStrings.UPGRADE_DESCRIPTION;

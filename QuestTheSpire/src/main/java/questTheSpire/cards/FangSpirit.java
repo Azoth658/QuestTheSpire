@@ -8,17 +8,16 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import questTheSpire.QuestTheSpire;
+import questTheSpire.QuestTheSpireMod;
 
 import static com.megacrit.cardcrawl.cards.AbstractCard.CardColor.COLORLESS;
-import static questTheSpire.QuestTheSpire.makeCardPath;
-import static questTheSpire.characters.MasteryCards.Enums.COLOR_MASTERY;
+import static questTheSpire.QuestTheSpireMod.makeCardPath;
 
 // public class ${NAME} extends AbstractDynamicCard
 // Remove this line when you make a template. Refer to https://github.com/daviscook477/BaseMod/wiki/AutoAdd if you want to know what it does.
 public class FangSpirit extends AbstractDynamicCard {
 
-    public static final String ID = QuestTheSpire.makeID("FangSpirit");
+    public static final String ID = QuestTheSpireMod.makeID("FangSpirit");
     public static final String IMG = makeCardPath("FangSpirit.png");
     private static final CardStrings cardStrings = CardCrawlGame.languagePack.getCardStrings(ID);
     public static final String UPGRADE_DESCRIPTION = cardStrings.UPGRADE_DESCRIPTION;

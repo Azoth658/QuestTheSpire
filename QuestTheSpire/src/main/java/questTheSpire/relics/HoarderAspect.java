@@ -2,22 +2,19 @@ package questTheSpire.relics;
 
 import basemod.abstracts.CustomRelic;
 import com.badlogic.gdx.graphics.Texture;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.GameDictionary;
-import com.megacrit.cardcrawl.powers.*;
-import com.megacrit.cardcrawl.powers.watcher.DevotionPower;
-import com.megacrit.cardcrawl.powers.watcher.MantraPower;
-import questTheSpire.QuestTheSpire;
+import questTheSpire.QuestTheSpireMod;
+import questTheSpire.util.CharacterSaveFile;
 import questTheSpire.util.TextureLoader;
 
 import java.util.ArrayList;
 
-import static questTheSpire.QuestTheSpire.*;
+import static questTheSpire.QuestTheSpireMod.*;
 
 public class HoarderAspect extends CustomRelic {
 
-    public static final String ID = QuestTheSpire.makeID("HoarderAspect");
+    public static final String ID = QuestTheSpireMod.makeID("HoarderAspect");
 
     private static final Texture IMG = TextureLoader.getTexture(makeRelicPath("perkPoints.png"));
     private static final Texture OUTLINE = TextureLoader.getTexture(makeRelicOutlinePath("perkPoints.png"));
@@ -42,7 +39,7 @@ public class HoarderAspect extends CustomRelic {
     public void onTrigger(){
         if (!used) {
             flash();
-            AbstractDungeon.player.gainGold(activeCharacterFile.getHoarderAspect());
+            AbstractDungeon.player.gainGold(activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.HOARDER_ASPECT));
             used = true;
         }
     }

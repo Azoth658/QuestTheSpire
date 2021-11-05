@@ -11,20 +11,19 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.powers.PoisonPower;
 import com.megacrit.cardcrawl.relics.Calipers;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
-import questTheSpire.QuestTheSpire;
+import questTheSpire.QuestTheSpireMod;
 import questTheSpire.util.TextureLoader;
 
-import static questTheSpire.QuestTheSpire.makePowerPath;
+import static questTheSpire.QuestTheSpireMod.makePowerPath;
 
 //Gain 1 dex for the turn for each card played.
 
 public class RetainBlockPower extends AbstractPower implements CloneablePowerInterface {
     public AbstractCreature source;
 
-    public static final String POWER_ID = QuestTheSpire.makeID("RetainBlockPower");
+    public static final String POWER_ID = QuestTheSpireMod.makeID("RetainBlockPower");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;

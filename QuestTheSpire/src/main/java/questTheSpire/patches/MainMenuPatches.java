@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.screens.mainMenu.MainMenuScreen;
 import com.megacrit.cardcrawl.screens.mainMenu.MenuButton;
 import com.megacrit.cardcrawl.screens.mainMenu.SaveSlotScreen;
 import javassist.CtBehavior;
-import questTheSpire.QuestTheSpire;
+import questTheSpire.QuestTheSpireMod;
 import questTheSpire.screens.LoadoutScreen;
 
 public class MainMenuPatches {
@@ -110,7 +110,7 @@ public class MainMenuPatches {
     }
 
     static {
-        uiStrings = CardCrawlGame.languagePack.getUIString(QuestTheSpire.makeID("MainMenu"));
+        uiStrings = CardCrawlGame.languagePack.getUIString(QuestTheSpireMod.makeID("MainMenu"));
         TEXT = uiStrings.TEXT;
     }
 }

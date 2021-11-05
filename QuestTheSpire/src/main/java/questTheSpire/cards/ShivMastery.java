@@ -11,17 +11,16 @@ import com.megacrit.cardcrawl.cards.green.Accuracy;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.GameDictionary;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AccuracyPower;
 import com.megacrit.cardcrawl.vfx.combat.WeightyImpactEffect;
-import questTheSpire.QuestTheSpire;
+import questTheSpire.QuestTheSpireMod;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static questTheSpire.QuestTheSpire.makeCardPath;
+import static questTheSpire.QuestTheSpireMod.makeCardPath;
 import static questTheSpire.characters.MasteryCards.Enums.COLOR_MASTERY;
 
 public class ShivMastery extends AbstractDynamicCard {
@@ -29,7 +28,7 @@ public class ShivMastery extends AbstractDynamicCard {
     private static ArrayList<TooltipInfo> fakeTip;
     // TEXT DECLARATION
 
-    public static final String ID = QuestTheSpire.makeID("ShivMastery");
+    public static final String ID = QuestTheSpireMod.makeID("ShivMastery");
     public static final String IMG = makeCardPath("shivMastery.png");
     private static final CardStrings cardStrings = CardCrawlGame.languagePack.getCardStrings(ID);
     public static final String UPGRADE_DESCRIPTION = cardStrings.UPGRADE_DESCRIPTION;

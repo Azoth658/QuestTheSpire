@@ -1,28 +1,19 @@
 package questTheSpire.events;
 
-import com.evacipated.cardcrawl.mod.stslib.patches.relicInterfaces.SuperRareRelicPatch;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
-import com.megacrit.cardcrawl.helpers.CardLibrary;
-import com.megacrit.cardcrawl.helpers.RelicLibrary;
 import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
-import com.megacrit.cardcrawl.vfx.cardManip.PurgeCardEffect;
-import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
-import questTheSpire.QuestTheSpire;
+import questTheSpire.QuestTheSpireMod;
 
-import java.util.Random;
-
-import static questTheSpire.QuestTheSpire.makeEventPath;
+import static questTheSpire.QuestTheSpireMod.makeEventPath;
 
 public class dragonHoard extends AbstractImageEvent {
 
 
-    public static final String ID = QuestTheSpire.makeID("dragonHoard");
+    public static final String ID = QuestTheSpireMod.makeID("dragonHoard");
     private static final EventStrings eventStrings = CardCrawlGame.languagePack.getEventString(ID);
 
     private static final String NAME = eventStrings.NAME;

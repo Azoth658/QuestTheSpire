@@ -3,31 +3,20 @@ package questTheSpire.relics;
 import basemod.abstracts.CustomRelic;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.CardGroup;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.CardLibrary;
-import com.megacrit.cardcrawl.potions.PotionSlot;
 import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.powers.watcher.DevotionPower;
 import com.megacrit.cardcrawl.powers.watcher.MantraPower;
-import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.unlock.UnlockTracker;
-import questTheSpire.QuestTheSpire;
-import questTheSpire.characters.MasteryCards;
+import questTheSpire.QuestTheSpireMod;
 import questTheSpire.powers.RetainBlockPower;
+import questTheSpire.util.CharacterSaveFile;
 import questTheSpire.util.TextureLoader;
 
-import java.util.Iterator;
-import java.util.stream.Collectors;
-
-import static questTheSpire.QuestTheSpire.*;
-import static questTheSpire.characters.MasteryCards.Enums.COLOR_MASTERY;
+import static questTheSpire.QuestTheSpireMod.*;
 
 public class PerkPoints extends CustomRelic {
 
-    public static final String ID = QuestTheSpire.makeID("PerkPoints");
+    public static final String ID = QuestTheSpireMod.makeID("PerkPoints");
 
     private static final Texture IMG = TextureLoader.getTexture(makeRelicPath("perkPoints.png"));
     private static final Texture OUTLINE = TextureLoader.getTexture(makeRelicOutlinePath("perkPoints.png"));
@@ -50,16 +39,16 @@ public class PerkPoints extends CustomRelic {
         int thornPerk;
         int retainBlockPerk;
 
-        strPerk = activeCharacterFile.getStr();
-        dexPerk = activeCharacterFile.getDex();
-        focusPerk = activeCharacterFile.getFoc();
-        mantraPerk = activeCharacterFile.getMan();
-        devotionPerk = activeCharacterFile.getDev();
-        regenPerk = activeCharacterFile.getReg();
-        artifactPerk = activeCharacterFile.getArt();
-        armorPerk = activeCharacterFile.getArmor();
-        thornPerk = activeCharacterFile.getThorns();
-        retainBlockPerk = activeCharacterFile.getRetainBlock();
+        strPerk = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.STRENGTH);
+        dexPerk = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.DEXTERITY);
+        focusPerk = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.FOCUS);
+        mantraPerk = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.MANTRA);
+        devotionPerk = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.DEVOTION);
+        regenPerk = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.REGEN);
+        artifactPerk = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.ARTIFACT);
+        armorPerk = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.PLATED_ARMOR);
+        thornPerk = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.THORNS);
+        retainBlockPerk = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.RETAIN_BLOCK);
 
         if (strPerk > 0) {
             this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, strPerk), strPerk));

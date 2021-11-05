@@ -11,14 +11,12 @@ import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.screens.GameOverScreen;
-import questTheSpire.QuestTheSpire;
+import questTheSpire.QuestTheSpireMod;
 import questTheSpire.util.CharacterSaveFile;
 
 import static com.megacrit.cardcrawl.screens.GameOverScreen.isVictory;
-import static questTheSpire.QuestTheSpire.Level;
-import static questTheSpire.QuestTheSpire.activeCharacterFile;
+import static questTheSpire.QuestTheSpireMod.activeCharacterFile;
 import static questTheSpire.util.CharacterSaveFile.EXP_PER_PRESTIGE;
-import static questTheSpire.util.CharacterSaveFile.LOOKUP_TABLE;
 
 public class ExperiencePatches {
 
@@ -41,10 +39,10 @@ public class ExperiencePatches {
             sb.draw(ImageMaster.WHITE_SQUARE_IMG, ___progressBarX, (float) Settings.HEIGHT * placeHeight, ___progressBarWidth, 14.0F * Settings.scale);
 
 
-            int currentLevel = activeCharacterFile.getLevel();
-            int currentPrestige = activeCharacterFile.getPrestigeLevel();
-            int current = CharacterSaveFile.getExpBarNumerator(activeCharacterFile.getExp());
-            int next = CharacterSaveFile.getExpBarDenominator(activeCharacterFile.getExp());
+            int currentLevel = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.LEVEL);
+            int currentPrestige = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.PRESTIGE_LEVEL);
+            int current = CharacterSaveFile.getExpBarNumerator(activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.EXPERIENCE));
+            int next = CharacterSaveFile.getExpBarDenominator(activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.EXPERIENCE));
             if(currentLevel == 20){
                 next = EXP_PER_PRESTIGE;
                 current = current - (currentPrestige*EXP_PER_PRESTIGE);
@@ -74,7 +72,7 @@ public class ExperiencePatches {
         }
 
         static {
-            uiStrings = CardCrawlGame.languagePack.getUIString(QuestTheSpire.makeID("Experience"));
+            uiStrings = CardCrawlGame.languagePack.getUIString(QuestTheSpireMod.makeID("Experience"));
             TEXT = uiStrings.TEXT;
         }
     }
@@ -86,33 +84,33 @@ public class ExperiencePatches {
         @SpirePostfixPatch
         public static void calculateUnlockProgress(GameOverScreen __instance) {
             //Grab the current level and prestige, we could inline this but its easier to read this way
-            int currentLevel = activeCharacterFile.getLevel();
-            int currentPrestige = activeCharacterFile.getPrestigeLevel();
+            int currentLevel = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.LEVEL);
+            int currentPrestige = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.PRESTIGE_LEVEL);
             //Determine how much exp we just made
             int xp = GameOverScreen.calcScore(isVictory);
             //See what our level would be with the new exp to see how many times we have levelled up. Then do the same for prestige
-            int levelUps = CharacterSaveFile.calculateLevel(activeCharacterFile.getExp() + xp) - currentLevel;
-            int prestigeUps = CharacterSaveFile.calculatePrestigeLevel(activeCharacterFile.getExp() + xp) - currentPrestige;
+            int levelUps = CharacterSaveFile.calculateLevel(activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.EXPERIENCE) + xp) - currentLevel;
+            int prestigeUps = CharacterSaveFile.calculatePrestigeLevel(activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.EXPERIENCE) + xp) - currentPrestige;
             //Add the xp to our character
             activeCharacterFile.addExp(xp);
             //If we actually levelled up, add the number of levels we went up and add out perk points and all that
             if (levelUps > 0) {
                 activeCharacterFile.addLevel(levelUps);
-                activeCharacterFile.setCurrentPerkPoints(activeCharacterFile.getCurrentPerkPoints()+levelUps);
-                currentLevel = activeCharacterFile.getLevel();
-                currentPrestige = activeCharacterFile.getPrestigeLevel();
+                activeCharacterFile.setData(CharacterSaveFile.SaveDataEnum.CURRENT_PERK_POINTS, activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.CURRENT_PERK_POINTS) +levelUps);
+                currentLevel = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.LEVEL);
+                currentPrestige = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.PRESTIGE_LEVEL);
                 int MaxPerkPoints = currentLevel + currentPrestige;
-                activeCharacterFile.setMaxPerkPoints(MaxPerkPoints);
+                activeCharacterFile.setData(CharacterSaveFile.SaveDataEnum.MAX_PERK_POINTS, MaxPerkPoints);
             }
             //If our prestige went up, same dice
             if (prestigeUps > 0) {
                 activeCharacterFile.addPrestigeLevel(prestigeUps);
-                activeCharacterFile.setCurrentPerkPoints(activeCharacterFile.getCurrentPerkPoints()+prestigeUps);
+                activeCharacterFile.setData(CharacterSaveFile.SaveDataEnum.CURRENT_PERK_POINTS, activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.CURRENT_PERK_POINTS) +prestigeUps);
                 activeCharacterFile.addLevel(levelUps);
-                currentLevel = activeCharacterFile.getLevel();
-                currentPrestige = activeCharacterFile.getPrestigeLevel();
+                currentLevel = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.LEVEL);
+                currentPrestige = activeCharacterFile.getData(CharacterSaveFile.SaveDataEnum.PRESTIGE_LEVEL);
                 int MaxPerkPoints = currentLevel + currentPrestige;
-                activeCharacterFile.setMaxPerkPoints(MaxPerkPoints);
+                activeCharacterFile.setData(CharacterSaveFile.SaveDataEnum.MAX_PERK_POINTS, MaxPerkPoints);
             }
             //If winning run add to character save file
             if (isVictory){

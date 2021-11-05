@@ -5,15 +5,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.RegenPower;
-import questTheSpire.QuestTheSpire;
+import questTheSpire.QuestTheSpireMod;
 import questTheSpire.util.TextureLoader;
 
-import static questTheSpire.QuestTheSpire.makeRelicOutlinePath;
-import static questTheSpire.QuestTheSpire.makeRelicPath;
+import static questTheSpire.QuestTheSpireMod.makeRelicOutlinePath;
+import static questTheSpire.QuestTheSpireMod.makeRelicPath;
 
 public class FairyBlessing extends CustomRelic {
 
-    public static final String ID = QuestTheSpire.makeID("FairyBlessing");
+    public static final String ID = QuestTheSpireMod.makeID("FairyBlessing");
 
     private static final Texture IMG = TextureLoader.getTexture(makeRelicPath("fairyBlessing.png"));
     private static final Texture OUTLINE = TextureLoader.getTexture(makeRelicOutlinePath("EmptyBG.png"));

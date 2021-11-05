@@ -1,21 +1,18 @@
 package questTheSpire.cards;
 
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.RegenPower;
-import questTheSpire.QuestTheSpire;
-import questTheSpire.actions.DecreaseMaxHealthAction;
+import questTheSpire.QuestTheSpireMod;
 import questTheSpire.patches.HiddenCard;
 
-import static questTheSpire.QuestTheSpire.makeCardPath;
+import static questTheSpire.QuestTheSpireMod.makeCardPath;
 import static questTheSpire.characters.MasteryCards.Enums.COLOR_MASTERY;
 
 public class BlankCard extends AbstractDynamicCard implements HiddenCard {
 
     // TEXT DECLARATION
 
-    public static final String ID = QuestTheSpire.makeID("BlankCard");
+    public static final String ID = QuestTheSpireMod.makeID("BlankCard");
     public static final String IMG = makeCardPath("BlankCard.png");
 
     // /TEXT DECLARATION/

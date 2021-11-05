@@ -1,30 +1,20 @@
 package questTheSpire.cards;
 
-import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.animations.VFXAction;
-import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
-import com.megacrit.cardcrawl.actions.utility.ShakeScreenAction;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.ScreenShake;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.vfx.BorderLongFlashEffect;
-import com.megacrit.cardcrawl.vfx.combat.DieDieDieEffect;
-import com.megacrit.cardcrawl.vfx.combat.WeightyImpactEffect;
-import questTheSpire.QuestTheSpire;
+import questTheSpire.QuestTheSpireMod;
 import questTheSpire.actions.DecreaseMaxHealthAction;
 
-import static questTheSpire.QuestTheSpire.makeCardPath;
+import static questTheSpire.QuestTheSpireMod.makeCardPath;
 import static questTheSpire.characters.MasteryCards.Enums.COLOR_MASTERY;
 
 public class Quezacotl extends AbstractDynamicCard {
 
     // TEXT DECLARATION
 
-    public static final String ID = QuestTheSpire.makeID("Quezacotl");
+    public static final String ID = QuestTheSpireMod.makeID("Quezacotl");
     public static final String IMG = makeCardPath("Quezacotl.jpg");
 
 

@@ -1,6 +1,6 @@
 package questTheSpire.Level;
 
-import static questTheSpire.QuestTheSpire.*;
+import static questTheSpire.QuestTheSpireMod.*;
 
 public class LevelCosts {
     public static int levelcost(int LevelRequirement) {
